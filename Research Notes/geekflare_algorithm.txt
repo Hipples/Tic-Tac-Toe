@@ -1,0 +1,36 @@
+source: https://geekflare.com/tic-tac-toe-python-code/
+
+Algorithm for CLI Tic Tac Toe:
+
+We will now discuss the algorithm to write the code. This algorithm will help you to write code in any programming language of your choice. Let’s see how it’s done.
+
+1. Create a board using a 2-dimensional array and initialize each element as empty.
+    x. You can represent empty using any symbol you like. 
+        x. Here, we are going to use a hyphen. '-'.
+
+2. Write a function to check whether the board is filled or not.
+    x. Iterate over the board and return false if the board contains an empty sign 
+        x. or else return true.
+
+3. Write a function to check whether a player has won or not.
+    x. We have to check all the possibilities that we discussed in the previous section.
+    x. Check for all the rows, columns, and two diagonals.
+
+4. Write a function to show the board as we will show the board multiple times to the users while they are playing.
+
+5. Write a function to start the game.
+
+    x. Select the first turn of the player randomly.
+    x. Write an infinite loop that breaks when the game is over (either win or draw). //or lose?!
+    x. Show the board to the user to select the spot for the next move.
+    x. Ask the user to enter the row and column number.
+    x. Update the spot with the respective player sign.
+    x. Check whether the current player won the game or not.
+    x. If the current player won the game, then print a winning message and break the infinite loop.
+    x. Next, check whether the board is filled or not.
+    x. If the board is filled, then print the draw message and break the infinite loop.
+    x. Finally, show the user the final view of the board.
+
+You may be able to visualize what’s happening. Don’t worry, even if you didn’t understand it completely. You will get more clarity once you see the code.
+
+So, let’s jump into the code section. I assume you have Python installed on your PC to try the code.
