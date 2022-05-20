@@ -9,6 +9,7 @@ class TicTacToe:
         self.board = []
         self.player = ''
         self.opponent = ''
+
     # method to create the gameboard
     def create_board(self):
         for i in range(9):
@@ -25,8 +26,9 @@ class TicTacToe:
             print()
             print('|         |         |         |')
             print('-------------------------------')
+
     # method to enable the player to choose to be Xs or Os 
-    def choose_player_marker(self):
+    def choose_marker(self):
         marker = ' '
         while (marker != 'X' and marker != 'O'):
             marker = input("Do you want to be Xs or Os? ").upper()
@@ -35,8 +37,8 @@ class TicTacToe:
         else:
             return ['O', 'X']
     # method to assign player markers
-    def assign_player_markers(self):
-        self.player, self.opponent = self.choose_player_marker()
+    def assign_markers(self):
+        self.player, self.opponent = self.choose_marker()
         return self.player, self.opponent
     # method to randomly decide who goes first
     def coin_flip(self):
@@ -93,4 +95,18 @@ class TicTacToe:
         # otherwise return 0
         return 0    
 
-TicTacToe()
+
+    def play_game_1(self):
+        """Main gameplay loop."""
+        self.create_board()             # create the gameboard
+        self.choose_marker()            # choose player marker
+        # assign player markers based on choice
+        player, opponent = self.assign_markers()      
+        # randomly decide which player goes first
+        if self.coin_flip() == 1:
+            current_player = player
+        else:
+            current_player = opponent
+        
+        while True:
+
