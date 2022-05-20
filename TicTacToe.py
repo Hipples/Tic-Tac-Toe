@@ -1,43 +1,54 @@
 import numpy as np
+import random
 
 # Tic Tac Toe, Three in a Row!
 class TicTacToe:
     """Play a TicTacToe game!"""
-    # GamePlay Menu Options upon Initialization 
     def __init__(self):
-        """Display game menu options and pass game mode selection from player(s)."""
-        print("--------------------------------------")
-        print("Welcome to Tic Tac Toe! Four in a Row!\n")
-        print("Please Select a GamePlay Option:\n")
-        print("1\t\tPlayer VS Player")
-        print("2\t\tPlayer VS Random AI")
-        print("3\t\tPlayer VS Genius AI")
-        print("--------------------------------------")
-        # User Game Mode Selection
-        selection = int(input("\nGamePlay Selection: "))
-        self.game_mode(selection)
+        # Initialize game with the board as an empty list 
+        self.board = []
 
-    def game_mode(self, selection):
-        if selection > 0 and selection < 4:
-            self.get_new_board()
-        else:
-            prompt("")            
 
-    def new_board(self):
-        gameboard = []
+    
+    def create_board(self):
         for i in range(9):
-            gameboard.append(i + 1)
-        new_gameboard = np.reshape(gameboard, (3, 3))
-        return new_gameboard
+            self.board.append(i + 1)
+        self.board = np.reshape(self.board, (3, 3))
 
-    def get_new_board(self):
-        new_gameboard = self.new_board()
-        print(new_gameboard)
+    def display_board(self):
+        print('_________________________')
+        for row in self.board:
+            print('|       |       |       | ')
+            print('|', end = '')
+            for item in row:
+                print(f'   {item}   |', end = '')
+            print()
+            print('|       |       |       |')
+            print('_________________________')
+
+        
+
+
+
+
+
+
+
+
+
+
+    def coin_flip(self):
+        # initialize player markers
+        player, opponent = "X", "O"
+        # flip the coin
+        result = random.randint(0, 1)
+        if result == 0:
+            return player
+        elif result == 1: 
+            return opponent # assign first player
 
     def evaluate(board):
         """Evaluate the current gameboard status."""
-        # initialize player markers
-        player, opponent = "X", "O"
         # check all rows for a victory 
         for row in range(3):
             if(board[row][0]) == board[row][1] and board[row][1] == board[row][2]:
