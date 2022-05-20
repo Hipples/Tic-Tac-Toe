@@ -4,9 +4,11 @@ import random
 # Tic Tac Toe, Three in a Row!
 class TicTacToe:
     """Play a TicTacToe game!"""
-    # initialize the game with our board as an empty list 
+    # initialize the game with our board as an empty list and two unknown players
     def __init__(self):
         self.board = []
+        self.player = ''
+        self.opponent = ''
     # method to create the gameboard
     def create_board(self):
         for i in range(9):
@@ -32,57 +34,61 @@ class TicTacToe:
             return ['X', 'O']
         else:
             return ['O', 'X']
-    # method to assign player markers in PvP mode
-    def assign_PvP_markers(self):
-        player_1, player_2 = self.choose_player_marker()
-        return player_1, player_2
-    # method to assign player markers in PvE modes
-    def assign_PvE_markers(self):
-        player_1, player_2 = self.choose_player_marker()
-        player, computer = player_1, player_2
-        return player, computer
+    # method to assign player markers
+    def assign_player_markers(self):
+        self.player, self.opponent = self.choose_player_marker()
+        return self.player, self.opponent
     # method to randomly decide who goes first
     def coin_flip(self):
-        player = self.player_1 
+        return random.randint(0, 1)
 
-        # flip the coin
-        result = random.randint(0, 1)
 
-        if result == 0:
-            return player
-        elif result == 1: 
-            return opponent # assign first player
+    def game_mode(self, selection):
+        """Enable player selection between three game modes (PvP, PvRandom, PvGenius)"""
+        while selection != 1 and selection !=2 and selection !=3:
+            selection = int(input("Please enter 1, 2, or 3 to select your : "))
+            match selection:
+                case 1: 
+                    print("Game Mode: Player vs Player!")
+                    break
+                case 2:
+                    print("Game Mode: Player vs Random AI!")
+                    break
+                case 3:
+                    print("Game Mode: Player vs Genius AI!")
+                    break
 
-    def evaluate(board):
+
+    def evaluate(self, board):
         """Evaluate the current gameboard status."""
         # check all rows for a victory 
         for row in range(3):
             if(board[row][0]) == board[row][1] and board[row][1] == board[row][2]:
-                if (board[row][0] == player):
+                if (board[row][0] == self.player):
                     return 10
-                elif (board[row][0] == opponent):
-                    victory = f"Player {opponent} wins!"
+                elif (board[row][0] == self.opponent):
+                    victory = f"Player {self.opponent} wins!"
                     return -10, victory
         # check all columns for a victory
         for column in range(3):
             if (board[0][column] == board[1][column] and board[1][column] == board[2][column]):
-                if (board[0][column] == player):
+                if (board[0][column] == self.player):
                     return 10
-                elif (board[0][column] == opponent):
-                    victory = f"Player {opponent} wins!"
+                elif (board[0][column] == self.opponent):
+                    victory = f"Player {self.opponent} wins!"
                     return -10, victory
         # check the two diagonals for a victory
         if (board[0][0] == board[1][1] and board[1][1] == board[2][2]):
-            if (board[0][0] == player): # descending diagonal
+            if (board[0][0] == self.player): # descending diagonal
                 return 10
-            elif (board[0][0] == opponent):
-                victory = f"Player {opponent} wins!"
+            elif (board[0][0] == self.opponent):
+                victory = f"Player {self.opponent} wins!"
                 return -10, victory
         if (board[0][2] == board[1][1] and board[1][1] == board[2][0]):
-            if (board[0][2] == player): # ascending diagonal
+            if (board[0][2] == self.player): # ascending diagonal
                 return 10
-            elif(board[0][2] == opponent):
-                victory = f"Player {opponent} wins!"
+            elif(board[0][2] == self.opponent):
+                victory = f"Player {self.opponent} wins!"
                 return -10, victory
         # otherwise return 0
         return 0    
