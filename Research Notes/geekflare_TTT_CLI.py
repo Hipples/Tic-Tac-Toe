@@ -25,8 +25,8 @@ class TicTacToe:
     #     return random.randint(0, 1) # used to select who goes first: X or O
 
 
-    def pick_spot(self, row, col, player):
-        self.board[row][col] = player # replaces the '-' with either X or O
+    # def pick_spot(self, row, col, player):
+    #     self.board[row][col] = player # replaces the '-' with either X or O
 
 
     # def is_player_win(self, player):
@@ -86,8 +86,8 @@ class TicTacToe:
     #     return True
 
 
-    def swap_player_turn(self, player):
-        return 'X' if player == 'O' else 'O'
+    # def swap_player_turn(self, player):
+    #     return 'X' if player == 'O' else 'O'
 
 
     # def show_board(self):
