@@ -16,15 +16,15 @@ class TicTacToe:
         self.board = np.reshape(self.board, (3, 3))
 
     def display_board(self):
-        print('_________________________')
+        print('-------------------------------')
         for row in self.board:
-            print('|       |       |       | ')
+            print('|         |         |         | ')
             print('|', end = '')
             for item in row:
-                print(f'   {item}   |', end = '')
+                print(f'    {item}    |', end = '')
             print()
-            print('|       |       |       |')
-            print('_________________________')
+            print('|         |         |         |')
+            print('-------------------------------')
 
         
 
