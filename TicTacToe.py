@@ -14,15 +14,15 @@ class TicTacToe:
         self.board = np.reshape(self.board, (3, 3))
     # method to display the gameboard
     def display_board(self):
-        print('-------------------------------')
+        print('\t-------------------------------')
         for row in self.board:
-            print('|         |         |         | ')
-            print('|', end = '')
+            print('\t|         |         |         | ')
+            print('\t|', end = '')
             for item in row:
                 print(f'    {item}    |', end = '')
             print()
-            print('|         |         |         |')
-            print('-------------------------------')
+            print('\t|         |         |         |')
+            print('\t-------------------------------')
     # method to determine is gameboard is full
     def is_board_full(self):
         for row in self.board:
@@ -34,7 +34,7 @@ class TicTacToe:
     def choose_marker(self):
         marker = ' '
         while (marker != 'X' and marker != 'O'):
-            marker = input("Do you want to be Xs or Os? ").upper()
+            marker = input("\n\tDo you want to be Xs or Os? ").upper()
         if marker == 'X':
             return ['X', 'O']
         else:
@@ -48,7 +48,7 @@ class TicTacToe:
         return random.randint(0, 1)
     # method to get coordinates of the square player chooses each turn
     def get_coords(self, player):
-        value = input(f"\nPlease enter the square number where you'd like to place your {player}: ")
+        value = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
         coords = []
         coords = np.where(self.board == value)
         return coords
@@ -109,7 +109,7 @@ class TicTacToe:
         # begin gameplay loop
         while True: 
             # 1. display whose turn to play 
-            print(f"\nPlayer {current_player}'s turn.\n") 
+            print(f"\n\tPlayer {current_player}'s turn.\n") 
             # 2. display current gameboard
             self.display_board() 
             # 3. capture player move
@@ -117,7 +117,7 @@ class TicTacToe:
             try: 
                 row, col = int(coords[0]), int(coords[1])
             except TypeError:
-                print("\nWrong input! Try again.\n")
+                print("\n\tWrong input! Try again.\n")
                 continue
 
             print() # make some space
@@ -126,11 +126,11 @@ class TicTacToe:
             self.place_marker(row, col, current_player) 
             # 5. check for wins after each player turn
             if self.player_won(self.board, current_player):
-                print(f"\nPlayer {current_player} wins the game!\n")
+                print(f"\n\tPlayer {current_player} wins the game!\n")
                 break
             # 6. check for draw after each player turn
             if self.is_board_full():
-                print("\nMatch draw!\n")
+                print("\n\tMatch draw!\n")
                 break
             # 7. swap player turns
             current_player = self.swap_player_turn(current_player)
