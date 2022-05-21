@@ -94,6 +94,7 @@ class TicTacToe:
         if win:
             return win
 
+    # main gameplay loop for PvP mode
     def play_game_1(self):
         """Play Tic Tac Toe (Mode 1: Player vs Player)!"""
         # create the gameboard
@@ -116,11 +117,11 @@ class TicTacToe:
             try: 
                 row, col = int(coords[0]), int(coords[1])
             except TypeError:
-                print("Wrong input! Try again.")
+                print("\nWrong input! Try again.\n")
                 continue
 
             print() # make some space
-            
+
             # 4. place current player's marker on gameboard
             self.place_marker(row, col, current_player) 
             # 5. check for wins after each player turn
