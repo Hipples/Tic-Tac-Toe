@@ -66,9 +66,6 @@ class TicTacToe:
             if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
                 if board[row][0] == player:
                     win = True
-            else:
-                win = False
-                break
             if win:
                 return win
         # check columns for win
@@ -76,9 +73,6 @@ class TicTacToe:
             if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
                 if board[0][col] == player:
                     win = True
-            else:
-                win = False
-                break
             if win:
                 return win
         # check descending diagonal for win
