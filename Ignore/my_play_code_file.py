@@ -4,11 +4,10 @@ import random
 # Tic Tac Toe, Three in a Row!
 class TicTacToe:
     """Play a TicTacToe game!"""
-    # initialize the game with our board as an empty list, followed by the values to fill it
+    # initialize the game with our board as an empty list and the values for it
     def __init__(self):
         self.board = []
         self.values = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-    
     # method to create the gameboard
     def create_board(self):
         for i in np.arange(1, 10).astype(str):
@@ -24,8 +23,7 @@ class TicTacToe:
                 print(f'    {item}    |', end = '')
             print()
             print('\t|         |         |         |')
-            print('\t-------------------------------')
-    
+            print('\t-------------------------------')   
     # method to determine if there is a winner each turn
     def is_winner(self, board, player):
         win = None
@@ -55,7 +53,6 @@ class TicTacToe:
                 win = True
         if (win):
             return(win)
-   
     # method to get coordinates of square to place marker
     def get_coords(self, player):
         value = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
@@ -65,7 +62,6 @@ class TicTacToe:
     # method to place marker
     def place_marker(self, row, col, player):
         self.board[row][col] = player
-
     # method for human player move
     def player_move(self, player):
         coords = self.get_coords(player)
@@ -98,7 +94,6 @@ class TicTacToe:
                 if (item) in self.values:
                     return False
         return True
-
     # method to enable the player to choose to be Xs or Os 
     def choose_marker(self):
         marker = ' '
@@ -132,7 +127,7 @@ class TicTacToe:
             first_player = player
         else:
             first_player = computer
-        # 4. inform the player who won first turn
+        # 4. inform the players who won first turn
         print(f"\n\tPlayer {first_player} will go first!\n") 
         # 5. display empty gameboard
         self.display_board()
@@ -142,7 +137,7 @@ class TicTacToe:
             self.player_move(first_player)
             # display updated gameboard
             self.display_board()
-            # assign current player
+            # assign to current player
             current_player = player
         # 6b. if computer player. . .
         else:
@@ -150,32 +145,32 @@ class TicTacToe:
             self.computer_move(first_player) 
             # display updated gameboard
             self.display_board()
-            # assign current player
+            # assign to current player
             current_player = computer
-        # main game play loop
+        # 7. main game play loop
         while True:
-            # swap player turn
+            # 8. swap player turn
             current_player = self.swap_player_turn(current_player)
-            # display current player
+            # 9. display the current player
             print(f"\n\tPlayer {current_player}'s turn.\n") 
-            # if current player is human, input move & place marker
+            # 10a. if player is human, use player_move method
             if current_player == player:
                 self.player_move(current_player)
-            # if current player is a computer, generate random move & place marker
+            # 10b. if player is a computer, use computer_move method
             else: 
                 self.computer_move(current_player)
-            # check if there is a winner
+            # 11. check if there is a winner
             if self.is_winner(self.board, current_player):
                 print(f"\n\tPlayer {current_player} wins the game!\n")
                 break # if so, game over
-            # check if there is a draw
+            # 12. check if there is a draw
             if self.is_board_full():
                 print("\n\tMatch draw!\n")
                 break # if so, game over
-            # display updated gameboard
+            # 13. display updated gameboard
             self.display_board() 
         print()
-        # final gameboard display
+        # 14. final gameboard display
         self.display_board()        
             
     # PvP mode gameplay loop
