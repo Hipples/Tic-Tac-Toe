@@ -76,7 +76,7 @@ class TicTacToe:
         move = self.random_move()
         coords = np.where(self.board == move)
         row, col = (int(coords[0])), (int(coords[1]))
-        print(f"\n\tRandAI chooses square {move}!")
+        print(f"\n\tRandAI chooses square {move}!\n")
         self.place_marker(row, col, player)
     # method to implement a Random AI opponent 
     def random_move(self):
@@ -208,7 +208,3 @@ class TicTacToe:
         print()
         # game over - display final view of gameboard
         self.display_board()
-
-# allows game to be ran from CLI via command: >>>python TicTacToe.py
-game = TicTacToe()
-game.play_game_2() 
