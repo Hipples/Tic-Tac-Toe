@@ -1,6 +1,6 @@
 class TTTMenus:
     def __init__(self):
-        pass
+        pass 
 
     def create_welcome_screen(self):
         startup =  "\t __________________________________________________ \n"
@@ -37,7 +37,7 @@ class TTTMenus:
         game_over += "\t|                                                  |\n"
         game_over += "\t|--------------------------------------------------|\n"
         game_over += "\t|                                                  |\n"
-        game_over += "\t|  GGS! Would you like to play another mode?       |\n"
+        game_over += "\t|  GGs! Would you like to play another mode?       |\n"
         game_over += "\t|                                                  |\n"        
         game_over += "\t|  Select an option from the menu below:           |\n"
         game_over += "\t|--------------------------------------------------|\n" 
