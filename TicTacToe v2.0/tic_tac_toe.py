@@ -23,8 +23,11 @@ class TicTacToe:
                 print(f'    {item}    |', end = '')
             print()
             print('\t|         |         |         |')
-            print('\t-------------------------------')   
-    # method to determine if there is a winner each turn
+            print('\t-------------------------------') 
+    # method to clear board at game over
+    def reset_board(self):
+        self.board = []
+    # method to determine if there is a winner each turn             
     def is_winner(self, board, player):
         win = None
         # check rows for win
@@ -56,6 +59,7 @@ class TicTacToe:
     # method to get coordinates of square to place marker
     def get_coords(self, player):
         value = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
+        print(f"\n\tYou chose square {value}!")
         coords = []
         coords = np.where(self.board == value)
         return coords
@@ -64,14 +68,19 @@ class TicTacToe:
         self.board[row][col] = player
     # method for human player move
     def player_move(self, player):
-        coords = self.get_coords(player)
-        try:
-            row, col = int(coords[0]), int(coords[1])
-        except:
-            print("\n\tWrong input! Try again.\n")
-        else:
-            self.place_marker(row, col, player)
-    # method for AI player move
+        while True:
+            try:
+                coords = self.get_coords(player)
+                row, col = int(coords[0]), int(coords[1])
+            except KeyboardInterrupt:
+                print("\n\n\tGood bye!")
+                exit()
+            except:
+                print("\n\tWrong input! Try again.\n")
+            else:
+                self.place_marker(row, col, player)
+                return False
+    # method for AI movement
     def computer_move(self, player):
         move = self.random_move()
         coords = np.where(self.board == move)
@@ -112,69 +121,89 @@ class TicTacToe:
         return random.randint(0, 1)
     # method to swap turns during gameplay
     def swap_player_turn(self, player):
-        return 'X' if player == 'O' else 'O'            
-
+        return 'X' if player == 'O' else 'O'      
+    # method designed to enable replay at end of round   
+    def replay(self):
+        replay = input("\n\tWould you like to play again? (y/n) ")
+        if replay.lower() == 'y':
+            return True
+        elif replay.lower() == 'n':
+            return False
+        else:
+            self.replay()          
 
     # PvE (easy) mode gameplay loop
-    def play_game_2(self):
+    def game_mode_2_PvE(self):
         """Play Tic Tac Toe (Mode 2: PvE (random AI))"""
-        # 1. create the gameboard
-        self.create_board()            
-        # 2. assign markers based on choice
-        player, computer = self.assign_markers()    
-        # 3. randomly decide which player goes first
-        if self.coin_flip() == 1:
-            first_player = player
-        else:
-            first_player = computer
-        # 4. inform the players who won first turn
-        print(f"\n\tPlayer {first_player} will go first!\n") 
-        # 5. display empty gameboard
-        self.display_board()
-        # 6a. if human player. . .
-        if first_player == player:
-            # input and make move
-            self.player_move(first_player)
-            # display updated gameboard
-            self.display_board()
-            # assign to current player
-            current_player = player
-        # 6b. if computer player. . .
-        else:
-            # generate and make random move
-            self.computer_move(first_player) 
-            # display updated gameboard
-            self.display_board()
-            # assign to current player
-            current_player = computer
-        # 7. main game play loop
+        # initiate replay loop
         while True:
-            # 8. swap player turn
-            current_player = self.swap_player_turn(current_player)
-            # 9. display the current player
-            print(f"\n\tPlayer {current_player}'s turn.\n") 
-            # 10a. if player is human, use player_move method
-            if current_player == player:
-                self.player_move(current_player)
-            # 10b. if player is a computer, use computer_move method
-            else: 
-                self.computer_move(current_player)
-            # 11. check if there is a winner
-            if self.is_winner(self.board, current_player):
-                print(f"\n\tPlayer {current_player} wins the game!\n")
-                break # if so, game over
-            # 12. check if there is a draw
-            if self.is_board_full():
-                print("\n\tMatch draw!\n")
-                break # if so, game over
-            # 13. display updated gameboard
-            self.display_board() 
-        print()
-        # 14. final gameboard display
-        self.display_board()        
+            # 1. create the gameboard
+            self.create_board()            
+            # 2. assign markers based on choice
+            player, computer = self.assign_markers()    
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = player
+            else:
+                first_player = computer
+            # 4. inform the players who won first turn
+            print(f"\n\tPlayer {first_player} will go first!\n") 
+            # 5. display empty gameboard
+            self.display_board()
+            # 6a. if human player. . .
+            if first_player == player:
+                # input and make move
+                self.player_move(first_player)
+                print()
+                # display updated gameboard
+                self.display_board()
+                # assign to current player
+                current_player = player
+            # 6b. if computer player. . .
+            else:
+                # generate and make random move
+                self.computer_move(first_player)
+                print() 
+                # display updated gameboard
+                self.display_board()
+                # assign to current player
+                current_player = computer
+            # 7. main game play loop
+            while True:
+                # 8. swap player turn
+                current_player = self.swap_player_turn(current_player)
+                # 9. display the current player
+                print(f"\n\tPlayer {current_player}'s turn.\n") 
+                # 10a. if player is human, use player_move method
+                if current_player == player:
+                    self.player_move(current_player)
+                # 10b. if player is a computer, use computer_move method
+                else: 
+                    self.computer_move(current_player)
+                # 11. check if there is a winner
+                if self.is_winner(self.board, current_player):
+                    print(f"\n\tPlayer {current_player} wins the game!\n")
+                    break # if so, game over
+                # 12. check if there is a draw
+                if self.is_board_full():
+                    print("\n\tMatch draw!\n")
+                    break # if so, game over
+                # 13. display updated gameboard
+                self.display_board() 
+            print()
+            # 14. final gameboard display
+            self.display_board()
+            print()
+            # 15. replay option
+            if self.replay() == False:
+                break
+            else:
+                self.reset_board()
+    
+    ## needs updating ##
             
     # PvP mode gameplay loop
-    def play_game_1(self):
+    def game_mode_1_PvP(self):
         """Play Tic Tac Toe (Mode 1: Player vs Player)!"""
         # 1. create the gameboard
         self.create_board()            
@@ -208,3 +237,4 @@ class TicTacToe:
         print()
         # game over - display final view of gameboard
         self.display_board()
+        self.reset_board()
