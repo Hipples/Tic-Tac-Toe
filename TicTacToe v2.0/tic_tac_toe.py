@@ -16,13 +16,12 @@ class TicTacToe:
         for i in np.arange(1, 10).astype(str): # nine numbers, as strings, because we replace
             self.board.append(i) # the empty board numbers with Xs and Os (datatype consistency)
         self.board = np.reshape(self.board, (3, 3)) # shaped into 3 rows x 3 columns
-        return self.board
 
     # display the gameboard -->
     def display_board(self):
         print('\t-------------------------------')
         for row in self.board:
-            print('\t|         |         |         | ')
+            print('\t|         |         |         |')
             print('\t|', end = '')
             for item in row:
                 print(f'    {item}    |', end = '')
