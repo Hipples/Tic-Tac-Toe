@@ -1,19 +1,24 @@
 import numpy as np 
 import random
+from time import sleep
 
 # Tic Tac Toe, Three in a Row!
 class TicTacToe:
     """Play a TicTacToe game!"""
+    # initialize our class with -->
     def __init__(self):
-        self.board = [] # empty gameboard
-        self.values = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # gameboard initial values
-        self.movement_records = 'tic_tac_toe.txt' # file to keep record player movements
-    # method to create the gameboard
+        self.board = [] # an empty gameboard,
+        self.values = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # a list of empty squares,
+        self.match_records = 'tic_tac_toe.txt' # and a file to keep record of player movements and match outcomes
+
+    # create the gameboard -->
     def create_board(self):
-        for i in np.arange(1, 10).astype(str):
-            self.board.append(i)
-        self.board = np.reshape(self.board, (3, 3))
-    # my method to display the gameboard
+        for i in np.arange(1, 10).astype(str): # nine numbers, as strings, because we replace
+            self.board.append(i) # the empty board numbers with Xs and Os (datatype consistency)
+        self.board = np.reshape(self.board, (3, 3)) # shaped into 3 rows x 3 columns
+        return self.board
+
+    # display the gameboard -->
     def display_board(self):
         print('\t-------------------------------')
         for row in self.board:
@@ -24,82 +29,95 @@ class TicTacToe:
             print()
             print('\t|         |         |         |')
             print('\t-------------------------------') 
-    # method to clear board at game over
+
+    # clear the gameboard -->
     def reset_board(self):
-        self.board = []
-    # method to enable the player to choose to be Xs or Os 
+        self.board = [] # reset to an empty list
+
+    # enable the player to choose Xs or Os -->
     def choose_marker(self):
-        marker = ' '
-        while (marker != 'X' and marker != 'O'):
-            marker = input("\n\tDo you want to be Xs or Os? ").upper()
-        if marker == 'X':
-            return ['X', 'O']
-        else:
-            return ['O', 'X']
-    # method to assign player markers
-    def assign_markers(self):
-        player, opponent = self.choose_marker()
-        return player, opponent
-    # method to randomly decide who goes first
-    def coin_flip(self):
-        return random.randint(0, 1)
-    # method to determine player movement choice
+        marker = ' ' # declare marker variable as empty string
+        while (marker != 'X' and marker != 'O'): # while marker does not equal X or O
+            marker = input("\n\tDo you want to be Xs or Os? ").upper() # ask player to choose X or O
+        if marker == 'X': # if X, 
+            return ['X', 'O'] # then return X, O
+        else: # if O, 
+            return ['O', 'X'] # then return O, X
+
+    # assign the player markers -->
+    def assign_markers(self): # retrieve marker order from choose_marker() method
+        player, opponent = self.choose_marker() # assign the first char returned to our player, 
+        return player, opponent # and the second char to our player's opponent 
+
+    # decide which player goes first -->
+    def coin_flip(self): # winner goes first
+        return random.randint(0, 1) # heads or tails?
+
+    # determine player move -->
     def human_moves(self, player):
         move = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
-        print(f"\n\tYou chose square {move}!")
-        return move
-    # method to determine coordinates player moves
+        print(f"\n\tYou chose square {move}!") # acquire player input to determine desired move
+        return move # return chosen square number
+
+    # determine coordinates of player move -->
     def get_coords(self, player):
-        move = self.human_moves(player)
-        coords = []
-        coords = np.where(self.board == move)
-        return coords
-    # method to determine Random AI moves
+        move = self.human_moves(player) # retrieve player move from human_moves() method
+        coords = [] # declare empty list to store move coordinates
+        coords = np.where(self.board == move) # determine move coordinates
+        return coords # return move coordinates
+
+    # determine Random AI moves -->
     def random_moves(self):
-        possible_moves = []
-        for row in self.board:
-            for square in row:
-                if square in self.values:
-                    possible_moves.append(square)       
-        move = random.choice(possible_moves)
-        return move
-    # method to place marker
+        possible_moves = [] # declare an empty list of possible moves
+        for row in self.board: # for each row in our gameboard,
+            for square in row: # and for each square in said row, 
+                if square in self.values: # if the square's value equals a number from our values list
+                    possible_moves.append(square) # store it in our list of available squares
+        move = random.choice(possible_moves) # determine move by randomly choosing an available square
+        return move # from our list of possible moves
+
+    # record player moves on the gameboard -->
     def place_marker(self, row, col, player):
-        self.board[row][col] = player
-    # method to record player moves
+        self.board[row][col] = player # use move coordinates to place marker in the chosen square
+
+    # capture player move while handling exceptions -->
     def player_move(self, player):
-        while True:
-            try:
-                coords = self.get_coords(player)
-                row, col = int(coords[0]), int(coords[1])
-            except KeyboardInterrupt:
-                print("\n\n\tGood bye!")
-                exit()
-            except:
-                print("\n\tWrong input! Try again.\n")
-            else:
-                move = self.board[row][col]
-                with open(self.movement_records, 'a') as record:
-                    record.write(f"{player}:{move} ")   # append player move to tic_tac_toe.txt
-                self.place_marker(row, col, player)
-                return False
-    # method to record AI moves
+        while True: # exception catching loop
+            try: # attempt to initialize coords, by retrieving the player's input, 
+                coords = self.get_coords(player) # through get_coords() method,
+                row, col = int(coords[0]), int(coords[1]) # then assign the proper index of the move
+            except KeyboardInterrupt: # enable Ctrl + c to end program during player input
+                print("\n\n\tGood bye!") # program says good bye, 
+                exit() # then ends
+            except: # continue looping until valid input is accepted
+                print("\n\tBad input! Try again.\n") # announce when input is invalid
+            else: # otherwise, reverse engineer our player move by using our determined index
+                move = self.board[row][col] # and assign it to move
+                with open(self.match_records, 'a') as record: # open our match records and
+                    record.write(f"{player}:{move} ") # append each valid player move 
+                self.place_marker(row, col, player) # as it happens
+                return False # and end our loop
+
+    # capture Random AI moves -->
     def computer_move(self, player):
-        move = self.random_moves()
-        coords = np.where(self.board == move)
-        row, col = (int(coords[0])), (int(coords[1]))
-        print(f"\n\tRandAI chooses square {move}!\n")
-        with open(self.movement_records, 'a') as record:    
-            record.write(f"{player}:{move} ")   # append move to tic_tac_toe.txt
-        self.place_marker(row, col, player)
-    # method to determine if gameboard is full
+        move = self.random_moves() # get randomly generate move from random_moves() method
+        coords = np.where(self.board == move) # set the move coordinates
+        row, col = (int(coords[0])), (int(coords[1])) # assign the proper index of the move
+        sleep(2) # (our AI is thinking. . .)
+        print(f"\n\tRandAI chooses square {move}!\n") # announce RandAI's move
+        with open(self.match_records, 'a') as record: # open our match records and 
+            record.write(f"{player}:{move} ") # append each Random AI move
+        self.place_marker(row, col, player) # as it happens
+
+    # determine if the gameboard is full -->
     def is_board_full(self):
-        for row in self.board:
-            for square in row:
-                if (square) in self.values:
-                    return False
-        return True
-    # method to determine if there is a winner each turn             
+        for row in self.board: # for each row on the board, 
+            for square in row: # and for each square in said row, 
+                if (square) in self.values: # if the square value equals a value from our list of empty squares
+                    return False # return False
+        return True # otherwise return True
+
+    # determine if there is a winner -->           
     def is_winner(self, board, player):
         win = None
         # check rows for win
@@ -147,7 +165,7 @@ class TicTacToe:
         # initiate replay loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.py
-            with open(self.movement_records, 'a') as record:    
+            with open(self.match_records, 'a') as record:    
                 record.write(f"\n\nNew Game!\n")
             # 1. create the gameboard
             self.create_board()            
@@ -196,7 +214,7 @@ class TicTacToe:
                 if self.is_winner(self.board, current_player):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 11b. record the winner in tic_tac_toe.txt
-                    with open(self.movement_records, 'a') as record:    
+                    with open(self.match_records, 'a') as record:    
                         record.write(f"\nPlayer {current_player} won the game!\n")
                     # 11c. game over
                     break 
@@ -204,7 +222,7 @@ class TicTacToe:
                 if self.is_board_full():
                     print("\n\tMatch draw!\n")
                     # 12b. record the draw status in tic_tac_toe.txt
-                    with open(self.movement_records, 'a') as record:
+                    with open(self.match_records, 'a') as record:
                         record.write("\nMatch was a draw!\n") 
                     # 12c. game over
                     break 
