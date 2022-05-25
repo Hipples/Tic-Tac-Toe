@@ -1,5 +1,5 @@
 
-# Tic-Tac-Toe-AI
+# Tic Tac Toe and AIs
 
 ## CS 506: Programming for Computing
 
