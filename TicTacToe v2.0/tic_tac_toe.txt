@@ -15,3 +15,126 @@ X:5 O:1 X:7 O:6 X:3
 Player X won the game!
 
 
+New Game!
+X:1 O:9 X:2 O:8 X:3 
+Player X won the game!
+
+
+New Game!
+X:5 O:4 X:6 O:3 X:7 O:2 X:8 O:1 
+Player O won the game!
+
+
+New Game!
+X:1 O:2 X:3 O:4 X:5 O:6 X:7 
+Player X won the game!
+
+
+New Game!
+O:9 X:8 O:7 X:6 O:5 X:4 O:3 
+Player O won the game!
+
+
+New Game!
+X:1 O:2 X:3 O:4 X:5 O:6 X:7 
+Player X won the game!
+
+
+New Game!
+X:5 O:4 X:3 O:2 X:1 O:7 X:6 O:8 X:9 
+Player X won the game!
+
+
+New Game!
+O:6 X:1 O:7 X:3 O:4 X:5 O:9 X:2 
+Player X won the game!
+
+
+New Game!
+X:1 O:2 X:3 O:4 X:5 O:6 X:7 
+Player X won the game!
+
+
+New Game!
+X:1 O:8 X:2 O:4 X:3 
+Player X won the game!
+
+
+New Game!
+O:1 X:4 O:2 X:3 O:5 X:7 O:9 
+Player O won the game!
+
+
+New Game!
+O:5 X:1 O:4 X:2 O:8 X:3 
+Player X won the game!
+
+
+New Game!
+O:1 X:9 O:2 X:8 O:3 
+Player O won the game!
+
+
+New Game!
+O:1 X:9 O:2 X:3 O:8 X:6 
+Player X won the game!
+
+
+New Game!
+O:4 X:1 O:7 X:2 O:8 X:3 
+Player X won the game!
+
+
+New Game!
+O:1 X:2 O:5 X:9 O:8 X:6 O:3 X:4 O:7 
+Player O won the game!
+
+
+New Game!
+O:1 X:2 O:3 X:4 O:5 X:6 O:7 
+Player O won the game!
+
+
+New Game!
+X:5 O:9 X:2 O:7 X:8 
+Player X won the game!
+
+
+New Game!
+O:9 X:1 O:7 X:8 O:2 X:5 O:4 X:6 O:3 
+Match was a draw!
+
+
+New Game!
+X:1 O:9 X:2 O:8 X:3 
+Player X won the game!
+
+
+New Game!
+X:6 O:3 X:4 O:9 X:1 O:2 X:7 
+Player X won the game!
+
+
+New Game!
+O:8 X:4 O:3 X:7 O:1 X:2 O:5 X:6 O:9 
+Player O won the game!
+
+
+New Game!
+X:1 O:2 X:3 O:4 X:5 O:6 X:7 
+Player X won the game!
+
+
+New Game!
+O:6 X:1 O:2 X:3 O:8 X:4 O:5 
+Player O won the game!
+
+
+New Game!
+O:5 X:2 O:9 X:4 O:1 
+Player O won the game!
+
+
+New Game!
+O:5 X:7 O:2 X:3 O:8 
+Player O won the game!

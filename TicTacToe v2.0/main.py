@@ -6,9 +6,9 @@ menus = ttt_menus.TTTMenus()
 Xs_and_Os = tic_tac_toe.TicTacToe()
 
 def startup():
-    menus.display_welcome_screen()
-    game_mode = ' '
     while True:
+        menus.display_welcome_screen()
+        game_mode = ' '
         try:
             game_mode = int(menus.get_player_selection())
         except ValueError:
@@ -28,8 +28,8 @@ def startup():
         return True
         
 def game_over():
-    menus.display_game_over_screen()
     while True:
+        menus.display_game_over_screen()
         try:
             selection = int(menus.get_player_selection())
         except ValueError:

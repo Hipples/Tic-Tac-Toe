@@ -92,10 +92,10 @@ class TicTacToe:
                 print("\n\tBad input! Try again.\n") # announce when input is invalid
             else: # otherwise, reverse engineer our player move by using our determined index
                 move = self.board[row][col] # and assign it to move
-                with open(self.match_records, 'a') as record: # open our match records and
+                with open(self.match_records, 'a') as record: # then open our match records and
                     record.write(f"{player}:{move} ") # append each valid player move 
                 self.place_marker(row, col, player) # as it happens
-                return False # and end our loop
+                return False # before ending our loop
 
     # capture Random AI moves -->
     def computer_move(self, player):
@@ -151,6 +151,7 @@ class TicTacToe:
     # method designed to enable replay at end of round   
     def replay(self):
         replay = input("\n\tWould you like to play again? (y/n) ")
+        print()
         if replay.lower() == 'y':
             return True
         elif replay.lower() == 'n':
@@ -163,7 +164,7 @@ class TicTacToe:
         """Play Tic Tac Toe (Mode 2: PvE (random AI))"""
         # initiate replay loop
         while True:
-            # 0. append 'New Game!' to tic_tac_toe.py
+            # 0. append 'New Game!' to tic_tac_toe.txt
             with open(self.match_records, 'a') as record:    
                 record.write(f"\n\nNew Game!\n")
             # 1. create the gameboard
@@ -231,46 +232,76 @@ class TicTacToe:
             # 14. final gameboard display
             self.display_board()
             print()
-            # 15. replay option
+            # 15. reset the gameboard
+            self.reset_board()
+            # 16. replay option
             if self.replay() == False:
                 break
-            else:
-                self.reset_board()
+
     
-    ## needs updating - not currently functional ##
     # PvP mode gameplay loop
     def game_mode_1_PvP(self):
         """Play Tic Tac Toe (Mode 1: Player vs Player)!"""
-        # 1. create the gameboard
-        self.create_board()            
-        # 2. assign player markers based on choice
-        player, opponent = self.assign_markers()    
-        # 3. randomly decide which player goes first
-        if self.coin_flip() == 1:
-            current_player = player
-        else:
-            current_player = opponent
-        # 4. begin gameplay loop
-        while True: 
-            # 5. display whose turn to play 
-            print(f"\n\tPlayer {current_player}'s turn.\n") 
-            # 6. display updated gameboard
-            self.display_board() 
-            # 7. capture and make player move
-            self.player_move(current_player)
-            # just making some extra space
-            print() 
-            # 8. check for wins after each player turn
-            if self.is_winner(self.board, current_player):
-                print(f"\n\tPlayer {current_player} wins the game!\n")
-                break # game over
-            # 9. check for draw after each player turn
-            if self.is_board_full():
-                print("\n\tMatch draw!\n")
-                break # game over
-            # 10. swap player turns
-            current_player = self.swap_player_turn(current_player)
-        print()
-        # game over - display final view of gameboard
-        self.display_board()
-        self.reset_board()
+        # initiate reply loop
+        while True:
+            # 0. append 'New Game!' to tic_tac_toe.txt
+            with open(self.match_records, 'a') as record:    
+                record.write(f"\n\nNew Game!\n")
+            # 1. create the gameboard
+            self.create_board()            
+            # 2. assign player markers based on choice
+            player, opponent = self.assign_markers()    
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = player
+            else:
+                first_player = opponent
+            # 4. inform the players who won first turn
+            print(f"\n\tPlayer {first_player} will go first!\n") 
+            # 5. display empty gameboard
+            self.display_board()
+            # 6. input and make move
+            self.player_move(first_player)
+            print()
+            # 7. display updated gameboard
+            self.display_board()
+            # 8. assign current_player as first_player
+            current_player = first_player
+            while True:
+                # 9. swap player turn
+                current_player = self.swap_player_turn(current_player)
+                # 10. display whose turn to play 
+                print(f"\n\tPlayer {current_player}'s turn.\n") 
+                sleep(1)
+                # 11. display updated gameboard
+                self.display_board() 
+                # 12. capture and make player move
+                self.player_move(current_player)
+                print() 
+                # 13a. check if there is a winner
+                if self.is_winner(self.board, current_player):
+                    print(f"\n\tPlayer {current_player} wins the game!\n")
+                    # 13b. record the winner in tic_tac_toe.txt
+                    with open(self.match_records, 'a') as record:    
+                        record.write(f"\nPlayer {current_player} won the game!\n")
+                    # 13c. game over
+                    break 
+                # 14a. check if there is a draw
+                if self.is_board_full():
+                    print("\n\tMatch draw!\n")
+                    # 14b. record the draw status in tic_tac_toe.txt
+                    with open(self.match_records, 'a') as record:
+                        record.write("\nMatch was a draw!\n") 
+                    # 14c. game over
+                    break 
+                # 15. display updated gameboard
+                self.display_board() 
+            print()
+            # 16. final gameboard display
+            self.display_board()
+            print()
+            # 17. reset gameboard
+            self.reset_board()  
+            # 18. replay option
+            if self.replay() == False:
+                break
