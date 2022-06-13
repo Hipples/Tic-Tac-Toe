@@ -49,3 +49,5 @@ def game_over():
 
 # driver code
 startup()
+print()
+game_over()
