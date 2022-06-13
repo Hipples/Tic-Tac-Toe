@@ -12,20 +12,23 @@ def startup():
         try:
             game_mode = int(menus.get_player_selection())
         except ValueError:
-            print("\n\tInvalid input. Please enter 1 2 or 3.\n")
+            print("\n\tInvalid input. Please enter 1, 2, or 3\n.")
         except KeyboardInterrupt:
             print("\n\tGood bye!\n")
+            exit()
         else:
             if(game_mode == 1): 
                 Xs_and_Os.game_mode_1_PvP()
                 break
-            elif(game_mode == 2): 
+            if(game_mode == 2): 
                 Xs_and_Os.game_mode_2_PvE()
                 break
-            elif(game_mode == 3):
+            if(game_mode == 3):
                 print("\n\tGood bye!\n")
                 exit()
-        return True
+            else:
+                print("\n\tInvalid input. Please enter 1, 2, or 3\n.")
+        
         
 def game_over():
     while True:
@@ -46,5 +49,3 @@ def game_over():
 
 # driver code
 startup()
-print()
-game_over()
