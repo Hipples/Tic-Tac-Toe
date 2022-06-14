@@ -15,13 +15,13 @@ Team Members (collaborators):
 - Luiz Barreto (tbd)
 
 #### Current Task List:
-[ ] Proper directory set-up
-[ ] Refactor TicTacToe class/module:
-    [ ] gameboards (3x3 and 5x5)
-    [ ] gameplay logic (human player, radom & minimax AI)
-    [ ] gameplay loops (3 modes: PvP, PvRandom, PvMini)
-    [ ] manage neccessary changes for main and menus modules
-[ ] Create minimax AI
+[ ] Proper directory set-up  
+[ ] Refactor TicTacToe class/module:  
+    [ ] gameboards (3x3 and 5x5)  
+    [ ] gameplay logic (human player, radom & minimax AI)  
+    [ ] gameplay loops (3 modes: PvP, PvRandom, PvMini)  
+    [ ] manage neccessary changes for main and menus modules  
+[ ] Create minimax AI  
 
-[ ] software testing
-[ ] software metrics
+[ ] software testing  
+[ ] software metrics  
