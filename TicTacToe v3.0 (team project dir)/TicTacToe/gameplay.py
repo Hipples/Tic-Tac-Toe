@@ -34,7 +34,6 @@ class TicTacToe:
     def game_mode_1(self):
         """Original PvP mode."""
         # initialize game_objects from board & players class
-        setup = TicTacToeBoard()
         action = PlayerActions()
         # initiate reply loop
         while True:
@@ -42,7 +41,7 @@ class TicTacToe:
             with open(self.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
-            setup.create_board()
+            action.create_board()
             # 2. assign player markers based on choice
             player, opponent = action.assign_markers()
             # 3. randomly decide which player goes first
@@ -53,12 +52,12 @@ class TicTacToe:
             # 4. inform the players who won first turn
             print(f"\n\tPlayer {first_player} will go first!\n")
             # 5. display empty gameboard
-            setup.display_board()
+            action.display_board()
             # 6. input and make move
             action.player_move(first_player)
             print()
             # 7. display updated gameboard
-            setup.display_board()
+            action.display_board()
             # 8. assign current_player as first_player
             current_player = first_player
             while True:
@@ -68,12 +67,12 @@ class TicTacToe:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 sleep(1)
                 # 11. display updated gameboard
-                setup.display_board()
+                action.display_board()
                 # 12. capture and make player move
                 action.player_move(current_player)
                 print()
                 # 13a. check if there is a winner
-                if setup.is_winner(setup.board, current_player):
+                if action.is_winner(action.board, current_player):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 13b. record the winner in tic_tac_toe.txt
                     with open(self.match_records, 'a') as record:
@@ -81,7 +80,7 @@ class TicTacToe:
                     # 13c. game over
                     break
                 # 14a. check if there is a draw
-                if setup.is_board_full():
+                if action.is_board_full():
                     print("\n\tMatch draw!\n")
                     # 14b. record the draw status in tic_tac_toe.txt
                     with open(self.match_records, 'a') as record:
@@ -89,13 +88,13 @@ class TicTacToe:
                     # 14c. game over
                     break
                 # 15. display updated gameboard
-                setup.display_board()
+                action.display_board()
             print()
             # 16. final gameboard display
-            setup.display_board()
+            action.display_board()
             print()
             # 17. reset gameboard
-            setup.reset_board()
+            action.reset_board()
             # 18. replay option
             if self.replay() == False:
                 break

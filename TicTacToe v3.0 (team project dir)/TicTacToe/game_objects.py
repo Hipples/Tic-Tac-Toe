@@ -124,9 +124,9 @@ class TicTacToeBoard:
 class PlayerActions(TicTacToeBoard):
     """Class contains methods that: allow players to choose their game markers ('X' or 'O'), acquires input from players on their turn, applies the player input to complete thier move, """
     def __init__(self):
-        self.match_records = "tic.tac.toe.txt"
         super().__init__()
-        
+        self.match_records = "tic.tac.toe.txt"
+
 # OC
     def choose_marker(self):
         """Allows main player to choose to be X or O"""
