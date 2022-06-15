@@ -1,8 +1,5 @@
 """Tic Tac Toe CLI Application"""
-from TicTacToe.game.menus import TicTacToeMenus, PlayerSelections
-
-menu = TicTacToeMenus()
-select = PlayerSelections()
+from menus import TicTacToeMenus as menu, PlayerSelections as select
 
 def run():
     """Run the program."""

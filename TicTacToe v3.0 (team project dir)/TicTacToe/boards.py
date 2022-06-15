@@ -1,8 +1,7 @@
 """TODO: Module docstring...."""
-from TicTacToe.data.settings import BoardSettings
-from TicTacToe.game.menus import PlayerSelections
-
 import numpy as np
+from settings import BoardSettings
+from menus import PlayerSelections
 
 set = BoardSettings()  # object from board option settings
 option = PlayerSelections()  # object from player selection in menus
