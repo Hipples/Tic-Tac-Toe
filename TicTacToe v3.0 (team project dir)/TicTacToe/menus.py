@@ -8,6 +8,7 @@ The parent class contains methods to create and display three game menus:
 The child class prompts, acquires, and applies the chosen menu options via user input."""
 # import game settings module
 from settings import Settings as Set
+from gameplay import TicTacToe as play
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
@@ -135,14 +136,22 @@ class PlayerSelections(TicTacToeMenus):
         """Allows selection of gameplay options from main menu. Starts specified gamemode."""
         while True:  # loop prompts, captures, and applies player selections
             option = self.get_player_selection()
-            if option in range(1, 4): # starts specified gamemode
-                return option
-            if option == 4:  # selects board option, then returns to main menu
+            if option == 1:
+                play.game_mode_1()
+                break  # loads PvP mode
+            if option == 2:
+                play.game_mode_2()
+                break  # loads PvE (random AI) mode
+            if option == 3:
+                play.game_mode_3()
+                break  # loads PvE (minimax AI) mode
+            if option == 4:  
                 self.display_board_options()
                 setting = self.gameboard_options()
-                return setting
-            if option == 5:  # quit
+                return setting  # selects board option, then returns to main menu
+            if option == 5:  
                 print("\n\tGood bye!\n")
-                exit()
-            else:  # catches invalid inputs and prompts player to try again
+                exit()  # quits out of program
+            else:
                 print("\n\tInvalid input. Please try again.")
+            # catches invalid inputs and prompts player to try again

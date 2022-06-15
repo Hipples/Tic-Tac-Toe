@@ -8,14 +8,10 @@ class Settings:
 
     def get_board(self):
         return self.board
-
     def set_board(self, value):
         self.board = value
 
-    @property
-    def gamemode(self):
-        return self._gamemode
-
-    @gamemode.setter
-    def gamemode(self, value):
-        self._gamemode = value
+    def get_gamemode(self):
+        return self.gamemode    
+    def set_gamemode(self, value):
+        self.gamemode = value

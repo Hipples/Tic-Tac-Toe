@@ -1,46 +1,23 @@
 """TODO: Module docstring...."""
 import numpy as np
-from settings import BoardSettings
-from menus import PlayerSelections
-
-set = BoardSettings()  # object from board option settings
-option = PlayerSelections()  # object from player selection in menus
 
 class TicTacToeBoard:
 
     def __init__(self):
-        """Initialize an empty game board and two size options from our game board settings."""
+        """Initialize an empty game board."""
         self.board = []  # empty gameboard
-        self.default_board = set.default_board
-        self.five_by_five = set.five_by_five
+        self.default = list(range(1, 10))
+        self.board_option = self.default
 
-    def create_board(self, board_option=set.default_board):
+    def create_board(self):
         """Creates a gameboard based on board_option size (3x3 or 5x5)."""
-        if board_option == set.default_board:
-            for i in np.arange(1, 10).astype(str):  # nine numbers, as strings, because we replace
-                self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
-            self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
-            return self.board
-        
-        if board_option == set.five_by_five:  # 25 squares
-            for i in np.arange(1, 26).astype(str):
-                self.board.append(i)
-            self.board = np.reshape(self.board, (5, 5))
-            return self.board         
+        for i in np.arange(self.default):  # nine numbers, as strings, because we replace
+            self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
+        self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        return self.board       
 
-    def display_default_board(self, board):
+    def display_board(self):
         """Display current gameboard."""
-        print('\t-------------------------------')
-        for row in self.board:
-            print('\t|         |         |         |')
-            print('\t|', end = '')
-            for item in row:
-                print(f'    {item}    |', end = '')
-            print()
-            print('\t|         |         |         |')
-            print('\t-------------------------------')
-
-    def display_5x5_board(self, board):
         print('\t-------------------------------')
         for row in self.board:
             print('\t|         |         |         |')
@@ -55,11 +32,9 @@ class TicTacToeBoard:
         """Reset the gameboard."""
         self.board = [] # reset to an empty list
 
-
     def place_marker(self, row, col, player):
         """Places the player marker (X or O) in the designated square."""
         self.board[row][col] = player # use move coordinates to place marker in the chosen square
-
 
     def is_board_full(self):
         """Determines if gameboard is full (DRAW)."""
@@ -68,7 +43,6 @@ class TicTacToeBoard:
                 if square in self.values: # if the square value is in our list of empty squares
                     return False # return False
         return True # otherwise return True
-
 
     def is_winner(self, board, player):
         """Checks gameboard for winning patterns."""
@@ -99,8 +73,3 @@ class TicTacToeBoard:
                 win = True
         if win:
             return win
-
-# test
-test = TicTacToeBoard()
-test.display_default_board()
-test.display_5x5_board()
