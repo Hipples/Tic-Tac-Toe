@@ -4,10 +4,9 @@ from time import sleep
 from game_objects import TicTacToeBoard, PlayerActions
 
 class TicTacToe:
-    def __init__(self):  # initialize our class with
-        #self.board = []  # an empty gameboard,
-        #self.values = ['1', '2', '3', '4', '5', '6', '7', '8', '9']  # a list of empty squares,
-        self.match_records = 'tic_tac_toe.txt'  # text record of match movements and outcomes
+    def __init__(self):
+        pass
+        
 
 # OC
     def coin_flip(self):  # winner goes first
@@ -22,7 +21,7 @@ class TicTacToe:
 # OC
     def replay(self):
         """Asks if main player would like to replay the current gamemode."""
-        replay = input("\n\tWould you like to play again? (y/n) ")
+        replay = input("\n\tWould you like to play again? (y/n): ")
         print()
         if replay.lower() == 'y':
             return True
@@ -38,7 +37,7 @@ class TicTacToe:
         # initiate reply loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.txt
-            with open(self.match_records, 'a') as record:
+            with open(action.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
             action.create_board()
@@ -75,7 +74,7 @@ class TicTacToe:
                 if action.is_winner(action.board, current_player):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 13b. record the winner in tic_tac_toe.txt
-                    with open(self.match_records, 'a') as record:
+                    with open(action.match_records, 'a') as record:
                         record.write(f"\nPlayer {current_player} won the game!\n")
                     # 13c. game over
                     break
@@ -83,7 +82,7 @@ class TicTacToe:
                 if action.is_board_full():
                     print("\n\tMatch draw!\n")
                     # 14b. record the draw status in tic_tac_toe.txt
-                    with open(self.match_records, 'a') as record:
+                    with open(action.match_records, 'a') as record:
                         record.write("\nMatch was a draw!\n")
                     # 14c. game over
                     break
