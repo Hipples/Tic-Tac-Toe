@@ -113,7 +113,7 @@ class PlayerSelections(TicTacToeMenus):
                 return selection
 
     def gameboard_options(self):
-        """Allows selection of gameboard options."""
+        """Allows selection of gameboard options. Returns to main menu."""
         self.display_gameboard_options()
         while True:  # loop prompts, captures, applies, and displays player selections
             option = self.get_player_selection()
@@ -122,19 +122,18 @@ class PlayerSelections(TicTacToeMenus):
                 self.display_welcome_screen()  # returns to welcome screen
                 return select_board.default
             if option == 2:
-                # TODO: method not yet created for 5x5 gameboard [GAMEBOARD: FIVE_BY_FIVE]
                 print("\n\tYou have chosen to play on a 5x5 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
                 return select_board.five_by_five
             if option == 3:
                 self.display_welcome_screen()  # returns to welcome screen
-                break  # ends loop
+                return select_board.  # ends loop
             else:  # catches invalid inputs and prompts player to try again
                 print("\n\tInvalid input. Please try again.")    
 
     def main_menu_options(self):
-        """Allows selection of gameplay options from main menu."""
-        while True:
+        """Allows selection of gameplay options from main menu. Starts game."""
+        while True:  # loop prompts, captures, and applies play selections
             option = self.get_player_selection()
             board_option = select_board.default
             if option == 1:
@@ -144,8 +143,13 @@ class PlayerSelections(TicTacToeMenus):
                 select_mode.game_mode_2(board_option)  # initiates game play loop for PvE random mode
                 break  # ends loop
             if option == 3:
-                self.display_welcome_screen()  # returns to welcome screen
+                select_mode.game_mode_3(board_option)  # initiates game play loop for PvE minimax mode
                 break  # ends loop
+            if option == 4:
+                board_option = self.gameboard_options()
+                continue
+            if option == 5:
+                print("\n\tGood bye!\n")
+                exit()
             else:  # catches invalid inputs and prompts player to try again
-                print("\n\tInvalid input. Please try again.") 
-
+                print("\n\tInvalid input. Please try again.")
