@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from time import sleep
-from game_objects import TicTacToeBoard, PlayerActions
+from game_objects import PlayerActions, AI
 
 class TicTacToe:
     def __init__(self):
@@ -32,9 +32,9 @@ class TicTacToe:
 # modified to test refactoring        
     def game_mode_1(self):
         """Original PvP mode."""
-        # initialize game_objects from board & players class
+        # initialize game objects from PlayerActions class
         action = PlayerActions()
-        # initiate reply loop
+        # initiate replay loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.txt
             with open(action.match_records, 'a') as record:
@@ -98,17 +98,19 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
-    def game_mode_2(self, board_option):
+    def game_mode_2(self):
         """PvE Mode - Easy. Random AI opponent."""
+        # initialize game objects from AI class
+        ai = AI()
         # initiate replay loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.txt
-            with open(self.match_records, 'a') as record:
+            with open(ai.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
-            self.board.create_board()
+            ai.create_board()
             # 2. assign markers based on choice
-            player, computer = self.assign_markers()
+            player, computer = ai.assign_markers()
             # 3. randomly decide which player goes first
             if self.coin_flip() == 1:
                 first_player = player
@@ -117,23 +119,23 @@ class TicTacToe:
             # 4. inform the players who won first turn
             print(f"\n\tPlayer {first_player} will go first!\n")
             # 5. display empty gameboard
-            self.display_board()
+            ai.display_board()
             # 6a. if human player. . .
             if first_player == player:
                 # input and make move
-                self.player_move(first_player)
+                ai.player_move(first_player)
                 print()
                 # display updated gameboard
-                self.display_board()
+                ai.display_board()
                 # assign to current player
                 current_player = player
             # 6b. if computer player. . .
             else:
                 # generate and make random move
-                self.computer_move(first_player)
+                ai.random_move(first_player)
                 print()
                 # display updated gameboard
-                self.display_board()
+                ai.display_board()
                 # assign to current player
                 current_player = computer
             # 7. main game play loop
@@ -144,39 +146,39 @@ class TicTacToe:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 # 10a. if player is human, use player_move method
                 if current_player == player:
-                    self.player_move(current_player)
+                    ai.player_move(current_player)
                 # 10b. if player is a computer, use computer_move method
                 else:
-                    self.computer_move(current_player)
+                    ai.random_move(current_player)
                 # 11a. check if there is a winner
-                if self.is_winner(self.board, current_player):
+                if ai.is_winner(ai.board, current_player):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 11b. record the winner in tic_tac_toe.txt
-                    with open(self.match_records, 'a') as record:
+                    with open(ai.match_records, 'a') as record:
                         record.write(f"\nPlayer {current_player} won the game!\n")
                     # 11c. game over
                     break
                 # 12a. check if there is a draw
-                if self.is_board_full():
+                if ai.is_board_full():
                     print("\n\tMatch draw!\n")
                     # 12b. record the draw status in tic_tac_toe.txt
-                    with open(self.match_records, 'a') as record:
+                    with open(ai.match_records, 'a') as record:
                         record.write("\nMatch was a draw!\n")
                     # 12c. game over
                     break
                 # 13. display updated gameboard
-                self.display_board()
+                ai.display_board()
             print()
             # 14. final gameboard display
-            self.display_board()
+            ai.display_board()
             print()
             # 15. reset the gameboard
-            self.reset_board()
+            ai.reset_board()
             # 16. replay option
             if self.replay() == False:
                 break
 
-    def game_mode_3(self, board_option):
+    def game_mode_3(self):
         """TODO: Create minimax AI gamemode"""
         pass
 

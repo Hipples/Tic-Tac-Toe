@@ -181,7 +181,7 @@ class AI(PlayerActions):
     """TODO: Class docstring..."""
 
     def __init__(self):
-        pass
+        super().__init__()
 
 # OC --> change name from random_moves() to random_logic() and self.values to self.default  
     def random_logic(self):
