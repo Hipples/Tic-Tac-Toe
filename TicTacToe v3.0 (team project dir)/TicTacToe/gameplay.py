@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from time import sleep
 from boards import TicTacToeBoard as B
 from players import AI, Players as P
@@ -6,6 +7,10 @@ from players import AI, Players as P
 class TicTacToe:
     def __init__(self):
         self.match_records = "tic_tac_toe.txt"
+
+    def coin_flip(self):  # winner goes first
+        """Randomly returns a value of either a 0 or 1."""
+        return random.randint(0, 1)  # heads or tails?
 
     def swap_player_turn(self, player):
         """Swaps game control between two players."""
@@ -31,7 +36,7 @@ class TicTacToe:
             # 1. create the gameboard
             B.create_board()
             # 2. assign player markers based on choice
-            player, opponent = self.assign_markers()
+            player, opponent = P.assign_markers()
             # 3. randomly decide which player goes first
             if self.coin_flip() == 1:
                 first_player = player
@@ -40,12 +45,12 @@ class TicTacToe:
             # 4. inform the players who won first turn
             print(f"\n\tPlayer {first_player} will go first!\n")
             # 5. display empty gameboard
-            self.display_board()
+            B.display_board()
             # 6. input and make move
-            self.player_move(first_player)
+            P.player_move(first_player)
             print()
             # 7. display updated gameboard
-            self.display_board()
+            B.display_board()
             # 8. assign current_player as first_player
             current_player = first_player
             while True:
