@@ -1,8 +1,43 @@
-"""This module contains our Tic Tac Toe game mode and gameboard settings."""
+"""This module contains our Tic Tac Toe game modes and gameboard settings."""
+from TicTacToe.game.menus import PlayerSelections
+set = PlayerSelections()
 
-class GameModes:
-    def __init__():
-        pass
+class BoardSettings:
+    """something bout what gameboard class does"""
+    def __init__(self):
+        self.board = []
+        self.default_board = list(range(1, 10))
+        self.five_by_five = list(range(1, 26))
+
+    def get_board_option(self):
+        board_option = set.gameboard_options()
+        return board_option
+
+    def set_board_option(self):
+        option = self.get_board_option()
+        if option == 2:
+            return self.five_by_five
+        else:
+            return self.default_board
+
+class GameMode(BoardSettings):
+    """something bout game modes"""
+    def __init__(self):
+        self.match_records = 'tic_tac_toe.txt'  # text record of match movements and outcomes
+
+    def get_game_mode_option():
+        game_mode = set.main_menu_options()
+
+
+    def replay(self):
+        """Asks if main player would like to replay the current gamemode."""
+        replay = input("\n\tWould you like to play again? (y/n) ")
+        print()
+        if replay.lower() == 'y':
+            return True
+        if replay.lower() == 'n':
+            return False
+        self.replay()
 
     def game_mode_1(self, board_option):
         """Original PvP mode gameplay loop (player selection 1)."""
@@ -148,13 +183,8 @@ class GameModes:
             if self.replay() == False:
                 break
 
-    def game_mode_3():
+    def game_mode_3(self, board_option):
         """TODO: Create minimax AI gamemode"""
         pass
 
-class GameBoards:
-    """something bout what gameboard class does"""
-    def __init__(self):
-        self.board = []
-        self.default = list(range(1, 10))
-        self.five_by_five = list(range(1, 26))
+

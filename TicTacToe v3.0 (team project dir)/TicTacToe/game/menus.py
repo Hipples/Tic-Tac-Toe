@@ -7,9 +7,8 @@ The parent class contains methods to create and display three game menus:
 
 The child class prompts, acquires, and applies the chosen menu options via user input."""
 # import game settings module
-from TicTacToe.data.settings import GameModes, GameBoards
-select_mode = GameModes()
-select_board = GameBoards()
+from TicTacToe.data.settings import BoardSettings
+select = BoardSettings()
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
@@ -114,39 +113,30 @@ class PlayerSelections(TicTacToeMenus):
 
     def gameboard_options(self):
         """Allows selection of gameboard options. Returns to main menu."""
-        self.display_gameboard_options()
         while True:  # loop prompts, captures, applies, and displays player selections
             option = self.get_player_selection()
             if option == 1:
                 print("\n\tYou have chosen to play on a 3x3 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                return select_board.default
+                return 1
             if option == 2:
                 print("\n\tYou have chosen to play on a 5x5 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                return select_board.five_by_five
+                return 2
             if option == 3:
                 self.display_welcome_screen()  # returns to welcome screen
-                return select_board.  # ends loop
+                return 3  
             else:  # catches invalid inputs and prompts player to try again
                 print("\n\tInvalid input. Please try again.")    
 
     def main_menu_options(self):
-        """Allows selection of gameplay options from main menu. Starts game."""
+        """Allows selection of gameplay options from main menu."""
         while True:  # loop prompts, captures, and applies play selections
             option = self.get_player_selection()
-            board_option = select_board.default
-            if option == 1:
-                select_mode.game_mode_1(board_option)  # initiates game play loop for PvP mode
-                break  # ends loop
-            if option == 2:
-                select_mode.game_mode_2(board_option)  # initiates game play loop for PvE random mode
-                break  # ends loop
-            if option == 3:
-                select_mode.game_mode_3(board_option)  # initiates game play loop for PvE minimax mode
-                break  # ends loop
+            if option in range(1, 4):
+                return option
             if option == 4:
-                board_option = self.gameboard_options()
+                select.get_board_option()
                 continue
             if option == 5:
                 print("\n\tGood bye!\n")
