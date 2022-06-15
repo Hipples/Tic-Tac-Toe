@@ -7,8 +7,7 @@ The parent class contains methods to create and display three game menus:
 
 The child class prompts, acquires, and applies the chosen menu options via user input."""
 # import game settings module
-from TicTacToe.data.settings import BoardSettings
-select = BoardSettings()
+from settings import Settings as Set
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
@@ -67,7 +66,7 @@ class TicTacToeMenus:
         """Prints game over screen to CLI."""
         print(self.create_game_over_screen())
 
-    def create_gameboard_options(self):
+    def create_board_options(self):
         """Creates a menu for players to choose the size of their gameboard (3x3 or 5x5)."""
         board_options =  "\t __________________________________________________ \n"
         board_options += "\t|                                                  |\n"
@@ -88,9 +87,9 @@ class TicTacToeMenus:
         board_options += "\t|__________________________________________________|\n"
         return(board_options)
 
-    def display_gameboard_options(self):
+    def display_board_options(self):
         """Prints gameboard options menu to CLI."""
-        print(self.create_gameboard_options())
+        print(self.create_board_options())
 
 class PlayerSelections(TicTacToeMenus):
     """Captures and applies player selections from game menu options."""
@@ -116,29 +115,33 @@ class PlayerSelections(TicTacToeMenus):
         while True:  # loop prompts, captures, applies, and displays player selections
             option = self.get_player_selection()
             if option == 1:
+                setting = Set(board=option)
                 print("\n\tYou have chosen to play on a 3x3 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                return 1
+                return setting
             if option == 2:
+                Set(board = option)
                 print("\n\tYou have chosen to play on a 5x5 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                return 2
+                break
             if option == 3:
+                Set()
                 self.display_welcome_screen()  # returns to welcome screen
-                return 3  
+                break
             else:  # catches invalid inputs and prompts player to try again
                 print("\n\tInvalid input. Please try again.")    
 
     def main_menu_options(self):
-        """Allows selection of gameplay options from main menu."""
-        while True:  # loop prompts, captures, and applies play selections
+        """Allows selection of gameplay options from main menu. Starts specified gamemode."""
+        while True:  # loop prompts, captures, and applies player selections
             option = self.get_player_selection()
-            if option in range(1, 4):
+            if option in range(1, 4): # starts specified gamemode
                 return option
-            if option == 4:
-                select.get_board_option()
-                continue
-            if option == 5:
+            if option == 4:  # selects board option, then returns to main menu
+                self.display_board_options()
+                setting = self.gameboard_options()
+                return setting
+            if option == 5:  # quit
                 print("\n\tGood bye!\n")
                 exit()
             else:  # catches invalid inputs and prompts player to try again

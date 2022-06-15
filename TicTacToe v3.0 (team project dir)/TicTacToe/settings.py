@@ -2,22 +2,20 @@
 
 class Settings:
     """Properties for gameplay settings with default values."""
-    def __init__(self):
-        self._board = list(range(1, 10))
-        self._gamemode = 1
+    def __init__(self, board = 1, gamemode = 1):
+        self.board = board
+        self.gamemode = gamemode
 
-    @property
-    def board(self):
-        return self._board
+    def get_board(self):
+        return self.board
 
-    @board.setter
-    def board(self, option):
-        self._board = option
+    def set_board(self, value):
+        self.board = value
 
     @property
     def gamemode(self):
         return self._gamemode
 
     @gamemode.setter
-    def gamemode(self, option):
-        self._gamemode = option
+    def gamemode(self, value):
+        self._gamemode = value

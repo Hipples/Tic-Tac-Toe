@@ -1,8 +1,25 @@
+import numpy as np
 from time import sleep
+from boards import TicTacToeBoard as B
+from players import AI, Players as P
 
 class TicTacToe:
-    def __init__(self) -> None:
-        pass
+    def __init__(self):
+        self.match_records = "tic_tac_toe.txt"
+
+    def swap_player_turn(self, player):
+        """Swaps game control between two players."""
+        return 'X' if player == 'O' else 'O'
+
+    def replay(self):
+        """Asks if main player would like to replay the current gamemode."""
+        replay = input("\n\tWould you like to play again? (y/n) ")
+        print()
+        if replay.lower() == 'y':
+            return True
+        if replay.lower() == 'n':
+            return False
+        self.replay()
         
     def game_mode_1(self, board_option):
         """Original PvP mode gameplay loop (player selection 1)."""
@@ -12,7 +29,7 @@ class TicTacToe:
             with open(self.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
-            self.create_board()
+            B.create_board()
             # 2. assign player markers based on choice
             player, opponent = self.assign_markers()
             # 3. randomly decide which player goes first
@@ -153,12 +170,3 @@ class TicTacToe:
         pass
 
 
-    def replay(self):
-        """Asks if main player would like to replay the current gamemode."""
-        replay = input("\n\tWould you like to play again? (y/n) ")
-        print()
-        if replay.lower() == 'y':
-            return True
-        if replay.lower() == 'n':
-            return False
-        self.replay()
