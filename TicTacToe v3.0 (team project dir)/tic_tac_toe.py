@@ -146,7 +146,7 @@ class TicTacToe:
                 win = True
         if win:
             return win
-    players.py
+
     def swap_player_turn(self, player):
         """Swaps game control between two players."""
         return 'X' if player == 'O' else 'O'

@@ -7,8 +7,11 @@ The parent class contains methods to create and display three game menus:
 
 The child class prompts, acquires, and applies the chosen menu options via user input."""
 # import game settings module
-from settings import Settings as Set
-from gameplay import TicTacToe as play
+from settings import Settings
+from gameplay import TicTacToe
+
+set = Settings()
+play = TicTacToe()
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
@@ -116,17 +119,17 @@ class PlayerSelections(TicTacToeMenus):
         while True:  # loop prompts, captures, applies, and displays player selections
             option = self.get_player_selection()
             if option == 1:
-                setting = Set(board=option)
+                setting = set(board=option)
                 print("\n\tYou have chosen to play on a 3x3 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
                 return setting
             if option == 2:
-                Set(board = option)
+                set(board = option)
                 print("\n\tYou have chosen to play on a 5x5 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
                 break
             if option == 3:
-                Set()
+                set()
                 self.display_welcome_screen()  # returns to welcome screen
                 break
             else:  # catches invalid inputs and prompts player to try again
