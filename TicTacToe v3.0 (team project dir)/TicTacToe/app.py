@@ -1,7 +1,5 @@
 """Tic Tac Toe CLI Application"""
-from yaml import load_all
-from menus import TicTacToeMenus
-from menus import PlayerSelections
+from menus import TicTacToeMenus, PlayerSelections
 
 def run():
 
