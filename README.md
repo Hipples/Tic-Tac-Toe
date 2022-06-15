@@ -19,11 +19,13 @@ One other requirement is to store the move of each X and O to be saved in a file
 
 ### Initial Research Sources:
 
-https://geekflare.com/tic-tac-toe-python-code/
-https://medium.com/byte-tales/the-classic-tic-tac-toe-game-in-python-3-1427c68b8874
-https://techvidvan.com/tutorials/python-game-project-tic-tac-toe/
-https://www.askpython.com/python/examples/tic-tac-toe-using-python
-https://www.youtube.com/watch?v=5s_lGC2sxwQ
-https://itsourcecode.com/free-projects/python-projects/tic-tac-toe-game-in-python-with-source-code/
-https://www.geekedu.org/blogs/python-tic-tac-toe
-https://www.studytonight.com/post/python-tic-tac-toe-game
+https://geekflare.com/tic-tac-toe-python-code/  
+https://medium.com/byte-tales/the-classic-tic-tac-toe-game-in-python-3-1427c68b8874  
+https://techvidvan.com/tutorials/python-game-project-tic-tac-toe/  
+https://www.askpython.com/python/examples/tic-tac-toe-using-python  
+https://www.youtube.com/watch?v=5s_lGC2sxwQ  
+https://itsourcecode.com/free-projects/python-projects/tic-tac-toe-game-in-python-with-source-code/  
+https://www.geekedu.org/blogs/python-tic-tac-toe  
+https://www.studytonight.com/post/python-tic-tac-toe-game  
+  
+https://dev.to/codemouse92/dead-simple-python-project-structure-and-imports-38c6  

@@ -159,7 +159,7 @@ class TicTacToe:
         if replay.lower() == 'n':
             return False
         self.replay()
-
+ 
     def game_mode_2(self):
         """PvE Mode - Easy. Random AI opponent."""
         # initiate replay loop
