@@ -1,24 +1,25 @@
 import numpy as np
 import random
 from time import sleep
-from boards import TicTacToeBoard
-from players import AI, Players
-
-P = Players()
-B = TicTacToeBoard()
+from game_objects import TicTacToeBoard, PlayerActions
 
 class TicTacToe:
-    def __init__(self):
-        self.match_records = "tic_tac_toe.txt"
+    def __init__(self):  # initialize our class with
+        #self.board = []  # an empty gameboard,
+        #self.values = ['1', '2', '3', '4', '5', '6', '7', '8', '9']  # a list of empty squares,
+        self.match_records = 'tic_tac_toe.txt'  # text record of match movements and outcomes
 
+# OC
     def coin_flip(self):  # winner goes first
         """Randomly returns a value of either a 0 or 1."""
         return random.randint(0, 1)  # heads or tails?
 
+# OC
     def swap_player_turn(self, player):
         """Swaps game control between two players."""
         return 'X' if player == 'O' else 'O'
 
+# OC
     def replay(self):
         """Asks if main player would like to replay the current gamemode."""
         replay = input("\n\tWould you like to play again? (y/n) ")
@@ -28,18 +29,22 @@ class TicTacToe:
         if replay.lower() == 'n':
             return False
         self.replay()
-        
+
+# modified to test refactoring        
     def game_mode_1(self):
-        """Original PvP mode gameplay loop (player selection 1)."""
-        # initiate replay loop
+        """Original PvP mode."""
+        # initialize game_objects from board & players class
+        setup = TicTacToeBoard()
+        action = PlayerActions()
+        # initiate reply loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.txt
             with open(self.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
-            B.create_board()
+            setup.create_board()
             # 2. assign player markers based on choice
-            player, opponent = P.assign_markers()
+            player, opponent = action.assign_markers()
             # 3. randomly decide which player goes first
             if self.coin_flip() == 1:
                 first_player = player
@@ -48,12 +53,12 @@ class TicTacToe:
             # 4. inform the players who won first turn
             print(f"\n\tPlayer {first_player} will go first!\n")
             # 5. display empty gameboard
-            B.display_board()
+            setup.display_board()
             # 6. input and make move
-            P.player_move(first_player)
+            action.player_move(first_player)
             print()
             # 7. display updated gameboard
-            B.display_board()
+            setup.display_board()
             # 8. assign current_player as first_player
             current_player = first_player
             while True:
@@ -63,12 +68,12 @@ class TicTacToe:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 sleep(1)
                 # 11. display updated gameboard
-                B.display_board()
+                setup.display_board()
                 # 12. capture and make player move
-                P.player_move(current_player)
+                action.player_move(current_player)
                 print()
                 # 13a. check if there is a winner
-                if B.is_winner(B.board, current_player):
+                if setup.is_winner(setup.board, current_player):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 13b. record the winner in tic_tac_toe.txt
                     with open(self.match_records, 'a') as record:
@@ -76,7 +81,7 @@ class TicTacToe:
                     # 13c. game over
                     break
                 # 14a. check if there is a draw
-                if B.is_board_full():
+                if setup.is_board_full():
                     print("\n\tMatch draw!\n")
                     # 14b. record the draw status in tic_tac_toe.txt
                     with open(self.match_records, 'a') as record:
@@ -84,13 +89,13 @@ class TicTacToe:
                     # 14c. game over
                     break
                 # 15. display updated gameboard
-                B.display_board()
+                setup.display_board()
             print()
             # 16. final gameboard display
-            B.display_board()
+            setup.display_board()
             print()
             # 17. reset gameboard
-            B.reset_board()
+            setup.reset_board()
             # 18. replay option
             if self.replay() == False:
                 break
@@ -103,7 +108,7 @@ class TicTacToe:
             with open(self.match_records, 'a') as record:
                 record.write("\n\nNew Game!\n")
             # 1. create the gameboard
-            B.create_board()
+            self.board.create_board()
             # 2. assign markers based on choice
             player, computer = self.assign_markers()
             # 3. randomly decide which player goes first

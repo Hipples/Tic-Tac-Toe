@@ -1,13 +1,14 @@
 """TODO: Module docstring...."""
 import numpy as np
+from players import Players
 
 class TicTacToeBoard:
     """TODO: class docstring...."""
 
     def __init__(self):
-        """Initialize an empty game board."""
+        """Initialize an empty game board and default values."""
         self.board = []  # empty gameboard
-        self.default = list(range(1, 10)) # default board size
+        self.default = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # default board size
 
     def create_board(self):
         """Create a 3x3 gameboard."""
@@ -31,9 +32,36 @@ class TicTacToeBoard:
         """Reset the gameboard."""
         self.board = [] # reset to an empty list
 
+    def get_coords(self, player):
+        """Determines the coordinates of the 'empty' square value provided."""
+        player = Players()
+        move = player.player_turn(player) # retrieve player move from human_moves() method
+        coords = [] # declare empty list to store move coordinates
+        coords = np.where(self.board == move) # determine move coordinates
+        return coords # return move coordinates
+
     def place_marker(self, row, col, player):
         """Places the player marker (X or O) in the designated square."""
         self.board[row][col] = player # use move coordinates to place marker in the chosen square
+
+    def player_move(self, player):
+        player = Players()
+        """Capture, record, and fulfill human player moves while handling exceptions."""
+        while True: # exception catching loop
+            try: # attempt to initialize coords, by retrieving the player's input,
+                coords = self.get_coords(player) # through get_coords() method,
+                row, col = int(coords[0]), int(coords[1]) # then assign the proper index of the move
+            except KeyboardInterrupt: # enable Ctrl + c to end program during player input
+                print("\n\n\tGood bye!") # program says good bye,
+                exit() # then ends
+            # except: # continue looping until valid input is accepted
+            #     print("\n\tBad input! Try again.\n") # announce when input is invalid
+            else: # otherwise, reverse engineer our player move by using our determined index
+                move = self.board[row][col] # and assign it to move
+                with open(player.match_records, 'a') as record: # then open our match records and
+                    record.write(f"{player}:{move} ") # append each valid player move
+                self.place_marker(row, col, player) # as it happens
+                return False # before ending our loop
 
     def is_board_full(self):
         """Determines if gameboard is full (DRAW)."""
