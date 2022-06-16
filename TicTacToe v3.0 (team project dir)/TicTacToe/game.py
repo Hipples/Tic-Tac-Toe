@@ -224,7 +224,7 @@ class TicTacToe:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 # 10a. if player is human, use player_move method
                 if current_player == ai.player:
-                    ai.player_move(current_player)
+                    ai.player_move(current_player)  # TODO: coords breaking when only one move left??
                 # 10b. if player is a computer, use computer_move method
                 else: 
                     ai.minimax_move(current_player)                

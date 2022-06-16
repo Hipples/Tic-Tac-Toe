@@ -128,35 +128,6 @@ class PlayerSelections(TicTacToeMenus):
                 print()
                 return selection  # returns player selection
 
-    def get_board_option(self):
-        """The get_board_options() method allows players to choose one of two board sizes to play on: 
-
-               [1] 3x3 
-               [2] 5x5
-
-           Always returns to main menu. Default board size is 3x3. 
-        """
-        self.display_board_options()  # displays board options menu
-        # loop prompts, captures, returns, and displays any player selections
-        while True: 
-            option = self.get_player_selection()
-            if option == 1:
-                print("\n\tYou have chosen to play on a 3x3 gameboard!")
-                self.display_welcome_screen() 
-                self.board_option = option
-                return self.board_option  # returns self.board_option with a value of 1
-            if option == 2:
-                print("\n\tYou have chosen to play on a 5x5 gameboard!")
-                self.display_welcome_screen()  
-                self.board_option = option
-                return self.board_option  # returns self.board_option with a value of 2
-            if option == 3:
-                self.display_welcome_screen()  
-                return self.board_option  # returns self.board_option as is
-            # catches invalid inputs and prompts player to try again
-            else:  
-                print("\n\tInvalid input. Please try again.")    
-
     def main_menu(self):
         """The main_menu method first displays the welcome screen/main menu for the Tic Tac Toe game. 
            
@@ -166,11 +137,11 @@ class PlayerSelections(TicTacToeMenus):
            For the player's selection is then prompted, acquired, and applied. 
            Options 1-3 immediately start their respective gameplay loops.            
         """
-        self.display_welcome_screen()  # displays the main menu
         # creates a TicTacToe class object to load chosen game modes
         play = TicTacToe()
         # loop prompts, captures, and applies player selections
         while True:
+            self.display_welcome_screen()  # displays the main menu
             selection = self.get_player_selection()
             if selection == 1:
                 play.game_mode_1()  # loads PvP mode
@@ -193,8 +164,8 @@ class PlayerSelections(TicTacToeMenus):
     def game_over(self):
         """The game_over() method displays the end-of-game screen that allows players the option
         to either return to the main menu or quit out of the program all together."""
-        self.display_game_over_menu()
         while True:  # begins player selection loop
+            self.display_game_over_menu()
             selection = self.get_player_selection()  # acquires player selection via input
             if(selection == 1):  # if 1,
                 self.main_menu()  # returns to main menu
@@ -205,3 +176,32 @@ class PlayerSelections(TicTacToeMenus):
             # else catches invalid inputs and prompts user to try again
             else:
                 print("\n\tInvalid input. Please try again.")
+
+    def get_board_option(self):
+        """The get_board_options() method allows players to choose one of two board sizes to play on: 
+
+               [1] 3x3 
+               [2] 5x5
+
+           Always returns to main menu. Default board size is 3x3. 
+        """
+        # loop prompts, captures, returns, and displays any player selections
+        while True: 
+            self.display_board_options()  # displays board options menu
+            option = self.get_player_selection()
+            if option == 1:
+                print("\n\tYou have chosen to play on a 3x3 gameboard!")
+                self.display_welcome_screen() 
+                self.board_option = option
+                return self.board_option  # returns self.board_option with a value of 1
+            if option == 2:
+                print("\n\tYou have chosen to play on a 5x5 gameboard!")
+                self.display_welcome_screen()  
+                self.board_option = option
+                return self.board_option  # returns self.board_option with a value of 2
+            if option == 3:
+                self.display_welcome_screen()  
+                return self.board_option  # returns self.board_option as is
+            # catches invalid inputs and prompts player to try again
+            else:  
+                print("\n\tInvalid input. Please try again.") 

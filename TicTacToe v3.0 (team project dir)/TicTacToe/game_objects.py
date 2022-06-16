@@ -10,7 +10,7 @@ class TicTacToeBoard:
         """TODO: Initialization docstring..."""
         self.board = []
         self.board_record = []
-        self.player_record = []
+        self.human_record = []
         self.computer_record = []
         self.default = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # default board size
 
@@ -36,7 +36,7 @@ class TicTacToeBoard:
         """Reset the gameboard and any records."""
         self.board = [] # reset to an empty list
         self.board_record = []
-        self.player_record = []
+        self.human_record = []
         self.computer_record = []
 
     def place_marker(self, row, col, player):
@@ -123,12 +123,10 @@ class PlayerActions(TicTacToeBoard):
     """Class contains methods that: allow players to choose their game markers ('X' or 'O'), acquires input from players on their turn, applies the player input to complete thier move, """
     def __init__(self):
         super().__init__()
+
         self.match_records = "tic.tac.toe.txt"
         self.player = ''
         self.opponent = ''
-        self.board_record = []
-        self.computer_record = []
-        self.human_record = []
 
     def swap_player_turn(self, player):
         """Swaps game control between two players."""
@@ -164,12 +162,14 @@ class PlayerActions(TicTacToeBoard):
                 print("\n\n\tGood bye!") # program says good bye,
                 exit() # then ends
             except: # continue looping until valid input is accepted
-                print("\n\tBad input! Try again.\n") # announce when input is invalid
+                print("\n\tInvalid input. Please try again.\n") # announce when input is invalid
             else: # otherwise, reverse engineer our player move by using our determined index
                 move = self.board[row][col] # and assign it to move
                 with open(self.match_records, 'a') as record: # then open our match records and
                     record.write(f"{player}:{move} ") # append each valid player move
                 self.place_marker(row, col, player) # as it happens
+                self.human_record.append(move)  # add move to human records for minimax
+                self.board_record.append(move)  # add move to board records for minimax
                 return False # before ending our loop
 
     def get_coords(self, player):
@@ -180,9 +180,10 @@ class PlayerActions(TicTacToeBoard):
         return coords # return move coordinates
 
 class AI(PlayerActions):
-    """TODO: Class docstring..."""
+    """TODO: Class docstring...."""
 
     def __init__(self):
+        """TODO: init docstring...."""
         super().__init__()
         self.max_score = 10
         self.best_move = 0
@@ -206,7 +207,7 @@ class AI(PlayerActions):
         coords = np.where(self.board == move) # set the move coordinates
         row, col = (int(coords[0])), (int(coords[1])) # assign the proper index of the move
         sleep(2) # (our AI is thinking. . .)
-        print(f"\n\tRandAI chooses square {move}!\n") # announce RandAI's move
+        print(f"\n\tRandom AI chooses square {move}!\n") # announce RandAI's move
         with open(self.match_records, 'a') as record: # open our match records and
             record.write(f"{player}:{move} ") # append each Random AI move
         self.place_marker(row, col, player) # as it happens
@@ -254,13 +255,13 @@ class AI(PlayerActions):
         else:  # otherwise
             self.max_score = 10  # as +10
         if len(self.board_record) >= 5:  # if there are five or more board records,
-            result = self.can_win(player)  # check for winning player and
+            result = self.can_win()  # check for winning player and
             if result == self.opponent:  # if winner is the computer,
-                return 10 + depth  # return depth + 10 
+                return 10 + depth, None  # return depth + 10 
             if result == self.player:  # if winner is human
-                return -10 - depth  # retun depth - 10
+                return -10 - depth, None  # retun depth - 10
             if self.full_board():  # if the board is already rull,
-                return 0  # return 0
+                return 0, None  # return 0
         for move in self.get_open_squares():  # then, for each available move 
             if player == self.opponent:  # if player is the computer
                 self.computer_record.append(move)  # add move to the computer record
@@ -270,13 +271,11 @@ class AI(PlayerActions):
             player = self.swap_player_turn(player)  # and swap players
             score, _ = self.minimax_logic(player, depth + 1)  # before recursively running this method
             player = self.swap_player_turn(player)  # and swapping players again
-
             if player == self.opponent:  # now, if player is the computer
                 self.computer_record.pop()  # remove the most recently appended move from its record
             else:  # otherwise
                 self.human_record.pop()  # remove the most recently appended move from the human record
             self.board_record.pop()  # and finally, remove the most recent move from the board record as well. 
-
             if player == self.opponent:  # next, if the player is the computer,
                 if score > self.max_score:  # and if the current score is greater than our max score
                     self.max_score = score  # set the return variables
@@ -299,11 +298,12 @@ class AI(PlayerActions):
             _, move = self.minimax_logic(player)
         move = str(move)
         coords = np.where(self.board == move)
-        row, col = (int(coords[0])), (int(coords[1]))
+        row, col = (int(coords[0])), (int(coords[1]))  # TODO: coords breaking when only one move left??
         sleep(1)
-        print(f"\n\tMiniMax chooses square {move}!\n")
+        print(f"\n\tMiniMax AI chooses square {move}!\n")
         with open(self.match_records, 'a') as record: 
             record.write(f"{player}:{move} ")
         self.place_marker(row, col, player)
         self.computer_record.append(move)
         self.board_record.append(move)  
+
