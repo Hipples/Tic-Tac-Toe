@@ -1,17 +1,18 @@
 """This module contains our Tic Tac Toe game modes and gameboard settings."""
+import numpy as np
+from menus import PlayerSelections as P
 
 class Settings:
     """Properties for gameplay settings with default values."""
-    def __init__(self, board = 1, gamemode = 1):
-        self.board = board
-        self.gamemode = gamemode
+    def __init__(self, board_size = 1):
+        self.board_size = board_size
 
-    def get_board(self):
-        return self.board
-    def set_board(self, value):
-        self.board = value
+    def board_option(self):
+        set = P()
+        set.display_board_options()
+        option = set.gameboard_options()
+        if option == 1:
+            return self.default_board
+        if option == 2:
+            return self.larger_board\
 
-    def get_gamemode(self):
-        return self.gamemode    
-    def set_gamemode(self, value):
-        self.gamemode = value

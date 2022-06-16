@@ -1,12 +1,9 @@
 """Tic Tac Toe CLI Application"""
-from menus import TicTacToeMenus, PlayerSelections
+from menus import PlayerSelections
 
 def run():
-
-    load = TicTacToeMenus()
-    select = PlayerSelections()
-
     """Run the program."""
+    load = PlayerSelections()
+
     while True:
-        load.display_welcome_screen()
-        select.main_menu_options()
+        load.main_menu()

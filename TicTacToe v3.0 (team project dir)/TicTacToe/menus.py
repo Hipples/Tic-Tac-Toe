@@ -6,17 +6,12 @@ The parent class contains methods to create and display three game menus:
 (3) gameover screen
 
 The child class prompts, acquires, and applies the chosen menu options via user input."""
-# import game settings module
-from settings import Settings
 from gameplay import TicTacToe
-
-set = Settings()
-play = TicTacToe()
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
     def __init__(self):
-        pass
+        self.select = 0
 
     def create_welcome_screen(self):
         """Creates the welcome screen to be displayed upon startup. Main menu."""
@@ -95,64 +90,67 @@ class TicTacToeMenus:
         """Prints gameboard options menu to CLI."""
         print(self.create_board_options())
 
+
 class PlayerSelections(TicTacToeMenus):
     """Captures and applies player selections from game menu options."""
     def __init__(self):
-        pass
+        super().__init__()
 
     def get_player_selection(self):
         """Captures player input, converts to integer, and returns selection."""
         while True:
             try:
-                selection = int(input("\n\tPlayer Selection: "))
+                self.select = int(input("\n\tPlayer Selection: "))
             except ValueError:  # catches inputs that cannot convert to int
+                print()
                 print("\n\tInvalid input. Please enter the number of your selection.")
             except KeyboardInterrupt:  # ensures ctrl + c allows players to quit the program
+                print()
                 print("\n\tGood bye!\n")
                 exit()
             else:
                 print()
-                return selection
+                return self.select
 
     def gameboard_options(self):
         """Allows selection of gameboard options. Returns to main menu."""
         while True:  # loop prompts, captures, applies, and displays player selections
-            option = self.get_player_selection()
-            if option == 1:
-                setting = set(board=option)
+            self.select = self.get_player_selection()
+
+            if self.select == 1:
                 print("\n\tYou have chosen to play on a 3x3 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                return setting
-            if option == 2:
-                set(board = option)
+                return self.select
+            if self.select == 2:
                 print("\n\tYou have chosen to play on a 5x5 gameboard!")
                 self.display_welcome_screen()  # returns to welcome screen
-                break
-            if option == 3:
-                set()
+                return self.select
+            if self.select == 3:
                 self.display_welcome_screen()  # returns to welcome screen
                 break
             else:  # catches invalid inputs and prompts player to try again
                 print("\n\tInvalid input. Please try again.")    
 
-    def main_menu_options(self):
+    def main_menu(self):
         """Allows selection of gameplay options from main menu. Starts specified gamemode."""
+        self.display_welcome_screen()
+        play = TicTacToe()
         while True:  # loop prompts, captures, and applies player selections
-            option = self.get_player_selection()
-            if option == 1:
+            self.select = self.get_player_selection()
+            if self.select == 1:
                 play.game_mode_1()
                 break  # loads PvP mode
-            if option == 2:
+            if self.select == 2:
                 play.game_mode_2()
                 break  # loads PvE (random AI) mode
-            if option == 3:
+            if self.select == 3:
                 play.game_mode_3()
                 break  # loads PvE (minimax AI) mode
-            if option == 4:  
+            if self.select == 4:  
                 self.display_board_options()
                 setting = self.gameboard_options()
                 return setting  # selects board option, then returns to main menu
-            if option == 5:  
+            if self.select == 5:  
                 print("\n\tGood bye!\n")
                 exit()  # quits out of program
             else:
