@@ -156,3 +156,13 @@ class PlayerSelections(TicTacToeMenus):
             else:
                 print("\n\tInvalid input. Please try again.")
             # catches invalid inputs and prompts player to try again
+
+    def game_over(self):
+        self.display_game_over_screen()
+        while True:
+            self.select = self.get_player_selection()
+            if(self.select == 1): 
+                self.main_menu()
+            if(self.select == 2):
+                print("\n\tGood bye!\n")
+                exit()

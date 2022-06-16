@@ -160,7 +160,7 @@ class PlayerActions(TicTacToeBoard):
             except KeyboardInterrupt: # enable Ctrl + c to end program during player input
                 print("\n\n\tGood bye!") # program says good bye,
                 exit() # then ends
-            except ValueError: # continue looping until valid input is accepted
+            except: # continue looping until valid input is accepted
                 print("\n\tBad input! Try again.\n") # announce when input is invalid
             else: # otherwise, reverse engineer our player move by using our determined index
                 move = self.board[row][col] # and assign it to move

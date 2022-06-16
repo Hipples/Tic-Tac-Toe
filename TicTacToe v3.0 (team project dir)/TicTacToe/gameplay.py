@@ -5,8 +5,7 @@ from game_objects import PlayerActions, AI
 
 class TicTacToe:
     def __init__(self):
-        pass
-        
+        pass        
 
 # OC
     def coin_flip(self):  # winner goes first

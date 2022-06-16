@@ -16,3 +16,4 @@ class Settings:
         if option == 2:
             return self.larger_board\
 
+# this is a failing idea...

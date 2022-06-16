@@ -7,3 +7,4 @@ def run():
 
     while True:
         load.main_menu()
+        load.game_over()

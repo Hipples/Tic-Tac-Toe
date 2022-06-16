@@ -7,3 +7,19 @@ Player X won the game!
 New Game!
 O:3 X:9 O:1 X:4 O:2 
 Player O won the game!
+
+
+New Game!
+O:1 X:2 O:3 X:4 O:5 X:6 O:7 
+Player O won the game!
+
+
+New Game!
+O:6 X:1 O:2 
+
+New Game!
+O:1 X:5 O:2 X:4 
+
+New Game!
+O:1 X:2 O:3 X:8 O:4 X:5 
+Player X won the game!
