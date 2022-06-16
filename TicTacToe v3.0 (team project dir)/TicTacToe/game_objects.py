@@ -15,6 +15,7 @@ class TicTacToeBoard:
         self.default = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # default board values
         self.big = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', 
                     '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25'] # big board values
+        self.size = 1
 
     def create_board(self):
         """Create a 3x3 gameboard."""
@@ -66,18 +67,29 @@ class TicTacToeBoard:
         """Places the player marker (X or O) in the designated square."""
         self.board[row][col] = player # use move coordinates to place marker in the chosen square
 
-    def is_board_full(self):
-        """Determines if gameboard is full (DRAW)."""
+    def is_board_full(self, board_size = 1):
+        """Determines if gameboard is full (DRAW) for both board sizes."""
         for row in self.board: # for each row on the board,
             for square in row: # and for each square in said row,
-                if square in self.default: # if the square value is in our list of empty squares
-                    return False # return False
+                if board_size == 1:
+                    if square in self.default: 
+                        return False 
+                if board_size == 2:
+                    if square in self.big:
+                        return False
         return True # otherwise return True
 
     def is_winner_by_row(self, board, player):
-        """Checks for horizontal winning patterns."""
+        """Checks for horizontal winning patterns on the default board."""
         for row in range(3):
             if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+                if board[row][0] == player:
+                    return True
+    
+    def is_winner_by_big_row(self, board, player):
+        """Checks for horizontal winning patterns on the big board."""
+        for row in range(5):
+            if board[row][0] == board[row][1] and board[row][1] == board[row][2] and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
                 if board[row][0] == player:
                     return True
 
@@ -297,8 +309,3 @@ class AI(PlayerActions):
         self.place_marker(row, col, player)
         self.computer_record.append(move)
         self.board_record.append(move)  
-
-# test
-test = TicTacToeBoard()
-test.create_big_board()
-test.display_big_board()
