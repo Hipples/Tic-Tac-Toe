@@ -12,7 +12,9 @@ class TicTacToeBoard:
         self.board_record = []
         self.human_record = []
         self.computer_record = []
-        self.default = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # default board size
+        self.default = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] # default board values
+        self.big = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', 
+                    '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25'] # big board values
 
     def create_board(self):
         """Create a 3x3 gameboard."""
@@ -20,8 +22,14 @@ class TicTacToeBoard:
             self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
         self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
 
+    def create_big_board(self):
+        """Create a 5x5 gameboard."""
+        for i in np.arange(1, 26).astype(str):
+            self.board.append(i)
+        self.board = np.reshape(self.board, (5, 5))
+
     def display_board(self):
-        """Display current gameboard."""
+        """Display current, classic gameboard."""
         print('\t-------------------------------')
         for row in self.board:
             print('\t|         |         |         |')
@@ -31,6 +39,21 @@ class TicTacToeBoard:
             print()
             print('\t|         |         |         |')
             print('\t-------------------------------')
+
+    def display_big_board(self):
+        """Display current, big gameboard"""
+        print('\t---------------------------------------------------')
+        for row in self.board:
+            print('\t|         |         |         |         |         |')
+            print('\t|', end = '')
+            for item in row:
+                if int(item) < 10:
+                    print(f'    {item}    |', end = '')
+                if int(item) > 9:
+                    print(f'    {item}   |', end = '')
+            print()
+            print('\t|         |         |         |         |         |')
+            print('\t---------------------------------------------------')     
 
     def reset_board(self):
         """Reset the gameboard and any records."""
@@ -51,73 +74,41 @@ class TicTacToeBoard:
                     return False # return False
         return True # otherwise return True
 
-    def is_winner(self, board, player):
-        """Checks gameboard for winning patterns."""
-        win = None
-        # check rows for win
+    def is_winner_by_row(self, board, player):
+        """Checks for horizontal winning patterns."""
         for row in range(3):
             if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
                 if board[row][0] == player:
-                    win = True
-            if win:
-                return win
-        # check columns for win
+                    return True
+
+    def is_winner_by_col(self, board, player):
+        """Checks for vertical winning patterns."""
         for col in range(3):
             if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
                 if board[0][col] == player:
-                    win = True
-            if win:
-                return win
+                    return True
+
+    def is_winner_by_diag(self, board, player):
+        """Checks for diagonal winning patterns."""  
         # check descending diagonal for win
         if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
             if board[0][0] == player:
-                win = True
-        if win:
-            return win
+                return True
         # check ascending diagonal for win
         if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
             if board[0][2] == player:
-                win = True
-        if win:
-            return win
+                return True
 
-
-# refactoring is_winner(self)
-
-    # def is_winner_by_row(self, board, player):
-    #     """Checks for horizontal winning patterns."""
-    #     for row in range(3):
-    #         if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
-    #             if board[row][0] == player:
-    #                 return True
-
-    # def is_winner_by_col(self, board, player):
-    #     """Checks for vertical winning patterns."""
-    #     for col in range(3):
-    #         if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
-    #             if board[0][col] == player:
-    #                 return True
-
-    # def is_winner_by_diag(self, board, player):
-    #     """Checks for diagonal winning patterns."""  
-    #     # check descending diagonal for win
-    #     if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
-    #         if board[0][0] == player:
-    #             return True
-    #     # check ascending diagonal for win
-    #     if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
-    #         if board[0][2] == player:
-    #             return True
-
-    # def is_winner(self, board, player):
-    #     win = False
-    #     if self.is_winner_by_row(board, player):
-    #         win = True
-    #     if self.is_winner_by_col(board, player):
-    #         win = True
-    #     if self.is_winner_by_diag(board, player):
-    #         win = True
-    #     return win
+    def is_winner(self, board, player):
+        """TODO: method docstring...."""
+        win = False
+        if self.is_winner_by_row(board, player):
+            win = True
+        if self.is_winner_by_col(board, player):
+            win = True
+        if self.is_winner_by_diag(board, player):
+            win = True
+        return win
 
 class PlayerActions(TicTacToeBoard):
     """Class contains methods that: allow players to choose their game markers ('X' or 'O'), acquires input from players on their turn, applies the player input to complete thier move, """
@@ -307,3 +298,7 @@ class AI(PlayerActions):
         self.computer_record.append(move)
         self.board_record.append(move)  
 
+# test
+test = TicTacToeBoard()
+test.create_big_board()
+test.display_big_board()
