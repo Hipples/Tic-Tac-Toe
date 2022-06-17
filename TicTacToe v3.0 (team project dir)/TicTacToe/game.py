@@ -257,10 +257,22 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
-    def tic_tac_toe(self, mode, board):
-        if self.mode == 1 and self.board == 1:
-            self.game_mode_1()
-        if self.mode == 2 and self.board == 1:
-            self.game_mode_2()
-        if self.mode == 3 and self.board == 1:
-            self.game_mode_3()
+    def tic_tac_toe(self):
+        mode = self.mode
+        board = self.board
+
+        if mode == 1: 
+            if board == 1:
+                self.game_mode_1()
+            elif board == 2:
+                print("Would play PvP mode with 5x5 board!")
+        elif mode == 2:
+            if board == 1:
+                self.game_mode_2()
+            elif board == 2:
+                print("Would play vs Random AI on 5x5 board!")
+        elif mode == 3:
+            if board == 1:
+                self.game_mode_3()
+            elif board == 2:
+                print("Would play vs minimax AI on 5x5 board!")

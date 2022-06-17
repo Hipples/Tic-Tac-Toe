@@ -150,13 +150,11 @@ class PlayerSelections(TicTacToeMenus):
             option = self.get_player_selection()
             if option == 1:
                 self._size = option  # updates board size in settings?
-                mode, board = self.game_settings()
                 print("\n\tYou have chosen to play on the classic, 3x3, gameboard!")
                 self.main_menu()
                 return self._size
             if option == 2:
                 self._size = option  # updates board size in settings?
-                mode, board = self.game_settings()
                 print("\n\tYou have chosen to play on the big, 5x5, gameboard!")
                 self.main_menu()
                 return self._size
@@ -184,7 +182,7 @@ class PlayerSelections(TicTacToeMenus):
                 self._mode = selection
                 mode, board = self.game_settings()
                 play = TicTacToe(mode, board)
-                play.tic_tac_toe(mode, board)
+                play.tic_tac_toe()
                 break
             elif selection == 4:
                 self.board_options()  # loads board options menu
