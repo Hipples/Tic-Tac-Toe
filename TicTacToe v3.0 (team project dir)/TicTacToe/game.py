@@ -3,6 +3,7 @@
 import random
 from time import sleep
 from game_objects import PlayerActions, AI
+from settings import Settings as Set
 
 class TicTacToe:
     """game's TicTacToe class contains the following methods:
@@ -255,3 +256,12 @@ class TicTacToe:
             # 16. replay option
             if self.replay() == False:
                 break
+
+    def tic_tac_toe(self):
+        game = Set()
+        if game.mode == 1 and game.board == 1:
+            self.game_mode_1()
+        if game.mode == 2 and game.board == 1:
+            self.game_mode_2()
+        if game.mode == 3 and game.board == 1:
+            self.game_mode_3()
