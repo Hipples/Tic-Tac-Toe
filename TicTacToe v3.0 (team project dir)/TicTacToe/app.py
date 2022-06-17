@@ -1,11 +1,14 @@
-"""Tic Tac Toe CLI Application"""
+"""
+This module is designed to load menus for our tic tac toe application at startup and shutdown.
+"""
 from menus import PlayerSelections
 
 def run():
-    """Run the program."""
+    """The run() function loads the tic tac toe program's main menus."""
     load = PlayerSelections()
+
     while True:
-        load.main_menu()
+        load.main_menu()  # startup options
         print()
         while True:
-            load.game_over()
+            load.game_over()  # shutdown options
