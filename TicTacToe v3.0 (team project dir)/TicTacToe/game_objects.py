@@ -89,9 +89,9 @@ class TicTacToeBoard:
             print('\t|         |         |         |         |         |')
             print('\t|', end = '')
             for item in row:
-                if int(item) < 10:
+                if item in self.classic:
                     print(f'    {item}    |', end = '')
-                if int(item) > 9:
+                else:
                     print(f'    {item}   |', end = '')
             print()
             print('\t|         |         |         |         |         |')
@@ -239,7 +239,7 @@ class PlayerActions(TicTacToeBoard):
 
     def get_coords(self, player):
         """The method get_coords() determines the coordinates of the 'empty' square value provided."""
-        move = self.player_turn(player)  # retrieve player move from human_moves() method
+        move = self.player_turn(player)  # retrieve player move from human_moves() method     
         coords = []  # declare empty list to store move coordinates
         coords = np.where(self.board == move)  # determine move coordinates
         return coords  # return move coordinates
