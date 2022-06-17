@@ -56,7 +56,7 @@ class TicTacToeBoard:
         self.classic = ['1', '2', '3', '4', '5', '6', '7', '8', '9']  # classic board values
         self.big = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13',
                     '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25']  # big board values
-        self.default_size = 1  # defaults to classic board
+        self.board_option = 1  # defaults to classic board
 
     def create_board(self):
         """The method create_board() generates a classic, 3x3, gameboard."""
@@ -292,14 +292,19 @@ class AI(PlayerActions):
             - self.max_score                x. defaults to 10, returned from minimax_logic()
             - self.best_move                x. defaults to 0, returned from minimax_logic()
             - self.winning_patterns         x. list of all winning patterns in the classic board
-            - self.big_winning_patterns     x. list of all winning patterns in the big board
+            - self.big_win_patterns         x. list of all winning patterns in the big board
         """
         super().__init__()
         self.max_score = 10
         self.best_move = 0
-        self.winning_patterns = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], 
+        self.winning_patterns = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'],
                                  ['1', '4', '7'], ['2', '5', '8'], ['3', '6', '9'],
                                  ['1', '5', '9'], ['3', '5', '7']]
+        self.big_win_patterns = [[ '1',  '2',  '3',  '4',  '5'], [ '1',  '6', '11', '16', '21'], 
+                                 [ '6',  '7',  '8',  '9', '10'], [ '2',  '7', '12', '17', '22'],
+                                 ['11', '12', '13', '14', '15'], [ '3',  '8', '13', '18', '23'],
+                                 ['16', '17', '18', '19', '20'], [ '4',  '9', '14', '19', '24'], [ '1',  '7', '13', '19', '25'],
+                                 ['21', '22', '23', '24', '25'], [ '5', '10', '15', '20', '25'], [ '5',  '9', '13', '17', '21']]
 
     def random_logic(self):
         """Returns a random, available, square number from the current gameboard."""
@@ -325,8 +330,8 @@ class AI(PlayerActions):
     def get_open_squares(self):
         """TODO: method docstring...."""
         squares = []
-        for row in list(set(self.classic) - set(self.board_record)):
-            squares.append(row)
+        for square in list(set(self.classic) - set(self.board_record)):
+            squares.append(square)
         return squares
 
     def can_win(self):
@@ -344,19 +349,29 @@ class AI(PlayerActions):
         else:
             return False
 
+    def first_move(self, board_option = 1):
+        self.board_option = board_option
+        if self.board_option == 1: 
+            move = random.choices([1, 3, 7, 9])[0]
+            return move
+        if self.board_option == 2:
+            move = random.choices([1, 5, 21, 25])[0]
+            return move
+        return False
+
     def urgent_move(self):
         """TODO: method docstring...."""
         for win in self.winning_patterns:
-            if len(list(set(win) - set(self.computer_record))) == 1:
-                if len(list((set(win) - set(self.board_record)))) > 0:
-                    move = list((set(win) - set(self.board_record)))[0]
+            if len(list(set(win) - set(self.computer_record))) == 1 and len(set(self.computer_record)) > 1:
+                move = list(set(win) - set(self.computer_record))[0]
+                if move not in set(self.human_record):
                     return move
-            for win in self.winning_patterns:
-                if len(list(set(win) - set(self.human_record))) == 1:
-                    if len(list((set(win) - set(self.board_record)))) > 0:
-                        move = list((set(win) - set(self.board_record)))[0]
-                        return move
-                return False
+        for win in self.winning_patterns:
+            if len(list(set(win) - set(self.human_record))) == 1 and len(set(self.human_record)) > 1:
+                move = list(set(win) - set(self.board_record))[0]
+                if move not in set(self.computer_record):
+                    return move
+        return False
 
     def minimax_logic(self, player, depth = 0):
         """TODO: method docstring...."""
@@ -398,12 +413,14 @@ class AI(PlayerActions):
 
     def minimax_move(self, player):
         """TODO: method docstring...."""
-        if len(self.computer_record) == 0 and len(self.human_record) == 0:
-            move = self.random_logic()
-        elif len(self.board_record) == 0 and len(self.human_record) == 0:
+        if len(self.board_record) == 0:  # best first move is a corner
+            move = self.first_move()
+        elif len(self.board_record) == 8:  # check if last move
+            move = self.get_open_squares()[0]
+        elif len(self.human_record) > 1 or len(self.computer_record) > 1:
             move = self.urgent_move()
             if move == False:
-                _, move = self.minimax_logic(player)
+                _, move = self.minimax_logic(player)  # _ is a throwaway variable
         else:
             _, move = self.minimax_logic(player)
         move = str(move)

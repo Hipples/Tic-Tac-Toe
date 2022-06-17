@@ -169,18 +169,18 @@ class TicTacToe:
                 self.boardRecord.append(move)
                 return False # before ending our loop
     def immediateMove(self):
-            for w in self.winList:
-                if len(list(set(w)-set(self.computerRecord))) ==1 :
+        for w in self.winList:
+            if len(list(set(w)-set(self.computerRecord))) ==1 :
+                if len(list((set(w)-set(self.boardRecord))))>0:
+                    move =  list((set(w)-set(self.boardRecord)))[0]
+                    return move
+        else:
+            for w in self.winList:   
+                if  len(list(set(w)-set(self.humanRecord))) ==1:
                     if len(list((set(w)-set(self.boardRecord))))>0:
                         move =  list((set(w)-set(self.boardRecord)))[0]
-                        return move
-            else:
-                for w in self.winList:   
-                    if  len(list(set(w)-set(self.humanRecord))) ==1:
-                        if len(list((set(w)-set(self.boardRecord))))>0:
-                            move =  list((set(w)-set(self.boardRecord)))[0]
-                            return move      
-                else: return False
+                        return move      
+            else: return False
     # capture Random AI moves -->
     def computer_move(self, player):
         # index = len(self.computerRecord)
