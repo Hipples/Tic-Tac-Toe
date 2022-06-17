@@ -9,6 +9,5 @@ def run():
 
     while True:
         load.main_menu()  # startup options
-        print()
         while True:
             load.game_over()  # shutdown options

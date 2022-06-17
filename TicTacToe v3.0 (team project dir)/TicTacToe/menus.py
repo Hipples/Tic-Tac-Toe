@@ -160,6 +160,7 @@ class PlayerSelections(TicTacToeMenus):
                 return self._size
             if option == 3:
                 self.main_menu()
+                break
             # catches invalid inputs and prompts player to try again
             else:  
                 print("\n\tInvalid input. Please try again.") 
@@ -186,6 +187,7 @@ class PlayerSelections(TicTacToeMenus):
                 break
             elif selection == 4:
                 self.board_options()  # loads board options menu
+                break
             elif selection == 5:
                 print("\n\tGood bye!\n")
                 exit()  # quits out of program 

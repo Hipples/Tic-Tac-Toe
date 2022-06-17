@@ -29,7 +29,7 @@ class TicTacToe:
         if replay.lower() == 'n':
             return False
   
-    def game_mode_1(self):
+    def classic_mode_1(self):
         """Classic PvP Mode. Game loop."""
         # initialize game objects from PlayerActions class
         action = PlayerActions()
@@ -97,7 +97,7 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
-    def game_mode_2(self):
+    def classic_mode_2(self):
         """PvE Mode - Easy. Random AI opponent. Game loop."""
         # initialize game objects from AI class
         ai = AI()
@@ -177,7 +177,7 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
-    def game_mode_3(self):
+    def classic_mode_3(self):
         """PvE Mode - Hard. Minimax AI opponent. Game loop."""
         # initialize game objects from AI class
         ai = AI()
@@ -257,22 +257,37 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
+    def big_mode_1(self):
+        pass
+
+    def big_mode_2(self):
+        pass
+
+    def big_mode_3(self):
+        pass
+
     def tic_tac_toe(self):
         mode = self.mode
         board = self.board
 
         if mode == 1: 
             if board == 1:
-                self.game_mode_1()
+                print("\tYou have chosen PvP mode on a 3x3 board!")
+                self.classic_mode_1()
             elif board == 2:
-                print("Would play PvP mode with 5x5 board!")
+                print("\tYou have chosen PvP mode on a 5x5 board!")
+                self.big_mode_1()
         elif mode == 2:
             if board == 1:
-                self.game_mode_2()
+                print("\tYou have chosen to challenge the Random AI on a 3x3 board!")
+                self.classic_mode_2()
             elif board == 2:
-                print("Would play vs Random AI on 5x5 board!")
+                print("\tYou have chosen to challenge the Random AI on a 5x5 board!")
+                self.big_mode_2()
         elif mode == 3:
             if board == 1:
-                self.game_mode_3()
+                print("\tYou have chosen to challenge the MiniMax AI on a 3x3 board!")
+                self.classic_mode_3()
             elif board == 2:
-                print("Would play vs minimax AI on 5x5 board!")
+                print("\tYou have chosen to challenge the MiniMax AI on a 5x5 board!")
+                self.big_mode_3()

@@ -6,3 +6,16 @@ Player vs Random AI! Game on!
 Player vs MiniMax AI! Game on!
 X:9 O:5 X:3 O:6 X:4 O:7 X:2 O:1 X:8 
 Match was a draw!
+
+
+Player vs MiniMax AI! Game on!
+O:9 
+
+Player vs MiniMax AI! Game on!
+O:3 X:5 O:9 X:6 O:4 X:2 O:8 X:7 O:1 
+Match was a draw!
+
+
+Player vs MiniMax AI! Game on!
+O:1 X:5 O:2 X:3 O:7 X:4 O:6 X:8 O:9 
+Match was a draw!
