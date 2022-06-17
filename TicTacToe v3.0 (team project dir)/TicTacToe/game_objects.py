@@ -53,10 +53,16 @@ class TicTacToeBoard:
         self.board_record = []
         self.human_record = []
         self.computer_record = []
-        self.classic = ['1', '2', '3', '4', '5', '6', '7', '8', '9']  # classic board values
-        self.big = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13',
-                    '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25']  # big board values
+        self.classic = ['1', '2', '3',  # classic board values
+                        '4', '5', '6', 
+                        '7', '8', '9']  
         self.board_option = 1  # defaults to classic board
+        self.big = [' 1', ' 2', ' 3', ' 4', ' 5',  # big board values
+                    ' 6', ' 7', ' 8', ' 9', '10', 
+                    '11', '12', '13', '14', '15', 
+                    '16', '17', '18', '19', '20', 
+                    '21', '22', '23', '24', '25']  
+
 
     def create_board(self):
         """The method create_board() generates a classic, 3x3, gameboard."""
