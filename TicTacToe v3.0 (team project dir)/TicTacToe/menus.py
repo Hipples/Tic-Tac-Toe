@@ -7,9 +7,7 @@ The parent class contains methods to create and display three game menus:
 
 The child class prompts, acquires, and applies the chosen menu options via user input."""
 
-from settings import Settings
 from game import TicTacToe
-game = Settings()
 
 class TicTacToeMenus:
     """Creates and displays menus with player options for a Tic Tac Toe game."""
@@ -18,28 +16,28 @@ class TicTacToeMenus:
 
     def create_welcome_screen(self):
         """Creates the welcome screen to be displayed upon startup. Main menu."""
-        startup =  "\t __________________________________________________ \n"
-        startup += "\t|                                                  |\n"
-        startup += "\t|            TIC TAC TOE - Xs AND Os               |\n"
-        startup += "\t|                                                  |\n"
-        startup += "\t|--------------------------------------------------|\n"
-        startup += "\t|                                                  |\n"
-        startup += "\t|  Welcome Player(s)!                              |\n"
-        startup += "\t|                                                  |\n"        
-        startup += "\t|  To continue, enter an option below:             |\n"
-        startup += "\t|--------------------------------------------------|\n" 
-        startup += "\t|                                                  |\n"
-        startup += "\t|  [1]: Player vs Player                           |\n"
-        startup += "\t|                                                  |\n"
-        startup += "\t|  [2]: Player vs Computer (random AI)             |\n"
-        startup += "\t|                                                  |\n"
-        startup += "\t|  [3]: Player vs Computer (minimax AI)            |\n"
-        startup += "\t|                                                  |\n"       
-        startup += "\t|  [4]: Gameboard Options                          |\n"
-        startup += "\t|                                                  |\n"     
-        startup += "\t|  [5]: Quit                                       |\n"
-        startup += "\t|__________________________________________________|\n"
-        return(startup)
+        main_menu =  "\t __________________________________________________ \n"
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|            TIC TAC TOE - Xs AND Os               |\n"
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|--------------------------------------------------|\n"
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|  Welcome Player(s)!                              |\n"
+        main_menu += "\t|                                                  |\n"        
+        main_menu += "\t|  To continue, enter an option below:             |\n"
+        main_menu += "\t|--------------------------------------------------|\n" 
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|  [1]: Player vs Player                           |\n"
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|  [2]: Player vs Computer (random AI)             |\n"
+        main_menu += "\t|                                                  |\n"
+        main_menu += "\t|  [3]: Player vs Computer (minimax AI)            |\n"
+        main_menu += "\t|                                                  |\n"       
+        main_menu += "\t|  [4]: Gameboard Options                          |\n"
+        main_menu += "\t|                                                  |\n"     
+        main_menu += "\t|  [5]: Quit                                       |\n"
+        main_menu += "\t|__________________________________________________|\n"
+        return(main_menu)
 
     def display_welcome_screen(self):
         """Prints welcome screen to CLI."""
@@ -64,7 +62,7 @@ class TicTacToeMenus:
         game_over += "\t|__________________________________________________|\n"
         return(game_over)
 
-    def display_game_over_menu(self):
+    def display_game_over_screen(self):
         """The display_game_over_screen() method prints the Game Over menu to the CLI."""
         print(self.create_game_over_screen())
 
@@ -105,10 +103,15 @@ class PlayerSelections(TicTacToeMenus):
 
             - self.board_option         x. default = 1 --> the classic 3x3 gameboard
     """
-    def __init__(self, mode = 0, board = 1):
+    def __init__(self):
         super().__init__()
-        self.board_option = board
-        self.mode_option = mode
+        self._size = 1
+        self._mode = 1
+    
+    def game_settings(self):
+        board = self._size
+        mode = self._mode
+        return mode, board
 
     def get_player_selection(self):
         """The get_player_selection() method captures player input, converts to integer, and returns selection.
@@ -132,9 +135,9 @@ class PlayerSelections(TicTacToeMenus):
                 print()
                 return selection  # returns player selection
 
-    def get_board_options(self):
+    def board_options(self):
         """
-        The get_board_options() method allows players to choose one of two board sizes to play on: 
+        The board_options() method allows players to choose one of two board sizes to play on: 
 
             [1] 3x3 
             [2] 5x5
@@ -146,13 +149,17 @@ class PlayerSelections(TicTacToeMenus):
             self.display_board_options()  # displays board options menu
             option = self.get_player_selection()
             if option == 1:
-                game.board = option  # updates board size in settings?
+                self._size = option  # updates board size in settings?
+                mode, board = self.game_settings()
                 print("\n\tYou have chosen to play on the classic, 3x3, gameboard!")
                 self.main_menu()
+                return self._size
             if option == 2:
-                game.board = option
+                self._size = option  # updates board size in settings?
+                mode, board = self.game_settings()
                 print("\n\tYou have chosen to play on the big, 5x5, gameboard!")
-                self.main_menu() 
+                self.main_menu()
+                return self._size
             if option == 3:
                 self.main_menu()
             # catches invalid inputs and prompts player to try again
@@ -169,17 +176,19 @@ class PlayerSelections(TicTacToeMenus):
         For the player's selection is then prompted, acquired, and applied. 
         Options 1-3 immediately start their respective gameplay loops.            
         """
-        play = TicTacToe()
         # loop prompts, captures, and applies player selections
         while True:
             self.display_welcome_screen()  # displays the main menu
             selection = self.get_player_selection()
             if selection in [1, 2, 3]:
-                game.mode = selection
-                play.tic_tac_toe()
-            if selection == 4:
-                self.get_board_options()  # loads board options menu
-            if selection == 5:
+                self._mode = selection
+                mode, board = self.game_settings()
+                play = TicTacToe(mode, board)
+                play.tic_tac_toe(mode, board)
+                break
+            elif selection == 4:
+                self.board_options()  # loads board options menu
+            elif selection == 5:
                 print("\n\tGood bye!\n")
                 exit()  # quits out of program 
             # else catches invalid inputs and prompts user to try again
@@ -190,11 +199,11 @@ class PlayerSelections(TicTacToeMenus):
         """The game_over() method displays the end-of-game screen that allows players the option
         to either return to the main menu or quit out of the program all together."""
         while True:  # begins player selection loop
-            self.display_game_over_menu()
+            self.display_game_over_screen()
             selection = self.get_player_selection()  # acquires player selection via input
             if(selection == 1):  # if 1,
                 self.main_menu()  # returns to main menu
-                break  # and ends loop
+                break
             if(selection == 2):  # if 2, 
                 print("\n\tGood bye!\n")  # prints "Good bye!"
                 exit()  # and exits program entirely

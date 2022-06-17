@@ -368,7 +368,7 @@ class AI(PlayerActions):
                     return move
         for win in self.winning_patterns:
             if len(list(set(win) - set(self.human_record))) == 1 and len(set(self.human_record)) > 1:
-                move = list(set(win) - set(self.board_record))[0]
+                move = list(set(win) - set(self.human_record))[0]
                 if move not in set(self.computer_record):
                     return move
         return False

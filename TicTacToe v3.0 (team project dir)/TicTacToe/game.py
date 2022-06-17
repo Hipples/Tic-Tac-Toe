@@ -3,7 +3,6 @@
 import random
 from time import sleep
 from game_objects import PlayerActions, AI
-from settings import Settings as Set
 
 class TicTacToe:
     """game's TicTacToe class contains the following methods:
@@ -13,8 +12,9 @@ class TicTacToe:
             - game_mode_2()     x. Player vs Random AI game loop
             - game_mode_3()     x. Player vs MiniMax AI game loop
     """
-    def __init__(self):
-        pass
+    def __init__(self, mode, board):
+        self.mode = mode
+        self.board = board
 
     def coin_flip(self):  # winner goes first
         """Returns either 0 or 1, randomly."""
@@ -257,11 +257,10 @@ class TicTacToe:
             if self.replay() == False:
                 break
 
-    def tic_tac_toe(self):
-        game = Set()
-        if game.mode == 1 and game.board == 1:
+    def tic_tac_toe(self, mode, board):
+        if self.mode == 1 and self.board == 1:
             self.game_mode_1()
-        if game.mode == 2 and game.board == 1:
+        if self.mode == 2 and self.board == 1:
             self.game_mode_2()
-        if game.mode == 3 and game.board == 1:
+        if self.mode == 3 and self.board == 1:
             self.game_mode_3()
