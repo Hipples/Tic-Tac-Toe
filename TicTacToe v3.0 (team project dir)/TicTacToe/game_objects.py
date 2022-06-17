@@ -195,7 +195,7 @@ class PlayerActions(TicTacToeBoard):
     The class PlayerActions is the child class of TicTacToeBoard and the parent class of AI.
     This class contains methods designed to swap player turns, assign player markers (X or O), and acquire and apply player move choices.
 
-    Class methods list includes:
+    Class methods include:
 
         - choose_marker()
         - assign_markers()
@@ -217,10 +217,6 @@ class PlayerActions(TicTacToeBoard):
         self.player = ''
         self.opponent = ''
 
-    def swap_player_turn(self, player):
-        """The method swap_player_turn() swaps game control between the two players."""
-        return 'X' if player == 'O' else 'O'
-
     def choose_marker(self):
         """The method choose_marker() allows the main player to choose to be X or O."""
         marker = ' '  # declare marker variable as empty string
@@ -240,6 +236,13 @@ class PlayerActions(TicTacToeBoard):
         move = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
         print(f"\n\tYou chose square {move}!")  # acquire player input to determine desired move
         return move  # return chosen square value
+
+    def get_coords(self, player):
+        """The method get_coords() determines the coordinates of the 'empty' square value provided."""
+        move = self.player_turn(player)  # retrieve player move from human_moves() method
+        coords = []  # declare empty list to store move coordinates
+        coords = np.where(self.board == move)  # determine move coordinates
+        return coords  # return move coordinates
 
     def player_move(self, player):
         """The player_move() method captures, records, and fulfills human moves while handling exceptions."""
@@ -261,18 +264,36 @@ class PlayerActions(TicTacToeBoard):
                 self.board_record.append(move)  # add move to board records for minimax
                 return False  # before ending our loop
 
-    def get_coords(self, player):
-        """The method get_coords() determines the coordinates of the 'empty' square value provided."""
-        move = self.player_turn(player)  # retrieve player move from human_moves() method
-        coords = []  # declare empty list to store move coordinates
-        coords = np.where(self.board == move)  # determine move coordinates
-        return coords  # return move coordinates
+    def swap_player_turn(self, player):
+        """The method swap_player_turn() swaps game control between the two players."""
+        return 'X' if player == 'O' else 'O'
 
 class AI(PlayerActions):
-    """TODO: Class docstring...."""
+    """
+    The class AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard.
+    This class contains methods designed to activate a random AI and a minimax AI opponent for
+    their respective gamemodes.
 
+    Class methods include:
+
+        - random_logic()
+        - random_moves()
+        - get_open_squares()
+        - can_win()
+        - full_board()
+        - urgent_move()
+        - minimax_logic()
+        - minimax_move()
+    """
     def __init__(self):
-        """TODO: init docstring...."""
+        """
+        AI initializes with all of its parent and grandparent class variables, as well as:
+
+            - self.max_score                x. defaults to 10, returned from minimax_logic()
+            - self.best_move                x. defaults to 0, returned from minimax_logic()
+            - self.winning_patterns         x. list of all winning patterns in the classic board
+            - self.big_winning_patterns     x. list of all winning patterns in the big board
+        """
         super().__init__()
         self.max_score = 10
         self.best_move = 0
