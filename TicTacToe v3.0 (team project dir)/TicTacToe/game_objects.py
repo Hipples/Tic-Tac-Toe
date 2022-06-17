@@ -192,7 +192,7 @@ class TicTacToeBoard:
 
 class PlayerActions(TicTacToeBoard):
     """
-    The class PlayerActions is the child class of the TicTacToeBoard class and the parent class of the AI class.
+    The class PlayerActions is the child class of TicTacToeBoard and the parent class of AI.
     This class contains methods designed to swap player turns, assign player markers (X or O), and acquire and apply player move choices.
 
     Class methods list includes:
