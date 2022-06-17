@@ -206,7 +206,7 @@ class PlayerActions(TicTacToeBoard):
     """
     def __init__(self):
         """
-        Initializes with all parent class variables and defines the following class variables:
+        PlayerActions initializes with all parent class variables and defines the following class variables:
 
             - self.match_records        x. plain text file used to track match records
             - self.player               x. human player character
@@ -218,11 +218,11 @@ class PlayerActions(TicTacToeBoard):
         self.opponent = ''
 
     def swap_player_turn(self, player):
-        """Swaps game control between two players."""
+        """The method swap_player_turn() swaps game control between the two players."""
         return 'X' if player == 'O' else 'O'
 
     def choose_marker(self):
-        """Allows main player to choose to be X or O."""
+        """The method choose_marker() allows the main player to choose to be X or O."""
         marker = ' '  # declare marker variable as empty string
         while marker not in ('X', 'O'):  # while marker does not equal X or O
             marker = input("\n\tDo you want to be Xs or Os? ").upper()  # ask player to choose X or O
@@ -231,42 +231,42 @@ class PlayerActions(TicTacToeBoard):
         return ['O', 'X']  # if O, then return O, X
 
     def assign_markers(self):  # retrieve marker order from choose_marker() method
-        """Assigns gameboard markers (X and O) to the appropriate player."""
+        """The method assign_markers() assigns X and O markers to the appropriate player."""
         self.player, self.opponent = self.choose_marker()  # assign the first char returned to our player,
-        return self.player, self.opponent  # and the second char to our player's opponent
+        return self.player, self.opponent  # and the second char to our opponent
     
     def player_turn(self, player):
-        """Acquires player input to determine desired move (1-9)."""
+        """The method player_turn() acquires player input to determine desired move (1-9)."""
         move = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
-        print(f"\n\tYou chose square {move}!") # acquire player input to determine desired move
-        return move # return chosen square number
+        print(f"\n\tYou chose square {move}!")  # acquire player input to determine desired move
+        return move  # return chosen square value
 
     def player_move(self, player):
-        """Capture, record, and fulfill human player moves while handling exceptions."""
-        while True: # exception catching loop
-            try: # attempt to initialize coords, by retrieving the player's input,
-                coords = self.get_coords(player) # through get_coords() method,
-                row, col = int(coords[0]), int(coords[1]) # then assign the proper index of the move
-            except KeyboardInterrupt: # enable Ctrl + c to end program during player input
-                print("\n\n\tGood bye!") # program says good bye,
-                exit() # then ends
-            except: # continue looping until valid input is accepted
-                print("\n\tInvalid input. Please try again.\n") # announce when input is invalid
-            else: # otherwise, reverse engineer our player move by using our determined index
-                move = self.board[row][col] # and assign it to move
-                with open(self.match_records, 'a') as record: # then open our match records and
-                    record.write(f"{player}:{move} ") # append each valid player move
-                self.place_marker(row, col, player) # as it happens
+        """The player_move() method captures, records, and fulfills human moves while handling exceptions."""
+        while True:  # exception catching loop
+            try:  # attempt to initialize coords, by retrieving the player's input,
+                coords = self.get_coords(player)  # through get_coords() method,
+                row, col = int(coords[0]), int(coords[1])  # then assign the proper index of the move
+            except KeyboardInterrupt:  # enable Ctrl + c to end program during player input
+                print("\n\n\tGood bye!")  # when used - program says good bye,
+                exit()  # then ends
+            except:  # continue looping until valid input is accepted
+                print("\n\tInvalid input. Please try again.\n")  # announce when input is invalid
+            else:  # otherwise, reverse engineer our player move by using our determined index
+                move = self.board[row][col]  # and assign it to move
+                with open(self.match_records, 'a') as record:  # then open our match records and
+                    record.write(f"{player}:{move} ")  # append each valid player move
+                self.place_marker(row, col, player)  # as it happens
                 self.human_record.append(move)  # add move to human records for minimax
                 self.board_record.append(move)  # add move to board records for minimax
-                return False # before ending our loop
+                return False  # before ending our loop
 
     def get_coords(self, player):
-        """Determines the coordinates of the 'empty' square value provided."""
-        move = self.player_turn(player) # retrieve player move from human_moves() method
-        coords = [] # declare empty list to store move coordinates
-        coords = np.where(self.board == move) # determine move coordinates
-        return coords # return move coordinates
+        """The method get_coords() determines the coordinates of the 'empty' square value provided."""
+        move = self.player_turn(player)  # retrieve player move from human_moves() method
+        coords = []  # declare empty list to store move coordinates
+        coords = np.where(self.board == move)  # determine move coordinates
+        return coords  # return move coordinates
 
 class AI(PlayerActions):
     """TODO: Class docstring...."""
