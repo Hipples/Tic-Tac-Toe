@@ -1,7 +1,7 @@
 """
 This module is designed to load menus for our tic tac toe application at startup and shutdown.
 """
-from menus import PlayerSelections
+from menus_and_settings import PlayerSelections
 
 def run():
     """The run() function loads the tic tac toe program's main menus."""

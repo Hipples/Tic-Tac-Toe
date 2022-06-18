@@ -30,12 +30,12 @@ class BigMode:
             # 4. inform the players who won first turn
             print(f"\n\tPlayer {first_player} will go first!\n")
             # 5. display empty gameboard
-            action.display_big_board()
+            action.print_big_board()
             # 6. input and make move
             action.player_move(first_player)
             print()
             # 7. display updated gameboard
-            action.display_big_board()
+            action.print_big_board()
             # 8. assign current_player as first_player
             current_player = first_player
             while True:
@@ -45,7 +45,7 @@ class BigMode:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 sleep(1)
                 # 11. display updated gameboard
-                action.display_big_board()
+                action.print_big_board()
                 # 12. capture and make player move
                 action.player_move(current_player)
                 print()
@@ -66,10 +66,10 @@ class BigMode:
                     # 14c. game over
                     break
                 # 15. display updated gameboard
-                action.display_big_board()
+                action.print_big_board()
             print()
             # 16. final gameboard display
-            action.display_big_board()
+            action.print_big_board()
             print()
             # 17. reset gameboard
             action.reset_board()
