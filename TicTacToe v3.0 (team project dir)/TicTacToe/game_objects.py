@@ -10,7 +10,7 @@ import random
 from time import sleep
 import numpy as np
 
-class TicTacToeBoard:
+class ClassicTicTacToe:
     """
     The class TicTacToeBoard is the parent class of PlayerActions and the grandparent class of AI.
     This class contains methods designed to generate, display, write to, read from, and reset the
@@ -58,11 +58,10 @@ class TicTacToeBoard:
                         '7', '8', '9']  
         self.board_option = 1  # defaults to classic board
         self.big = [' 1', ' 2', ' 3', ' 4', ' 5',  # big board values
-                    ' 6', ' 7', ' 8', ' 9', '10', 
-                    '11', '12', '13', '14', '15', 
-                    '16', '17', '18', '19', '20', 
-                    '21', '22', '23', '24', '25']  
-
+            ' 6', ' 7', ' 8', ' 9', '10', 
+            '11', '12', '13', '14', '15', 
+            '16', '17', '18', '19', '20', 
+            '21', '22', '23', '24', '25']  
 
     def create_board(self):
         """The method create_board() generates a classic, 3x3, gameboard."""
@@ -81,27 +80,6 @@ class TicTacToeBoard:
             print()
             print('\t|         |         |         |')
             print('\t-------------------------------')
-
-    def create_big_board(self):
-        """The method create_big_board() generates a big, 5x5, gameboard."""
-        for i in np.arange(1, 26).astype(str):
-            self.board.append(i)
-        self.board = np.reshape(self.board, (5, 5))
-
-    def display_big_board(self):
-        """The method display_big_board() display the big, 5x5, gameboard."""
-        print('\t---------------------------------------------------')
-        for row in self.board:
-            print('\t|         |         |         |         |         |')
-            print('\t|', end = '')
-            for item in row:
-                if item in self.classic:
-                    print(f'    {item}    |', end = '')
-                else:
-                    print(f'    {item}   |', end = '')
-            print()
-            print('\t|         |         |         |         |         |')
-            print('\t---------------------------------------------------')
 
     def reset_board(self):
         """The method reset_board() resets the gameboard and any record values to an empty list."""
@@ -160,6 +138,32 @@ class TicTacToeBoard:
         if self.is_winner_by_diag(board, player):
             return True
         return False
+
+class BigTicTacToe(ClassicTicTacToe):
+    """
+    TODO: CLASS DOCSTRING
+    """
+    
+    def __init__(self):
+        super().__init__()
+
+    def create_big_board(self):
+        """The method create_big_board() generates a big, 5x5, gameboard."""
+        for i in np.arange(1, 26).astype(str):
+            self.board.append(i)
+        self.board = np.reshape(self.board, (5, 5))
+
+    def display_big_board(self):
+        """The method display_big_board() display the big, 5x5, gameboard."""
+        print('\t---------------------------------------------------')
+        for row in self.board:
+            print('\t|         |         |         |         |         |')
+            print('\t|', end = '')
+            for item in row:
+                print('    %2s    |' %item, end = '')
+            print()
+            print('\t|         |         |         |         |         |')
+            print('\t---------------------------------------------------')
     
     def is_winner_by_big_row(self, board, player):
         """The is_winner_by_big_row() method checks for horizontal winning patterns on the big board."""
@@ -196,7 +200,7 @@ class TicTacToeBoard:
             return True
         return False
 
-class PlayerActions(TicTacToeBoard):
+class PlayerActions(BigTicTacToe):
     """
     The class PlayerActions is the child class of TicTacToeBoard and the parent class of AI.
     This class contains methods designed to swap player turns, assign player markers (X or O), and acquire and apply player move choices.
@@ -312,13 +316,17 @@ class AI(PlayerActions):
                                  ['16', '17', '18', '19', '20'], [ '4',  '9', '14', '19', '24'], [ '1',  '7', '13', '19', '25'],
                                  ['21', '22', '23', '24', '25'], [ '5', '10', '15', '20', '25'], [ '5',  '9', '13', '17', '21']]
 
-    def random_logic(self):
+    def random_logic(self, board_option = 1):
         """Returns a random, available, square number from the current gameboard."""
         possible_moves = [] # declare an empty list of possible moves
         for row in self.board: # for each row in our gameboard,
             for square in row: # and for each square in said row,
-                if square in self.classic: # if the square's value is in our values list
-                    possible_moves.append(square) # store it in our list of available squares
+                if board_option == 1:
+                    if square in self.classic: # if the square's value is in our values list
+                        possible_moves.append(square) # store it in our list of available squares
+                if board_option == 2:
+                    if square in self.big:
+                        possible_moves.append(square)        
         move = random.choice(possible_moves) # determine a random, available move for AI
         return move # from our list of possible moves
 
@@ -327,18 +335,23 @@ class AI(PlayerActions):
         move = self.random_logic() # get randomly generate move from random_moves() method
         coords = np.where(self.board == move) # set the move coordinates
         row, col = (int(coords[0])), (int(coords[1])) # assign the proper index of the move
-        sleep(2) # (our AI is thinking. . .)
+        sleep(1) # (our AI is thinking. . .)
         print(f"\n\tRandom AI chooses square {move}!\n") # announce RandAI's move
         with open(self.match_records, 'a') as record: # open our match records and
             record.write(f"{player}:{move} ") # append each Random AI move
         self.place_marker(row, col, player) # as it happens
 
-    def get_open_squares(self):
+    def get_open_squares(self, board_option = 1):
         """TODO: method docstring...."""
         squares = []
-        for square in list(set(self.classic) - set(self.board_record)):
-            squares.append(square)
-        return squares
+        if board_option == 1:
+            for square in list(set(self.classic) - set(self.board_record)):
+                squares.append(square)
+            return squares
+        if board_option == 2:
+            for square in list(set(self.big) - set(self.board_record)):
+                squares.append(square)
+            return squares
 
     def can_win(self):
         """TODO: method docstring...."""
@@ -348,19 +361,21 @@ class AI(PlayerActions):
             if set(win) <= set(self.human_record):
                 return self.player
 
-    def full_board(self):
+    def full_board(self, board_option = 1):
         """TODO: method docstring...."""
-        if len(self.board_record) == 9:
-            return True
-        else:
-            return False
+        if board_option == 1:
+            if len(self.board_record) == 9:
+                return True
+        if board_option == 2:
+            if len(self.board_record) == 25:
+                return True
+        return False
 
     def first_move(self, board_option = 1):
-        self.board_option = board_option
-        if self.board_option == 1: 
+        if board_option == 1: 
             move = random.choices([1, 3, 7, 9])[0]
             return move
-        if self.board_option == 2:
+        if board_option == 2:
             move = random.choices([1, 5, 21, 25])[0]
             return move
         return False
@@ -391,7 +406,7 @@ class AI(PlayerActions):
                 return 10 + depth, None  # return depth + 10 
             if result == self.player:  # if winner is human
                 return -10 - depth, None  # retun depth - 10
-            if self.full_board():  # if the board is already full,
+            if self.full_board(board_option):  # if the board is already full,
                 return 0, None  # return 0
         for move in self.get_open_squares():  # then, for each available move 
             if player == self.opponent:  # if player is the computer
@@ -428,10 +443,10 @@ class AI(PlayerActions):
             if move == False:
                 _, move = self.minimax_logic(player)  # _ is a throwaway variable
         else:
-            _, move = self.minimax_logic(player)
+            _, move = self.minimax_logic(player)  # that contains the current minimax score
         move = str(move)
         coords = np.where(self.board == move)
-        row, col = (int(coords[0])), (int(coords[1]))  # TODO: coords breaking when only one move left??
+        row, col = (int(coords[0])), (int(coords[1]))
         sleep(1)
         print(f"\n\tMiniMax AI chooses square {move}!\n")
         with open(self.match_records, 'a') as record: 
