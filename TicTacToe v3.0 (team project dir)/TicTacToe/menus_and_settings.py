@@ -111,20 +111,20 @@ class PlayerSelections(TicTacToeMenus):
         """
         super().__init__()
         self._board_option = 1  # defaults to classic board
-        self._mode = 1  # defaults to PvP mode
+        self._mode = 1  # defaults to PvP mode  
     
     def set_board_option(self, board):
         if board == 1:
             print("\n\tYou have chosen to play on the classic, 3x3, gameboard!")
         if board == 2:
             print("\n\tYou have chosen to play on the big, 5x5, gameboard!")
-        self._board_option = board
+        self.board_option = board
     
     def set_game_mode(self, mode):
-        self._mode = mode
+        self.mode = mode
 
     def get_game_settings(self):
-        return self._mode, self._board_option     
+        return self.mode, self.board_option  
 
     def get_player_selection(self):
         """The get_player_selection() method captures player input, converts to integer, and returns selection.
@@ -182,6 +182,7 @@ class PlayerSelections(TicTacToeMenus):
         For the player's selection is then prompted, acquired, and applied. 
         Options 1-3 immediately start their respective gameplay loops.            
         """
+
         # loop prompts, captures, and applies player selections
         while True:
             self.display_welcome_screen()  # displays the main menu
