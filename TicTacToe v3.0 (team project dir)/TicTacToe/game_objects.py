@@ -65,16 +65,18 @@ class TicTacToeBoards:
 
     def create_board(self, board_option = 1):
         """The method create_board() generates a classic, 3x3, gameboard."""
+        # if classic board
         if board_option == 1:
             for i in np.arange(1, 10).astype(str):  # nine numbers, as strings, because we replace
                 self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
             self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        # if big board
         if board_option == 2:
             for i in np.arange(1, 26).astype(str):
                 self.board.append(i)
             self.board = np.reshape(self.board, (5, 5))
 
-    def display_board(self):
+    def print_classic_board(self):
         """The method display_board() displays the classic, 3x3, gameboard."""
         print('\t-------------------------------')
         for row in self.board:
@@ -86,17 +88,23 @@ class TicTacToeBoards:
             print('\t|         |         |         |')
             print('\t-------------------------------')
 
-    def display_big_board(self):
+    def print_big_board(self):
         """The method display_big_board() display the big, 5x5, gameboard."""
         print('\t---------------------------------------------------')
         for row in self.board:
             print('\t|         |         |         |         |         |')
             print('\t|', end = '')
             for item in row:
-                print('    %2s    |' %item, end = '')
+                print('    %2s   |' %item, end = '')
             print()
             print('\t|         |         |         |         |         |')
             print('\t---------------------------------------------------')
+
+    def display_board(self, board_option = 1):
+        if board_option == 1:
+            self.print_classic_board()
+        if board_option == 2:
+            self.print_big_board()
 
     def reset_board(self):
         """The method reset_board() resets the gameboard and any record values to an empty list."""
@@ -307,9 +315,11 @@ class AI(PlayerActions):
         possible_moves = [] # declare an empty list of possible moves
         for row in self.board: # for each row in our gameboard,
             for square in row: # and for each square in said row,
+                # if classic board
                 if board_option == 1:
                     if square in self.classic: # if the square's value is in our values list
                         possible_moves.append(square) # store it in our list of available squares
+                # if big board
                 if board_option == 2:
                     if square in self.big:
                         possible_moves.append(square)        
@@ -394,8 +404,7 @@ class AI(PlayerActions):
                 return 10 + depth, None  # return depth + 10 
             if result == self.player:  # if winner is human
                 return -10 - depth, None  # retun depth - 10
-            if
-            if self.full_board():  # if the board is already full,
+            if self.full_board(self.board_option):  # if the board is already full,
                 return 0, None  # return 0
         for move in self.get_open_squares():  # then, for each available move 
             if player == self.opponent:  # if player is the computer

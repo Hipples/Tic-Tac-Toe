@@ -52,3 +52,17 @@ Player vs Player (5x5)! Game on!
 
 Player vs Player (5x5)! Game on!
 X:13 
+
+Player vs Player! Game on!
+O:1 X:9 O:4 X:5 O:7 
+Player O won the game!
+
+
+Player vs Random AI! Game on!
+
+
+Player vs Random AI! Game on!
+
+
+Player vs Random AI! Game on!
+O:5 X:1 O:7 
