@@ -57,11 +57,11 @@ class TicTacToeBoards:
                         '4', '5', '6', 
                         '7', '8', '9']  
         self.board_option = 1  # defaults to classic board
-        self.big = [' 1', ' 2', ' 3', ' 4', ' 5',  # big board values
-            ' 6', ' 7', ' 8', ' 9', '10', 
-            '11', '12', '13', '14', '15', 
-            '16', '17', '18', '19', '20', 
-            '21', '22', '23', '24', '25']  
+        self.big = [ '1',  '2',  '3',  '4',  '5',  # big board values
+                     '6',  '7',  '8',  '9', '10', 
+                    '11', '12', '13', '14', '15', 
+                    '16', '17', '18', '19', '20', 
+                    '21', '22', '23', '24', '25']  
 
     def create_board(self, board_option):
         """The method create_board() generates a classic, 3x3, gameboard."""
@@ -304,6 +304,7 @@ class AI(PlayerActions):
         self.winning_patterns = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'],
                                  ['1', '4', '7'], ['2', '5', '8'], ['3', '6', '9'],
                                  ['1', '5', '9'], ['3', '5', '7']]
+
         self.big_win_patterns = [[ '1',  '2',  '3',  '4',  '5'], [ '1',  '6', '11', '16', '21'], 
                                  [ '6',  '7',  '8',  '9', '10'], [ '2',  '7', '12', '17', '22'],
                                  ['11', '12', '13', '14', '15'], [ '3',  '8', '13', '18', '23'],
@@ -339,7 +340,6 @@ class AI(PlayerActions):
 
     def get_open_squares(self, board_option):
         """TODO: method docstring...."""
-        board_option = self.board_option
         squares = []
         if board_option == 1:
             for square in list(set(self.classic) - set(self.board_record)):
@@ -350,20 +350,25 @@ class AI(PlayerActions):
                 squares.append(square)
             return squares
 
-    def can_win(self, board_option):
+    def can_win(self, board_option, depth):
         """TODO: method docstring...."""
         if board_option == 1:
-            for win in self.winning_patterns:
-                if set(win) <= set(self.computer_record):
-                    return self.opponent
-                if set(win) <= set(self.human_record):
-                    return self.player
+            if len(self.board_record) > 3:
+                for win in self.winning_patterns:
+                    if set(win) <= set(self.computer_record):
+                        return self.opponent
+                    if set(win) <= set(self.human_record):
+                        return self.player
+            return False
         if board_option == 2:
-            for win in self.big_win_patterns:
-                if set(win) <= set(self.computer_record):
-                    return self.opponent
-                if set(win) <= set(self.human_record):
-                    return self.player
+            if len(self.board_record) > 8:
+                if depth <= 5:
+                    for win in self.big_win_patterns:
+                        if set(win) <= set(self.computer_record):
+                            return self.opponent
+                        if set(win) <= set(self.human_record):
+                            return self.player
+            return False
 
     def full_board(self, board_option):
         """TODO: method docstring...."""
@@ -382,7 +387,6 @@ class AI(PlayerActions):
         if board_option == 2:
             move = random.choices([1, 5, 21, 25])[0]
             return move
-        return False
 
     def urgent_move(self, board_option):
         """TODO: method docstring...."""
@@ -410,20 +414,42 @@ class AI(PlayerActions):
                         return move
         return False
 
+    def is_last_move(self, board_option):
+        if board_option == 1 and len(self.board_record) == 8:
+            return True
+        if board_option == 2 and len(self.board_record) == 24:
+            return True
+        return False        
+
+    def is_urgent_move(self, board_option):
+        if board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1):
+            return True
+        if board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3):
+            return True
+        return False
+
+    def is_early_move(self, board_option):
+        if board_option == 1:
+            return False
+        if board_option == 2 and len(self.board_record) < 15:
+            return True
+        return False
+
     def minimax_logic(self, player, board_option, depth = 0):
         """TODO: method docstring...."""
         if player == self.opponent:  # initiate max_score
             self.max_score = -10  # as -10 if player is the computer
         else:  # otherwise
             self.max_score = 10  # as +10
-        if len(self.board_record) >= 5:  # if there are five or more board records,
-            result = self.can_win(board_option)  # check for winning player and
-            if result == self.opponent:  # if winner is the computer,
-                return 10 + depth, None  # return depth + 10 
-            if result == self.player:  # if winner is human
-                return -10 - depth, None  # retun depth - 10
-            if self.full_board(board_option):  # if the board is already full,
-                return 0, None  # return 0
+        result = self.can_win(board_option, depth)  # check for winning player and
+        if result == self.opponent:  # if winner is the computer,
+            return 10 + depth, None  # return depth + 10 
+        if result == self.player:  # if winner is human
+            return -10 - depth, None  # retun depth - 10
+        if result == False:
+            pass
+        if self.full_board(board_option):  # if the board is already full,
+                    return 0, None  # return 0
         for move in self.get_open_squares(board_option):  # then, for each available move 
             if player == self.opponent:  # if player is the computer
                 self.computer_record.append(move)  # add move to the computer record
@@ -450,16 +476,21 @@ class AI(PlayerActions):
 
     def minimax_move(self, player, board_option):
         """TODO: method docstring...."""
-        if len(self.board_record) == 0:  # best first move is a corner
+        if len(self.board_record) == 0:
             move = self.first_move(board_option)
-        elif len(self.board_record) == 8:  # check if last move
+        elif self.is_last_move(board_option):
             move = self.get_open_squares(board_option)[0]
-        elif len(self.human_record) > 1 or len(self.computer_record) > 1:
-            move = self.urgent_move(board_option)
+        elif self.is_urgent_move(board_option):
+            move = self.urgent_move(board_option)  # win or prevent win (classic)
             if move == False:
-                _, move = self.minimax_logic(player, board_option)  # _ is a throwaway variable
-        else:
-            _, move = self.minimax_logic(player, board_option)  # that contains the current minimax score
+                if self.is_early_move(board_option):
+                    move = self.random_logic(board_option)
+                else:
+                    _, move = self.minimax_logic(player, board_option)
+        elif self.is_early_move(board_option):
+            move = self.random_logic(board_option)
+        else:   
+            _, move = self.minimax_logic(player, board_option)
         move = str(move)
         coords = np.where(self.board == move)
         row, col = (int(coords[0])), (int(coords[1]))
