@@ -10,7 +10,7 @@ import random
 from time import sleep
 import numpy as np
 
-class ClassicTicTacToe:
+class TicTacToeBoards:
     """
     The class TicTacToeBoard is the parent class of PlayerActions and the grandparent class of AI.
     This class contains methods designed to generate, display, write to, read from, and reset the
@@ -63,11 +63,16 @@ class ClassicTicTacToe:
             '16', '17', '18', '19', '20', 
             '21', '22', '23', '24', '25']  
 
-    def create_board(self):
+    def create_board(self, board_option = 1):
         """The method create_board() generates a classic, 3x3, gameboard."""
-        for i in np.arange(1, 10).astype(str):  # nine numbers, as strings, because we replace
-            self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
-        self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        if board_option == 1:
+            for i in np.arange(1, 10).astype(str):  # nine numbers, as strings, because we replace
+                self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
+            self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        if board_option == 2:
+            for i in np.arange(1, 26).astype(str):
+                self.board.append(i)
+            self.board = np.reshape(self.board, (5, 5))
 
     def display_board(self):
         """The method display_board() displays the classic, 3x3, gameboard."""
@@ -81,6 +86,18 @@ class ClassicTicTacToe:
             print('\t|         |         |         |')
             print('\t-------------------------------')
 
+    def display_big_board(self):
+        """The method display_big_board() display the big, 5x5, gameboard."""
+        print('\t---------------------------------------------------')
+        for row in self.board:
+            print('\t|         |         |         |         |         |')
+            print('\t|', end = '')
+            for item in row:
+                print('    %2s    |' %item, end = '')
+            print()
+            print('\t|         |         |         |         |         |')
+            print('\t---------------------------------------------------')
+
     def reset_board(self):
         """The method reset_board() resets the gameboard and any record values to an empty list."""
         self.board = []
@@ -93,116 +110,85 @@ class ClassicTicTacToe:
         self.board[row][col] = player
 
     def is_board_full(self, board_option = 1):
-        """The is_board_full() method returns True if there is a draw for either board (defaults to the classic board)."""
+        """The is_board_full() method returns True if there is a draw for specified board."""
         for row in self.board:
             for square in row:
+                # if classic board
                 if board_option == 1:
                     if square in self.classic:
                         return False
+                # if big board
                 if board_option == 2:
                     if square in self.big:
                         return False
         return True
 
-    def is_winner_by_row(self, board, player):
+    def is_winner_by_row(self, board, player, board_option = 1):
         """The is_winner_by_row() method checks for horizontal winning patterns on the classic board."""
-        for row in range(3):
-            if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
-                if board[row][0] == player:
-                    return True
+        # if classic board
+        if board_option == 1:
+            for row in range(3):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+                    if board[row][0] == player:
+                        return True
+        # if big board
+        if board_option == 2:
+            for row in range(5):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2] and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
+                    if board[row][0] == player:
+                        return True
 
-    def is_winner_by_col(self, board, player):
+    def is_winner_by_col(self, board, player, board_option = 1):
         """The is_winner_by_col() method checks for vertical winning patterns on the classic board."""
-        for col in range(3):
-            if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
-                if board[0][col] == player:
+        # if classic board
+        if board_option == 1:
+            for col in range(3):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
+                    if board[0][col] == player:
+                        return True
+        # if big board
+        if board_option == 2:
+            for col in range(5):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col] and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
+                    if board[0][col] == player:
+                        return True
+
+    def is_winner_by_diag(self, board, player, board_option = 1):
+        """The is_winner_by_diag() method checks for diagonal winning patterns on specified board."""
+        # if classic board
+        if board_option == 1:
+            # check descending diagonal for win
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
+                if board[0][0] == player:
+                    return True
+            # check ascending diagonal for win
+            if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
+                if board[0][2] == player:
+                    return True
+        # if big board
+        if board_option == 2:
+            # check descending diagonal for win
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2] and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
+                if board[0][0] == player:
+                    return True
+            # check ascending diagonal for win
+            if board[0][4] == board[1][3] and board[1][3] == board[2][2] and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
+                if board[0][4] == player:
                     return True
 
-    def is_winner_by_diag(self, board, player):
-        """The is_winner_by_diag() method checks for diagonal winning patterns on the classic board."""
-        # check descending diagonal for win
-        if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
-            if board[0][0] == player:
-                return True
-        # check ascending diagonal for win
-        if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
-            if board[0][2] == player:
-                return True
-
-    def is_winner(self, board, player):
-        """The is_winner() method checks the classic board for winning patterns and returns True if one is found."""
-        if self.is_winner_by_row(board, player):
+    def is_winner(self, board, player, board_option = 1):
+        """The is_winner() method checks specified board for winning patterns and returns True if one is found."""
+        if self.is_winner_by_row(board, player, board_option):
             return True
-        if self.is_winner_by_col(board, player):
+        if self.is_winner_by_col(board, player, board_option):
             return True
-        if self.is_winner_by_diag(board, player):
+        if self.is_winner_by_diag(board, player, board_option):
             return True
         return False
-
-class BigTicTacToe(ClassicTicTacToe):
+  
+class PlayerActions(TicTacToeBoards):
     """
-    TODO: CLASS DOCSTRING
-    """
-    
-    def __init__(self):
-        super().__init__()
-
-    def create_big_board(self):
-        """The method create_big_board() generates a big, 5x5, gameboard."""
-        for i in np.arange(1, 26).astype(str):
-            self.board.append(i)
-        self.board = np.reshape(self.board, (5, 5))
-
-    def display_big_board(self):
-        """The method display_big_board() display the big, 5x5, gameboard."""
-        print('\t---------------------------------------------------')
-        for row in self.board:
-            print('\t|         |         |         |         |         |')
-            print('\t|', end = '')
-            for item in row:
-                print('    %2s    |' %item, end = '')
-            print()
-            print('\t|         |         |         |         |         |')
-            print('\t---------------------------------------------------')
-    
-    def is_winner_by_big_row(self, board, player):
-        """The is_winner_by_big_row() method checks for horizontal winning patterns on the big board."""
-        for row in range(5):
-            if board[row][0] == board[row][1] and board[row][1] == board[row][2] and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
-                if board[row][0] == player:
-                    return True
-
-    def is_winner_by_big_col(self, board, player):
-        """The is_winner_by_big_col() method checks for vertical winning patterns on the big board."""
-        for col in range(5):
-            if board[0][col] == board[1][col] and board[1][col] == board[2][col] and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
-                if board[0][col] == player:
-                    return True
-
-    def is_winner_by_big_diag(self, board, player):
-        """The is_winner_by_big_diag() method checks for diagonal winning patterns on the big gameboard."""
-        # check descending diagonal for win
-        if board[0][0] == board[1][1] and board[1][1] == board[2][2] and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
-            if board[0][0] == player:
-                return True
-        # check ascending diagonal for win
-        if board[0][4] == board[1][3] and board[1][3] == board[2][2] and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
-            if board[0][4] == player:
-                return True
-
-    def is_big_winner(self, board, player):
-        """The is_big_winner() method checks the big gameboard for winning patterns and returns true if one is found."""
-        if self.is_winner_by_big_row(board, player):
-            return True
-        if self.is_winner_by_big_col(board, player):
-            return True
-        if self.is_winner_by_big_diag(board, player):
-            return True
-        return False
-
-class PlayerActions(BigTicTacToe):
-    """
-    The class PlayerActions is the child class of TicTacToeBoard and the parent class of AI.
+    The class PlayerActions is the child class of TicTacToeBoards and the parent class of AI.
     This class contains methods designed to swap player turns, assign player markers (X or O), and acquire and apply player move choices.
 
     Class methods include:
@@ -343,6 +329,7 @@ class AI(PlayerActions):
 
     def get_open_squares(self, board_option = 1):
         """TODO: method docstring...."""
+        board_option = self.board_option
         squares = []
         if board_option == 1:
             for square in list(set(self.classic) - set(self.board_record)):
@@ -394,8 +381,9 @@ class AI(PlayerActions):
                     return move
         return False
 
-    def minimax_logic(self, player, depth = 0):
+    def minimax_logic(self, player, board_option = 1, depth = 0):
         """TODO: method docstring...."""
+        board_option = self.board_option
         if player == self.opponent:  # initiate max_score
             self.max_score = -10  # as -10 if player is the computer
         else:  # otherwise
@@ -406,7 +394,8 @@ class AI(PlayerActions):
                 return 10 + depth, None  # return depth + 10 
             if result == self.player:  # if winner is human
                 return -10 - depth, None  # retun depth - 10
-            if self.full_board(board_option):  # if the board is already full,
+            if
+            if self.full_board():  # if the board is already full,
                 return 0, None  # return 0
         for move in self.get_open_squares():  # then, for each available move 
             if player == self.opponent:  # if player is the computer

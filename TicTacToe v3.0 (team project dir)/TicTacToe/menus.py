@@ -92,18 +92,23 @@ class TicTacToeMenus:
         print(self.create_board_options())
 
 class PlayerSelections(TicTacToeMenus):
-    """The PlayerSelections class contains the following methods:
+    """
+    The PlayerSelections class is the child class to TicTacToeMenus. 
+    PlayerSelections contains the following methods:
 
-            - get_player_selection()    x. acquires and returns user input with error catching
-            - get_board_option()        x. displays, acquires, and applies board options via user input
-            - main_menu()               x. displays, acquires, and applies user input to setup and start the game
-            - game_over()               x. displays after replay refusal, allows player to return to main menu or quit
-
-       The PlayerSelections class contains on class variables:
-
-            - self.board_option         x. default = 1 --> the classic 3x3 gameboard
+        - get_player_selection()    x. acquires and returns user input with error catching
+        - get_board_option()        x. displays, acquires, and applies board options via user input
+        - main_menu()               x. displays, acquires, and applies user input to setup and start the game
+        - game_over()               x. displays after replay refusal, allows player to return to main menu or
+                                           quit out of the application
     """
     def __init__(self):
+        """    
+        The PlayerSelections class initializes with all parent variables/methods and adds the following class variables:
+
+            - self._size        x. default = 1 --> the classic 3x3 gameboard
+            - self._mode        x. default = 1 --> PvP mode 
+        """
         super().__init__()
         self._size = 1
         self._mode = 1
@@ -149,12 +154,12 @@ class PlayerSelections(TicTacToeMenus):
             self.display_board_options()  # displays board options menu
             option = self.get_player_selection()
             if option == 1:
-                self._size = option  # updates board size in settings?
+                self._size = option
                 print("\n\tYou have chosen to play on the classic, 3x3, gameboard!")
                 self.main_menu()
                 return self._size
             if option == 2:
-                self._size = option  # updates board size in settings?
+                self._size = option
                 print("\n\tYou have chosen to play on the big, 5x5, gameboard!")
                 self.main_menu()
                 return self._size
