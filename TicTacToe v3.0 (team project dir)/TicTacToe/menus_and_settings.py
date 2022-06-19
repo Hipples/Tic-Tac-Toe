@@ -49,11 +49,11 @@ class TicTacToeMenus:
         return(main_menu)
 
     def display_welcome_screen(self):
-        """Prints welcome screen to CLI."""
+        """Prints the welcome screen to CLI."""
         print(self.create_welcome_screen())
 
     def create_game_over_screen(self):
-        """Creates a game over screen to be displayed when players choose not to replay their current game."""
+        """Creates the game over screen to be displayed when players choose not to replay."""
         game_over =  "\t __________________________________________________ \n"
         game_over += "\t|                                                  |\n"
         game_over += "\t|                    GAME OVER!                    |\n"
@@ -72,11 +72,11 @@ class TicTacToeMenus:
         return(game_over)
 
     def display_game_over_screen(self):
-        """The display_game_over_screen() method prints the Game Over menu to the CLI."""
+        """Prints the game over screen to the CLI."""
         print(self.create_game_over_screen())
 
     def create_board_options(self):
-        """The create_board_options() method creates a menu with two board size options (3x3 and 5x5)."""
+        """Creates a menu with two board size options (3x3 and 5x5)."""
         board_options =  "\t __________________________________________________ \n"
         board_options += "\t|                                                  |\n"
         board_options += "\t|                GAMEBOARD OPTIONS                 |\n"
@@ -97,7 +97,7 @@ class TicTacToeMenus:
         return(board_options)
 
     def display_board_options(self):
-        """The display_board_options() method prints the Gameboard Options menu to the CLI."""
+        """Prints the board options menu to the CLI."""
         print(self.create_board_options())
 
 class PlayerSelections(TicTacToeMenus):
@@ -115,12 +115,14 @@ class PlayerSelections(TicTacToeMenus):
         """    
         PlayerSelections initializes with all parent methods and adds the following class variables:
 
-            - self._size        x. default = 1 --> the classic 3x3 gameboard
-            - self._mode        x. default = 1 --> PvP mode 
+            - self._board_option
+            - self._mode      
+
+        These are used to apply the game settings.   
         """
         super().__init__()
-        self._board_option = 1  # defaults to classic board
-        self._mode = 1  # defaults to PvP mode  
+        self.board_option = 1  # defaults to classic board
+        self.mode = 1  # defaults to PvP mode  
     
     def set_board_option(self, board):
         """Applies player selection from board options menu to game settings."""
@@ -139,7 +141,9 @@ class PlayerSelections(TicTacToeMenus):
         return self.mode, self.board_option  
 
     def get_player_selection(self):
-        """Returns players selections as integers. Catches and reprompts input errors. Accepts Ctrl + c as shortcut to quit out of program during user input."""
+        """
+        Returns players selections as integers. Catches and reprompts input errors. Accepts Ctrl + c as shortcut to quit out of program during user input.
+        """
         while True:
             try:
                 selection = int(input("\n\tPlayer Selection: "))
@@ -169,7 +173,7 @@ class PlayerSelections(TicTacToeMenus):
                 break
             # catches invalid inputs and prompts player to try again
             else:  
-                print("\n\tInvalid input. Please try again.") 
+                print("\n\tInvalid input. Please enter the number of your selection.") 
 
     def main_menu(self):
         """
@@ -194,9 +198,9 @@ class PlayerSelections(TicTacToeMenus):
             elif selection == 5:
                 print("\n\tGood bye!\n")
                 exit()  # quits out of program 
-            # else catches invalid inputs and prompts user to try again
+            # catches invalid inputs and prompts user to try again
             else:
-                print("\n\tInvalid input. Please try again.")
+                print("\n\tInvalid input. Please enter the number of your selection.")
 
     def game_over(self):
         """The game over screen allows players the option to return to the main menu or quit."""
@@ -209,6 +213,6 @@ class PlayerSelections(TicTacToeMenus):
             if(selection == 2):  # if 2,
                 print("\n\tGood bye!\n")  # prints "Good bye!"
                 exit()  # and exits program entirely
-            # else catches invalid inputs and prompts user to try again
+            # catches invalid inputs and prompts user to try again
             else:
                 print("\n\tInvalid input. Please try again.")
