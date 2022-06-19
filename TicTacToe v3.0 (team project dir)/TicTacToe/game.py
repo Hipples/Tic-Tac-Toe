@@ -79,7 +79,7 @@ class TicTacToe:
                     # 13c. game over
                     break
                 # 14a. check if there is a draw
-                if action.is_board_full(self.board_option):
+                if action.is_draw(self.board_option):
                     print("\n\tMatch draw!\n")
                     # 14b. record the draw status in tic_tac_toe.txt
                     with open(action.match_records, 'a') as record:
@@ -160,7 +160,7 @@ class TicTacToe:
                     # 11c. game over
                     break
                 # 12a. check if there is a draw
-                if ai.is_board_full(self.board_option):
+                if ai.is_draw(self.board_option):
                     print("\n\tMatch draw!\n")
                     # 12b. record the draw status in tic_tac_toe.txt
                     with open(ai.match_records, 'a') as record:
@@ -240,7 +240,7 @@ class TicTacToe:
                     # 11c. game over
                     break                
                 # 12a. check if there is a draw
-                if ai.is_board_full(self.board_option):
+                if ai.is_draw(self.board_option):
                     print("\n\tMatch draw!\n")
                     # 12b. record the draw status in tic_tac_toe.txt
                     with open(ai.match_records, 'a') as record:

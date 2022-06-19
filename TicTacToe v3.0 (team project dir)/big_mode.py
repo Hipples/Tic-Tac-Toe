@@ -58,7 +58,7 @@ class BigMode:
                     # 13c. game over
                     break
                 # 14a. check if there is a draw
-                if action.is_board_full(board_option = 2):
+                if action.is_draw(board_option = 2):
                     print("\n\tMatch draw!\n")
                     # 14b. record the draw status in tic_tac_toe.txt
                     with open(action.match_records, 'a') as record:
