@@ -212,7 +212,7 @@ class TicTacToe:
                 current_player = ai.player
             # 6b. if computer player. . .
             else:
-                # generate and make random move
+                # generate and make minimax move
                 ai.minimax_move(first_player, self.board_option)
                 print() 
                 # display updated gameboard
@@ -260,6 +260,7 @@ class TicTacToe:
                 break
 
     def tic_tac_toe(self):
+        """Starts chosen game."""
         if self.mode == 1:
             self.game_one()
         if self.mode == 2:

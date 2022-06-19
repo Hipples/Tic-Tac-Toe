@@ -57,12 +57,12 @@ class TicTacToeBoards:
 
     def create_board(self, board_option):
         """Generates specified gameboard (3x3 or 5x5)."""
-        # if classic board
+        # classic board
         if board_option == 1:
             for i in np.arange(1, 10).astype(str):  # nine numbers, as strings, because we replace
                 self.board.append(i)  # the empty board numbers with Xs and Os (datatype consistency)
             self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
-        # if big board
+        # big board
         if board_option == 2:
             for i in np.arange(1, 26).astype(str):
                 self.board.append(i)
@@ -114,11 +114,11 @@ class TicTacToeBoards:
         """Returns True if there is a draw for specified board."""
         for row in self.board:
             for square in row:
-                # if classic board
+                # classic board
                 if board_option == 1:
                     if square in self.classic:
                         return False
-                # if big board
+                # big board
                 if board_option == 2:
                     if square in self.big:
                         return False
@@ -126,13 +126,13 @@ class TicTacToeBoards:
 
     def is_winner_by_row(self, board, player, board_option):
         """Checks for horizontal winning patterns on the specified gameboard."""
-        # if classic board
+        # classic board
         if board_option == 1:
             for row in range(3):
                 if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
                     if board[row][0] == player:
                         return True
-        # if big board
+        # big board
         if board_option == 2:
             for row in range(5):
                 if board[row][0] == board[row][1] and board[row][1] == board[row][2] and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
@@ -141,13 +141,13 @@ class TicTacToeBoards:
 
     def is_winner_by_col(self, board, player, board_option):
         """Checks for vertical winning patterns on the specified gameboard."""
-        # if classic board
+        # classic board
         if board_option == 1:
             for col in range(3):
                 if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
                     if board[0][col] == player:
                         return True
-        # if big board
+        # big board
         if board_option == 2:
             for col in range(5):
                 if board[0][col] == board[1][col] and board[1][col] == board[2][col] and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
@@ -156,7 +156,7 @@ class TicTacToeBoards:
 
     def is_winner_by_diag(self, board, player, board_option):
         """Checks for diagonal winning patterns on specified board."""
-        # if classic board
+        # classic board
         if board_option == 1:
             # check descending diagonal for win
             if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
@@ -166,7 +166,7 @@ class TicTacToeBoards:
             if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
                 if board[0][2] == player:
                     return True
-        # if big board
+        # big board
         if board_option == 2:
             # check descending diagonal for win
             if board[0][0] == board[1][1] and board[1][1] == board[2][2] and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
@@ -301,7 +301,7 @@ class AI(PlayerActions):
                                  ['16', '17', '18', '19', '20'], [ '4',  '9', '14', '19', '24'], [ '1',  '7', '13', '19', '25'],
                                  ['21', '22', '23', '24', '25'], [ '5', '10', '15', '20', '25'], [ '5',  '9', '13', '17', '21']]
 
-    # TODO: could probably use the get_open_squares() methods below and make this a three line method, but.... another time.
+    # TODO: could probably use the get_open_squares() methods below and make this a three line method, but, another time.
     def random_logic(self, board_option):
         """Returns a random, available, square number from the current gameboard."""
         possible_moves = []  # declare an empty list of possible moves
@@ -402,9 +402,11 @@ class AI(PlayerActions):
 
     def full_board(self, board_option) -> bool:
         """Tells the minimax AI when there are no more moves available to check."""
+        # classic board
         if board_option == 1:
             if len(self.board_record) == 9:
                 return True
+        # big board
         if board_option == 2:
             if len(self.board_record) == 25:
                 return True
@@ -412,24 +414,27 @@ class AI(PlayerActions):
 
     def is_last_move(self, board_option) -> bool:
         """Checks if there is only one available move left for minimax AI."""
+        # classic board
         if board_option == 1 and len(self.board_record) == 8:
             return True
+        # big board
         if board_option == 2 and len(self.board_record) == 24:
             return True
         return False        
 
     def is_urgent_move(self, board_option) -> bool:
         """"Checks if enough markers have been placed for someone to have a potential win for minimax AI."""
+        # classic board
         if board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1):
             return True
+        # big board    
         if board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3):
             return True
         return False
 
     def is_early_move(self, board_option) -> bool:
         """Checks if the big board has at least 12 markers placed for the minimax AI to limit nodes."""
-        if board_option == 1:
-            return False
+        # big board
         if board_option == 2 and len(self.board_record) < 12:
             return True
         return False
