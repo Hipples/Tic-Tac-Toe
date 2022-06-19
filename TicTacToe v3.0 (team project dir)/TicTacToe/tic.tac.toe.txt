@@ -157,3 +157,20 @@ O:1 X:4 O:5
 
 Player vs MiniMax AI! Game on!
 O:1 X:5 O:2 X:3 
+
+Player vs MiniMax AI! Game on!
+X:1 O:5 X:9 
+
+Player vs MiniMax AI! Game on!
+X:1 O:4 X:5 O:9 X:3 O:2 X:7 
+Player X won the game!
+
+
+Player vs MiniMax AI! Game on!
+O:5 X:6 O:3 X:7 O:1 X:2 O:9 
+Player O won the game!
+
+
+Player vs MiniMax AI! Game on!
+O:1 X:4 O:5 X:9 O:2 X:3 O:8 
+Player O won the game!
