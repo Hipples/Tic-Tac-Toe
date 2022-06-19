@@ -154,3 +154,6 @@ O:1 X:3 O:5
 
 Player vs MiniMax AI! Game on!
 O:1 X:4 O:5 
+
+Player vs MiniMax AI! Game on!
+O:1 X:5 O:2 X:3 
