@@ -375,30 +375,21 @@ class AI(PlayerActions):
 
     def urgent_move(self, board_option):
         """Checks for any wins that could be obtained or prevented each turn by the minimax AI."""
+        if board_option ==1:
+            winpatten = self.winning_patterns
+        else: 
+            winpatten = self.big_win_patterns
         # classic board
-        if board_option == 1:
-            for win in self.winning_patterns:
-                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(self.computer_record)) > 1:
-                    move = list(set(win) - set(self.computer_record))[0]
-                    if move not in set(self.human_record):
-                        return move
-            for win in self.winning_patterns:
-                if len(list(set(win) - set(self.human_record))) == 1 and len(set(self.human_record)) > 1:
-                    move = list(set(win) - set(self.human_record))[0]
-                    if move not in set(self.computer_record):
-                        return move
-        # big board
-        if board_option == 2:
-            for win in self.big_win_patterns:
-                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(self.computer_record)) > 1:
-                    move = list(set(win) - set(self.computer_record))[0]
-                    if move not in set(self.human_record):
-                        return move
-            for win in self.big_win_patterns:
-                if len(list(set(win) - set(self.human_record))) == 1 and len(set(self.human_record)) > 1:
-                    move = list(set(win) - set(self.human_record))[0]
-                    if move not in set(self.computer_record):
-                        return move
+        if board_option == 1 or board_option ==2:
+            for win in winpatten:
+                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    move = list(set(win) - set(self.board_record))[0]
+                    return move
+            for win in winpatten:
+                if len(list(set(win) - set(self.human_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    move = list(set(win) - set(self.board_record))[0]
+                    return move    
+        return False
 
     def full_board(self, board_option) -> bool:
         """Tells the minimax AI when there are no more moves available to check."""
@@ -422,14 +413,22 @@ class AI(PlayerActions):
             return True
         return False        
 
-    def is_urgent_move(self, board_option) -> bool:
+    def is_urgent_move(self, board_option)-> bool:
         """"Checks if enough markers have been placed for someone to have a potential win for minimax AI."""
+        if board_option ==1:
+            winpatten = self.winning_patterns
+        else: 
+            winpatten = self.big_win_patterns
         # classic board
-        if board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1):
-            return True
-        # big board    
-        if board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3):
-            return True
+        if (board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1)) or (board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3)):
+            for win in winpatten:
+                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    # move = list(set(win) - set(self.board_record))[0]
+                    return True
+            for win in winpatten:
+                if len(list(set(win) - set(self.human_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    # move = list(set(win) - set(self.board_record))[0]
+                    return True       
         return False
 
     def is_early_move(self, board_option) -> bool:
@@ -449,14 +448,14 @@ class AI(PlayerActions):
             self.max_score = 10  # as +10
 
         # TODO: using this, we only break recursion if a win or draw has been discovered....potential place to work on reducing the amount of time the AI takes choosing a move on the big board
-        if self.is_urgent_move(board_option):  # check if next move wins exist
-            result = self.can_win(board_option)  # check for winning player and
-            if result == self.opponent:  # if winner is the computer,
-                return 10 + depth, None  # return depth + 10 
-            if result == self.player:  # if winner is human
-                return -10 - depth, None  # return depth - 10
-            if self.full_board(board_option):  # if the board is already full,
-                return 0, None  # return 0 --> this chunk breaks the recursive calls on each open square
+        #   # check if next move wins exist
+        result = self.can_win(board_option)  # check for winning player and
+        if result == self.opponent:  # if winner is the computer,
+            return 10 + depth, None  # return depth + 10 
+        if result == self.player:  # if winner is human
+            return -10 - depth, None  # return depth - 10
+        if self.full_board(board_option):  # if the board is already full,
+            return 0, None  # return 0 --> this chunk breaks the recursive calls on each open square
 
         for move in self.get_open_squares(board_option):  # then, for each available move 
             if player == self.opponent:  # if player is the computer
@@ -465,24 +464,24 @@ class AI(PlayerActions):
                 self.human_record.append(move)  # add move to the human record   
             self.board_record.append(move)  # record any moves to the board record afterwards
 
-        player = self.swap_player_turn(player)  # and swap players
-        score, _ = self.minimax_logic(player, board_option, depth + 1)  # do the recursive thing
-        player = self.swap_player_turn(player)  # and swap players again
+            player = self.swap_player_turn(player)  # and swap players
+            score, _ = self.minimax_logic(player, board_option, depth + 1)  # do the recursive thing
+            player = self.swap_player_turn(player)  # and swap players again
 
-        if player == self.opponent:  # now, if player is the computer
-            self.computer_record.pop()  # remove the most recently appended move from its record
-        else:  # otherwise
-            self.human_record.pop()  # remove the most recently appended move from the human record
-        self.board_record.pop()  # and finally, remove the most recent move from the board record 
+            if player == self.opponent:  # now, if player is the computer
+                self.computer_record.pop()  # remove the most recently appended move from its record
+            else:  # otherwise
+                self.human_record.pop()  # remove the most recently appended move from the human record
+            self.board_record.pop()  # and finally, remove the most recent move from the board record 
 
-        if player == self.opponent:  # next, if the player is the computer,
-            if score > self.max_score:  # and if the current score is greater than our max score
-                self.max_score = score  # set the return variables
-                self.best_move = move 
-        else :  # otherwise, if human,
-            if score < self.max_score:  # and if our score is lower than the max score
-                self.max_score = score  # set the return variables
-                self.best_move = move                    
+            if player == self.opponent:  # next, if the player is the computer,
+                if score > self.max_score:  # and if the current score is greater than our max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move 
+            else :  # otherwise, if human,
+                if score < self.max_score:  # and if our score is lower than the max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move                    
         return self.max_score, self.best_move  # returns the best move with the maximum score potential
 
     def minimax_move(self, player, board_option):
