@@ -350,7 +350,7 @@ class AI(PlayerActions):
                 squares.append(square)
             return squares
 
-    def can_win(self, board_option, depth):
+    def can_win(self, board_option):
         """TODO: method docstring...."""
         if board_option == 1:
             if len(self.board_record) > 3:
@@ -359,16 +359,13 @@ class AI(PlayerActions):
                         return self.opponent
                     if set(win) <= set(self.human_record):
                         return self.player
-            return False
         if board_option == 2:
             if len(self.board_record) > 8:
-                if depth <= 5:
-                    for win in self.big_win_patterns:
-                        if set(win) <= set(self.computer_record):
-                            return self.opponent
-                        if set(win) <= set(self.human_record):
-                            return self.player
-            return False
+                for win in self.big_win_patterns:
+                    if set(win) <= set(self.computer_record):
+                        return self.opponent
+                    if set(win) <= set(self.human_record):
+                        return self.player
 
     def full_board(self, board_option):
         """TODO: method docstring...."""
@@ -431,47 +428,54 @@ class AI(PlayerActions):
     def is_early_move(self, board_option):
         if board_option == 1:
             return False
-        if board_option == 2 and len(self.board_record) < 15:
+        if board_option == 2 and len(self.board_record) < 12:
             return True
         return False
+    
+    def is_can_win(self, board_option):
+        if board_option == 1 and len(self.board_record) > 1:
+            return True
+        if board_option == 2 and len(self.board_record) > 8:
+            return True
+        return False 
 
+    # TODO: How does on limit the depth for just the 2nd board option???
     def minimax_logic(self, player, board_option, depth = 0):
         """TODO: method docstring...."""
         if player == self.opponent:  # initiate max_score
             self.max_score = -10  # as -10 if player is the computer
         else:  # otherwise
             self.max_score = 10  # as +10
-        result = self.can_win(board_option, depth)  # check for winning player and
-        if result == self.opponent:  # if winner is the computer,
-            return 10 + depth, None  # return depth + 10 
-        if result == self.player:  # if winner is human
-            return -10 - depth, None  # retun depth - 10
-        if result == False:
-            pass
-        if self.full_board(board_option):  # if the board is already full,
-                    return 0, None  # return 0
+        if self.is_can_win(board_option):
+            result = self.can_win(board_option)  # check for winning player and
+            if result == self.opponent:  # if winner is the computer,
+                return 10 + depth, None  # return depth + 10 
+            if result == self.player:  # if winner is human
+                return -10 - depth, None  # return depth - 10
+            if self.full_board(board_option):  # if the board is already full,
+                return 0, None  # return 0
         for move in self.get_open_squares(board_option):  # then, for each available move 
             if player == self.opponent:  # if player is the computer
                 self.computer_record.append(move)  # add move to the computer record
             else:  # otherwise
                 self.human_record.append(move)  # add move to the human record   
             self.board_record.append(move)  # record any moves to the board record afterwards
-            player = self.swap_player_turn(player)  # and swap players
-            score, _ = self.minimax_logic(player, board_option, depth + 1)  # before recursively running this method
-            player = self.swap_player_turn(player)  # and swapping players again
-            if player == self.opponent:  # now, if player is the computer
-                self.computer_record.pop()  # remove the most recently appended move from its record
-            else:  # otherwise
-                self.human_record.pop()  # remove the most recently appended move from the human record
-            self.board_record.pop()  # and finally, remove the most recent move from the board record 
-            if player == self.opponent:  # next, if the player is the computer,
-                if score > self.max_score:  # and if the current score is greater than our max score
-                    self.max_score = score  # set the return variables
-                    self.best_move = move 
-            else :  # otherwise, if human,
-                if score < self.max_score:  # and if our score is lower than the max score
-                    self.max_score = score  # set the return variables
-                    self.best_move = move                    
+        player = self.swap_player_turn(player)  # and swap players
+        score, _ = self.minimax_logic(player, board_option, depth + 1)
+        player = self.swap_player_turn(player)  # and swapping players again
+        if player == self.opponent:  # now, if player is the computer
+            self.computer_record.pop()  # remove the most recently appended move from its record
+        else:  # otherwise
+            self.human_record.pop()  # remove the most recently appended move from the human record
+        self.board_record.pop()  # and finally, remove the most recent move from the board record 
+        if player == self.opponent:  # next, if the player is the computer,
+            if score > self.max_score:  # and if the current score is greater than our max score
+                self.max_score = score  # set the return variables
+                self.best_move = move 
+        else :  # otherwise, if human,
+            if score < self.max_score:  # and if our score is lower than the max score
+                self.max_score = score  # set the return variables
+                self.best_move = move                    
         return self.max_score, self.best_move  # return the best move with the maximum score potential
 
     def minimax_move(self, player, board_option):

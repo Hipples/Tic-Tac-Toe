@@ -109,3 +109,42 @@ Player X won the game!
 
 Player vs MiniMax AI! Game on!
 X:25 O:1 X:5 O:13 
+
+Player vs Player! Game on!
+O:1 X:2 O:3 X:4 O:5 X:6 O:7 X:8 O:9 X:10 O:11 X:12 O:13 X:14 O:15 X:16 O:17 X:18 O:19 X:20 O:21 
+Player O won the game!
+
+
+Player vs Random AI! Game on!
+X:25 O:1 X:16 O:2 X:20 O:3 X:17 O:4 X:12 O:5 
+Player O won the game!
+
+
+Player vs MiniMax AI! Game on!
+O:1 X:24 O:6 X:17 O:11 X:4 O:16 X:21 O:7 X:13 O:9 X:2 O:5 X:14 O:10 X:8 O:15 X:23 O:25 X:20 O:22 X:18 O:12 X:3 
+Player X won the game!
+
+
+Player vs MiniMax AI! Game on!
+O:25 X:5 O:24 X:21 O:9 X:1 O:10 X:3 O:7 X:8 O:2 X:23 O:12 X:17 O:15 X:4 O:13 X:16 O:11 X:14 
+
+Player vs MiniMax AI! Game on!
+O:1 
+
+Player vs MiniMax AI! Game on!
+X:5 O:25 X:19 O:1 X:18 O:16 X:11 O:17 X:20 O:21 X:23 O:22 X:8 O:12 
+
+Player vs MiniMax AI! Game on!
+O:1 X:2 O:13 X:3 O:12 X:4 O:25 X:5 O:18 X:10 O:22 X:9 
+
+Player vs MiniMax AI! Game on!
+O:1 X:5 O:2 X:16 O:3 X:15 O:4 X:13 O:6 X:18 O:7 X:9 O:8 
+
+Player vs MiniMax AI! Game on!
+X:1 O:5 X:2 O:6 X:3 O:7 X:4 O:22 X:8 O:16 X:9 O:21 X:10 
+
+Player vs MiniMax AI! Game on!
+X:1 O:5 X:2 O:8 X:3 O:14 X:4 O:24 X:6 O:15 X:7 O:12 X:9 
+
+Player vs MiniMax AI! Game on!
+O:1 X:23 O:2 X:19 O:3 X:25 O:4 X:5 O:6 X:9 O:7 X:22 O:8 X:21 O:10 
