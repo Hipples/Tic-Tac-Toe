@@ -399,7 +399,6 @@ class AI(PlayerActions):
                     move = list(set(win) - set(self.human_record))[0]
                     if move not in set(self.computer_record):
                         return move
-        return False
 
     def full_board(self, board_option) -> bool:
         """Tells the minimax AI when there are no more moves available to check."""
@@ -482,22 +481,23 @@ class AI(PlayerActions):
         return self.max_score, self.best_move  # returns the best move with the maximum score potential
 
     def minimax_move(self, player, board_option):
-        """TODO: method docstring...."""
+        """Captures, records, and fullfils the minimax AI's turn in game."""
+        # is it the first move of the game?
         if len(self.board_record) == 0:
             move = self.first_move(board_option)
+        # is it the last move of the game?
         elif self.is_last_move(board_option):
             move = self.get_open_squares(board_option)[0]
+        # can a win be obtained or prevented with this move?    
         elif self.is_urgent_move(board_option):
             move = self.urgent_move(board_option)  # win or prevent win (classic)
-            if move == False:
-                if self.is_early_move(board_option):
-                    move = self.random_logic(board_option)
-                else:
-                    _, move = self.minimax_logic(player, board_option)
+        # are we still early in the game?
         elif self.is_early_move(board_option):
             move = self.random_logic(board_option)
+        # all that considered, what is our best move then?
         else:   
             _, move = self.minimax_logic(player, board_option)
+        # the rest of this records and commits minimax AI's move    
         move = str(move)
         coords = np.where(self.board == move)
         row, col = (int(coords[0])), (int(coords[1]))
