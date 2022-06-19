@@ -1,17 +1,26 @@
 """This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus). 
 
 The parent class contains methods to create and display three game menus: 
-(1) welcome screen/main menu
-(2) gameboard options
-(3) gameover screen
+    (1) welcome screen/main menu
+    (2) gameboard options
+    (3) gameover screen
 
-The child class prompts, acquires, and applies the chosen menu options via user input."""
-
-from game import TicTacToe
+The child class prompts user input related to the menu options, captures specified game settings, and starts the chosen game mode!
+"""
+from game import TicTacToe  # used to apply settings and start game from main menu
 
 class TicTacToeMenus:
-    """Creates and displays menus with player options for a Tic Tac Toe game."""
-    def __init__(self):
+    """
+    TicTacToeMenus contains the following class methods:
+
+        - create_welcome_screen()
+        - display_welcome_screen()
+        - create_game_over_screen()
+        - display_game_over_screen()
+        - create_board_options()
+        - display_board_options()
+    """
+    def __init__(self):  # no class variables required
         pass
 
     def create_welcome_screen(self):
@@ -93,18 +102,18 @@ class TicTacToeMenus:
 
 class PlayerSelections(TicTacToeMenus):
     """
-    The PlayerSelections class is the child class to TicTacToeMenus. 
-    PlayerSelections contains the following methods:
-
-        - get_player_selection()    x. acquires and returns user input with error catching
-        - get_board_option()        x. displays, acquires, and applies board options via user input
-        - main_menu()               x. displays, acquires, and applies user input to setup and start the game
-        - game_over()               x. displays after replay refusal, allows player to return to main menu or
-                                           quit out of the application
+    PlayerSelections contains the following class methods:
+        - set_board_options(board)
+        - set_game_mode(mode)
+        - get_game_settings()
+        - get_player_selection()   
+        - get_board_option()       
+        - main_menu()               
+        - game_over()               
     """
     def __init__(self):
         """    
-        The PlayerSelections class initializes with all parent variables/methods and adds the following class variables:
+        PlayerSelections initializes with all parent methods and adds the following class variables:
 
             - self._size        x. default = 1 --> the classic 3x3 gameboard
             - self._mode        x. default = 1 --> PvP mode 
@@ -114,6 +123,7 @@ class PlayerSelections(TicTacToeMenus):
         self._mode = 1  # defaults to PvP mode  
     
     def set_board_option(self, board):
+        """Applies player selection from board options menu to game settings."""
         if board == 1:
             print("\n\tYou have chosen to play on the classic, 3x3, gameboard!")
         if board == 2:
@@ -121,19 +131,15 @@ class PlayerSelections(TicTacToeMenus):
         self.board_option = board
     
     def set_game_mode(self, mode):
+        """Applies player selection (1-3) from main menu to game settings."""
         self.mode = mode
 
     def get_game_settings(self):
+        """Returns all game settings."""
         return self.mode, self.board_option  
 
     def get_player_selection(self):
-        """The get_player_selection() method captures player input, converts to integer, and returns selection.
-           
-           Error catching included for KeyboardInterrupt to allow users to quit the program with Ctrl + c and
-           for ValueErrors to ensure user inputs can be converted to integers. 
-
-           Returns the player selection.
-        """
+        """Returns players selections as integers. Catches and reprompts input errors. Accepts Ctrl + c as shortcut to quit out of program during user input."""
         while True:
             try:
                 selection = int(input("\n\tPlayer Selection: "))
@@ -149,20 +155,13 @@ class PlayerSelections(TicTacToeMenus):
                 return selection  # returns player selection
 
     def board_options(self):
-        """
-        The board_options() method allows players to choose one of two board sizes to play on: 
-
-            [1] 3x3 
-            [2] 5x5
-
-        Always returns to main menu. Default board size is 3x3. 
-        """
+        """Allows user to choose the board size for their game (3x3 or 5x5). Returns to main menu."""
         # loop prompts, captures, returns, and displays any player selections
         while True: 
             self.display_board_options()  # displays board options menu
             option = self.get_player_selection()
             if option in [1, 2]:
-                self.set_board_option(board = option)
+                self.set_board_option(board = option)  # saves board_option to game settings
                 self.main_menu()
                 break
             if option == 3:
@@ -174,24 +173,20 @@ class PlayerSelections(TicTacToeMenus):
 
     def main_menu(self):
         """
-        The main_menu method first displays the welcome screen/main menu for the Tic Tac Toe game. 
-           
         The main menu has 5 options:
         (1) PvP, (2) Random AI, (3) MiniMax AI, (4) Gameboard Options, or (5) Quit
            
-        For the player's selection is then prompted, acquired, and applied. 
         Options 1-3 immediately start their respective gameplay loops.            
         """
-
         # loop prompts, captures, and applies player selections
         while True:
             self.display_welcome_screen()  # displays the main menu
             selection = self.get_player_selection()
             if selection in [1, 2, 3]:
-                self.set_game_mode(mode = selection)
-                mode, board = self.get_game_settings()
-                play = TicTacToe(mode, board)
-                play.tic_tac_toe()
+                self.set_game_mode(mode = selection)  # saves mode to game settings
+                mode, board = self.get_game_settings()  # acuires most recent game settings
+                play = TicTacToe(mode, board)  # initiates TicTacToe object
+                play.tic_tac_toe()  # starts game
                 break
             elif selection == 4:
                 self.board_options()  # loads board options menu
@@ -204,15 +199,14 @@ class PlayerSelections(TicTacToeMenus):
                 print("\n\tInvalid input. Please try again.")
 
     def game_over(self):
-        """The game_over() method displays the end-of-game screen that allows players the option
-        to either return to the main menu or quit out of the program all together."""
+        """The game over screen allows players the option to return to the main menu or quit."""
         while True:  # begins player selection loop
             self.display_game_over_screen()
             selection = self.get_player_selection()  # acquires player selection via input
             if(selection == 1):  # if 1,
                 self.main_menu()  # returns to main menu
                 break
-            if(selection == 2):  # if 2, 
+            if(selection == 2):  # if 2,
                 print("\n\tGood bye!\n")  # prints "Good bye!"
                 exit()  # and exits program entirely
             # else catches invalid inputs and prompts user to try again

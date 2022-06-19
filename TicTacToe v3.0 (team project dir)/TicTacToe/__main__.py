@@ -1,5 +1,5 @@
 """
-This module is designed to initiate the Tic Tac Toe application.
+This module is designed to initiate the tic tac toe application.
 """
 import app
 

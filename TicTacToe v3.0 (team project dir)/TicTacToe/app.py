@@ -1,5 +1,5 @@
 """
-This module is designed to load menus for our tic tac toe application at startup and shutdown.
+This module is designed to load menus and settings for our tic tac toe program at startup and shutdown.
 """
 from menus_and_settings import PlayerSelections
 
