@@ -215,3 +215,7 @@ Match was a draw!
 Player vs MiniMax AI! Game on!
 X:3 O:5 X:9 O:6 X:4 O:1 X:8 O:7 X:2 
 Match was a draw!
+
+
+Player vs Random AI! Game on!
+O:9 X:13 O:6 

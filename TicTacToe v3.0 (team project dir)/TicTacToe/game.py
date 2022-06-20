@@ -282,7 +282,7 @@ class TicTacToe:
 # no pylama results
 # current plyint score of 9.22/10
 
-# unresolved error list includes:
+# unresolved msg list includes:
 #   - W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
 #       - line(s): 50, 87, 95, 119, 168, 176, 199, 248, 256
 #   - C0103: Variable name "ai" doesn't conform to snake_case naming style (invalid-name)

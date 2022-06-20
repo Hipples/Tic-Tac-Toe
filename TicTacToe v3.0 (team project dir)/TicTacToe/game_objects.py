@@ -75,9 +75,9 @@ class TicTacToeBoards:
         print('\t-------------------------------')
         for row in self.board:
             print('\t|         |         |         |')
-            print('\t|', end = '')
+            print('\t|', end='')
             for item in row:
-                print(f'    {item}    |', end = '')
+                print(f'    {item}    |', end='')
             print()
             print('\t|         |         |         |')
             print('\t-------------------------------')
@@ -87,11 +87,9 @@ class TicTacToeBoards:
         print('\t---------------------------------------------------')
         for row in self.board:
             print('\t|         |         |         |         |         |')
-            print('\t|', end = '')
+            print('\t|', end='')
             for item in row:
-                # C0209: Formatting a regular string which could be a f-string
-                #        (consider-using-f-string) -pylama
-                print('    %2s   |' %item, end = '')
+                print(f'    {item:2}   |', end='')
             print()
             print('\t|         |         |         |         |         |')
             print('\t---------------------------------------------------')
@@ -140,7 +138,7 @@ class TicTacToeBoards:
         if board_option == 2:
             for row in range(5):
                 if board[row][0] == board[row][1] and board[row][1] == board[row][2]\
-                and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
+                   and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
                     if board[row][0] == player:
                         return True
         return False
@@ -157,35 +155,49 @@ class TicTacToeBoards:
         if board_option == 2:
             for col in range(5):
                 if board[0][col] == board[1][col] and board[1][col] == board[2][col]\
-                and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
+                   and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
                     if board[0][col] == player:
                         return True
         return False
 
-    def is_winner_by_diag(self, board, player, board_option):
-        """Checks for diagonal winning patterns on specified board."""
+    def is_winner_by_desc(self, board, player, board_option):
+        """Checks for the descending diagonal winning pattern on the specified gameboard."""
         # classic board
         if board_option == 1:
-            # check descending diagonal for win
             if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
                 if board[0][0] == player:
                     return True
-            # check ascending diagonal for win
+        # big board
+        if board_option == 2:
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]\
+               and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
+                if board[0][0] == player:
+                    return True
+        return False
+
+    def is_winner_by_asc(self, board, player, board_option):
+        """Checks for the ascending diagonal winning pattern on the specified gameboard."""
+        # classic board
+        if board_option == 1:
             if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
                 if board[0][2] == player:
                     return True
         # big board
         if board_option == 2:
-            # check descending diagonal for win
-            if board[0][0] == board[1][1] and board[1][1] == board[2][2]\
-            and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
-                if board[0][0] == player:
-                    return True
-            # check ascending diagonal for win
             if board[0][4] == board[1][3] and board[1][3] == board[2][2]\
-            and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
+               and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
                 if board[0][4] == player:
                     return True
+        return False
+
+    def is_winner_by_diag(self, board, player, board_option):
+        """Checks for diagonal winning patterns on specified board."""
+        # check ascending diagonal for win
+        if self.is_winner_by_desc(board, player, board_option):
+            return True
+        # check ascending diagonal for win
+        if self.is_winner_by_asc(board, player, board_option):
+            return True
         return False
 
     def is_winner(self, board, player, board_option):
@@ -279,6 +291,7 @@ class PlayerActions(TicTacToeBoards):
         """Swaps game control between the two players."""
         return 'X' if player == 'O' else 'O'
 
+
 class AI(PlayerActions):
     """
     AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard.
@@ -345,7 +358,7 @@ class AI(PlayerActions):
         move = self.random_logic(board_option)  # generates random move,
         coords = np.where(self.board == move)  # sets the move coordinates
         row, col = (int(coords[0])), (int(coords[1]))  # assign the proper index of the move
-        sleep(1) # (our AI is thinking. . .)
+        sleep(1)  # (our AI is thinking. . .)
         print(f"\n\tRandom AI chooses square {move}!\n")  # announce Random AI's move
         with open(self.match_records, 'a') as record:  # open our match records and
             record.write(f"{player}:{move} ")  # append the Random AI move
@@ -402,7 +415,7 @@ class AI(PlayerActions):
     def urgent_move(self, board_option):
         """Checks for any wins that could be obtained or prevented each turn by the minimax AI."""
         # classic board
-        if board_option ==1:
+        if board_option == 1:
             winpatten = self.winning_patterns
         # big board
         else:
@@ -411,14 +424,14 @@ class AI(PlayerActions):
         # checking computer moves
         for win in winpatten:
             if len(list(set(win) - set(self.computer_record))) == 1\
-            and len(set(self.computer_record)) > 1:
+               and len(set(self.computer_record)) > 1:
                 move = list(set(win) - set(self.computer_record))[0]
                 if move not in set(self.human_record):
                     return move
         # checking human moves
         for win in winpatten:
             if len(list(set(win) - set(self.human_record))) == 1\
-            and len(set(self.human_record)) > 1:
+               and len(set(self.human_record)) > 1:
                 move = list(set(win) - set(self.human_record))[0]
                 if move not in set(self.computer_record):
                     return move
@@ -468,7 +481,7 @@ class AI(PlayerActions):
         if board_option == 2 and len(self.board_record) < 12:
             return True
         return False
-    
+
     def append_moves(self, player, move):
         """Appends moves to specified record for minimax AI."""
         if player == self.opponent:  # if player is the computer
@@ -489,7 +502,7 @@ class AI(PlayerActions):
     # on the big board. Slash, this is potentially not fully functional on either board at the
     # moment due to edits from debugging the big board.
 
-    def minimax_logic(self, player, board_option, depth = 0):
+    def minimax_logic(self, player, board_option, depth=0):
         """Logic used by minimax AI to discover best next move."""
         if player == self.opponent:  # sets max_score
             self.max_score = -10  # as -10 if player is the computer
@@ -507,7 +520,8 @@ class AI(PlayerActions):
             if result == self.player:  # if winner is human
                 return -10 - depth, None  # return depth - 10
             if self.full_board(board_option):  # if the board is already full,
-                return 0, None  # return 0 --> this chunk breaks the recursive calls on each open square
+                return 0, None  # return 0 -->
+        # this chunk breaks the recursive calls on each open square
 
         for move in self.get_open_squares(board_option):  # then, for each available move
             self.append_moves(player, move)
@@ -520,7 +534,7 @@ class AI(PlayerActions):
                 if score > self.max_score:  # and if the current score is greater than our max score
                     self.max_score = score  # set the return variables
                     self.best_move = move
-            else :  # otherwise, if human,
+            else:  # otherwise, if human,
                 if score < self.max_score:  # and if our score is lower than the max score
                     self.max_score = score  # set the return variables
                     self.best_move = move
@@ -541,7 +555,7 @@ class AI(PlayerActions):
         # can a win be obtained or prevented with this move?
         elif self.is_urgent(board_option):
             move = self.urgent_move(board_option)  # win or prevent win
-        # if all that fails, do a minimax search 
+        # if all that fails, do a minimax search
             if move is False:
                 _, move = self.minimax_logic(player, board_option)  # holds score
         else:
@@ -555,3 +569,25 @@ class AI(PlayerActions):
         self.place_marker(row, col, player)
         self.computer_record.append(move)
         self.board_record.append(move)
+
+# ignored/unresolved pylama msg list includes:
+#   - E201 whitespace after '[' [pycodestyle]
+#       - line(s): 54, 331(x2), 332(x2), 333, 334, 335, 336(x2)
+#   - E128 continuation line under-indented for visual indent [pycodestyle]
+#       - line(s): 56, 57, 58
+#   - E722 do not use bare 'except' [pycodestyle]
+#       - line(s): 279
+
+# current pylint score: 9.69/10
+
+# ignored/unresolved pylint msg list includes:
+#   - W0511: TODO: .... (fixme)
+#       - line(s): 338, 501, 512, 543
+#   - W0702: No exception type(s) specified (bare-except)
+#       - line(s): 279
+#   - R1722: Consider using sys.exit() (consider-using-sys-exit)
+#       - line(s): 277
+#   - W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+#       - line(s): 283, 363, 567
+
+#   - June 19, 2022
