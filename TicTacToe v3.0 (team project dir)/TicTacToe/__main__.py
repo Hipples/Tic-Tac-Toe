@@ -5,3 +5,6 @@ import app
 
 if __name__ == '__main__':
     app.run()
+
+# plyint results 10/10
+# - June 19, 2022

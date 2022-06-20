@@ -1,18 +1,28 @@
-"""This game module contains the gameplay loop logic necessary to run a smooth Tic Tac Toe match in a variety of game modes."""
+"""
+This game module contains the gameplay loop logic necessary to run a smooth tic tac toe match
+in a variety of game modes.
+"""
 
 import random
 from time import sleep
 from game_objects import PlayerActions, AI
 
+
 class TicTacToe:
-    """game's TicTacToe class contains the following methods:
-            - coin_flip()       x. used to randomly decide first player
-            - replay()          x. used to offer instant replay of same game mode
-            - game_mode_1()     x. Player vs Player game loop
-            - game_mode_2()     x. Player vs Random AI game loop
-            - game_mode_3()     x. Player vs MiniMax AI game loop
+    """TicTacToe contains the following class methods:
+
+            - coin_flip()
+            - replay()
+            - game_mode_1()
+            - game_mode_2()
+            - game_mode_3()
     """
-    def __init__(self, mode = 1, board_option = 1):
+    def __init__(self, mode=1, board_option=1):
+        """
+        TicTacToe initiates with the default classic PvP game mode using two class variables:
+            - self.mode
+            - self.board_option
+        """
         self.mode = mode
         self.board_option = board_option
 
@@ -28,7 +38,8 @@ class TicTacToe:
             return True
         if replay.lower() == 'n':
             return False
-  
+        return None
+
     def game_one(self):
         """Classic PvP Mode. Game loop."""
         # initialize game objects from PlayerActions class
@@ -95,7 +106,7 @@ class TicTacToe:
             # 17. reset gameboard
             action.reset_board()
             # 18. replay option
-            if self.replay() == False:
+            if self.replay() is False:
                 break
 
     def game_two(self):
@@ -176,7 +187,7 @@ class TicTacToe:
             # 15. reset the gameboard
             ai.reset_board()
             # 16. replay option
-            if self.replay() == False:
+            if self.replay() is False:
                 break
 
     def game_three(self):
@@ -186,8 +197,8 @@ class TicTacToe:
         # initiate replay loop
         while True:
             # 0. append 'New Game!' to tic_tac_toe.txt
-            with open(ai.match_records, 'a') as record:    
-                record.write(f"\n\nPlayer vs MiniMax AI! Game on!\n")
+            with open(ai.match_records, 'a') as record:
+                record.write("\n\nPlayer vs MiniMax AI! Game on!\n")
             # 1. create the gameboard
             ai.create_board(self.board_option)
             # 2. assign markers based on choice
@@ -214,11 +225,11 @@ class TicTacToe:
             else:
                 # generate and make minimax move
                 ai.minimax_move(first_player, self.board_option)
-                print() 
+                print()
                 # display updated gameboard
                 ai.display_board(self.board_option)
                 # assign to current player
-                current_player = ai.opponent            
+                current_player = ai.opponent
             # 7. main game play loop
             while True:
                 # 8. swap player turn
@@ -227,18 +238,18 @@ class TicTacToe:
                 print(f"\n\tPlayer {current_player}'s turn.\n")
                 # 10a. if player is human, use player_move
                 if current_player == ai.player:
-                    ai.player_move(current_player)  # TODO: coords breaking when only one move left??
+                    ai.player_move(current_player)
                 # 10b. if player is a computer, use minimax_move
-                else: 
-                    ai.minimax_move(current_player, self.board_option)                
+                else:
+                    ai.minimax_move(current_player, self.board_option)
                 # 11a. check if there is a winner
                 if ai.is_winner(ai.board, current_player, self.board_option):
                     print(f"\n\tPlayer {current_player} wins the game!\n")
                     # 11b. record the winner in tic_tac_toe.txt
-                    with open(ai.match_records, 'a') as record:    
+                    with open(ai.match_records, 'a') as record:
                         record.write(f"\nPlayer {current_player} won the game!\n")
                     # 11c. game over
-                    break                
+                    break
                 # 12a. check if there is a draw
                 if ai.is_draw(self.board_option):
                     print("\n\tMatch draw!\n")
@@ -246,17 +257,17 @@ class TicTacToe:
                     with open(ai.match_records, 'a') as record:
                         record.write("\nMatch was a draw!\n")
                     # 12c. game over
-                    break                
+                    break
                 # 13. display updated gameboard
-                ai.display_board(self.board_option) 
-            print()           
+                ai.display_board(self.board_option)
+            print()
             # 14. final gameboard display
             ai.display_board(self.board_option)
-            print()            
+            print()
             # 15. reset the gameboard
             ai.reset_board()
             # 16. replay option
-            if self.replay() == False:
+            if self.replay() is False:
                 break
 
     def tic_tac_toe(self):
@@ -267,3 +278,14 @@ class TicTacToe:
             self.game_two()
         if self.mode == 3:
             self.game_three()
+
+# no pylama results
+# current plyint score of 9.22/10
+
+# unresolved error list includes:
+#   - W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+#       - line(s): 50, 87, 95, 119, 168, 176, 199, 248, 256
+#   - C0103: Variable name "ai" doesn't conform to snake_case naming style (invalid-name)
+#       - line(s): 114, 195
+
+#   - June 19, 2022

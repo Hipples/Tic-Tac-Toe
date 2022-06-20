@@ -1,6 +1,7 @@
+# game objects test mingsheng
+
 """
 This module is designed to define a variety of gameplay objects required for our tic tac toe gameplay loops. The following classes have been included: 
-
     - TicTacToeBoard        
     - PlayerActions        
     - AI                   
@@ -12,10 +13,8 @@ import numpy as np
 class TicTacToeBoards:
     """
     TicTacToeBoards is the parent class of PlayerActions and the grandparent class of AI.
-
     This class contains methods designed to generate, display, write to, read from, and reset both
     tic tac toe gameboards.
-
         - create_board(board_option)
         - print_classic_board()
         - print_big_board()
@@ -32,7 +31,6 @@ class TicTacToeBoards:
     def __init__(self):
         """
         TicTacToeBoard initializes the following class variables:
-
             - self.board
             - self.board_record
             - self.human_record
@@ -111,7 +109,7 @@ class TicTacToeBoards:
         self.board[row][col] = player
 
     def is_draw(self, board_option):
-        """Returns True if there is a draw for the specified board."""
+        """Returns True if there is a draw for specified board."""
         for row in self.board:
             for square in row:
                 # classic board
@@ -186,13 +184,11 @@ class TicTacToeBoards:
         if self.is_winner_by_diag(board, player, board_option):
             return True
         return False
-  
+
 class PlayerActions(TicTacToeBoards):
     """
     PlayerActions is the child class of TicTacToeBoards and the parent class of AI. PlayerActions contains methods designed to swap player turns, assign player markers (X or O), and acquire and apply player move choices.
-
     Class methods include:
-
         - choose_marker()
         - assign_markers()
         - player_turn(player)
@@ -203,7 +199,6 @@ class PlayerActions(TicTacToeBoards):
     def __init__(self):
         """
         PlayerActions initializes with all parent methods/variables and defines the following:
-
             - self.match_records
             - self.player
             - self.opponent
@@ -226,9 +221,9 @@ class PlayerActions(TicTacToeBoards):
         """Assigns X and O markers to the appropriate players."""
         self.player, self.opponent = self.choose_marker()  # assign the first char returned to our player,
         return self.player, self.opponent  # and the second char to our opponent
-    
+
     def player_turn(self, player):
-        """Acquires player input to determine desired move."""
+        """Acquires player input to determine desired move (1-9)."""
         move = input(f"\n\tPlease enter the square number where you'd like to place your {player}: ")
         print(f"\n\tYou chose square {move}!")  # acquire player input to determine desired move
         return move  # return chosen square value
@@ -267,17 +262,12 @@ class PlayerActions(TicTacToeBoards):
 class AI(PlayerActions):
     """
     AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard. AI contains methods designed to activate a random AI and a minimax AI opponent for their respective gamemodes.
-
     Class methods include:
-
         - random_logic(board_option)
-        - random_move(player, board_option)
+        - random_moves(player, board_option)
         - get_open_squares(board_option)
-        - can_win(board_option)
-        - first_move(board_option)
-        - urgent_move(board_option)
-        - full_board(board_option)
-        - is_last_move(board_option)
+        - can_win()
+        - full_board()
         - urgent_move()
         - minimax_logic()
         - minimax_move()
@@ -285,7 +275,6 @@ class AI(PlayerActions):
     def __init__(self):
         """
         AI initializes with all of its parent and grandparent class variables, as well as:
-
             - self.max_score
             - self.best_move
             - self.winning_patterns
@@ -382,16 +371,16 @@ class AI(PlayerActions):
             winpatten = self.winning_patterns
         else: 
             winpatten = self.big_win_patterns
-        # checking computer moves
-        for win in winpatten:
-            if len(list(set(win) - set(self.computer_record))) == 1 and len(set(win) - set(self.board_record))>0:
-                move = list(set(win) - set(self.board_record))[0]
-                return move
-        # checking human moves
-        for win in winpatten:
-            if len(list(set(win) - set(self.human_record))) == 1 and len(set(win) - set(self.board_record))>0:
-                move = list(set(win) - set(self.board_record))[0]
-                return move    
+        # classic board
+        if board_option == 1 or board_option ==2:
+            for win in winpatten:
+                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    move = list(set(win) - set(self.board_record))[0]
+                    return move
+            for win in winpatten:
+                if len(list(set(win) - set(self.human_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    move = list(set(win) - set(self.board_record))[0]
+                    return move    
         return False
 
     def full_board(self, board_option) -> bool:
@@ -416,14 +405,22 @@ class AI(PlayerActions):
             return True
         return False        
 
-    def is_urgent_move(self, board_option) -> bool:
+    def is_urgent_move(self, board_option)-> bool:
         """"Checks if enough markers have been placed for someone to have a potential win for minimax AI."""
+        if board_option ==1:
+            winpatten = self.winning_patterns
+        else: 
+            winpatten = self.big_win_patterns
         # classic board
-        if board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1):
-            return True
-        # big board    
-        if board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3):
-            return True
+        if (board_option == 1 and (len(self.human_record) > 1 or len(self.computer_record) >1)) or (board_option == 2 and (len(self.human_record) > 3 or len(self.computer_record) > 3)):
+            for win in winpatten:
+                if len(list(set(win) - set(self.computer_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    # move = list(set(win) - set(self.board_record))[0]
+                    return True
+            for win in winpatten:
+                if len(list(set(win) - set(self.human_record))) == 1 and len(set(win) - set(self.board_record))>0:
+                    # move = list(set(win) - set(self.board_record))[0]
+                    return True       
         return False
 
     def is_early_move(self, board_option) -> bool:
@@ -433,8 +430,8 @@ class AI(PlayerActions):
             return True
         return False
 
-    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice on the big board. Slash, this is potentially not fully functional on either board at the moment due to edits from debugging the big board.
-
+    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice on the big board.
+    # Slash, this is potentially not fully functional on either board at the moment due to edits from debugging the big board.
     def minimax_logic(self, player, board_option, depth = 0):
         """Logic used by minimax AI to discover best next move."""
         if player == self.opponent:  # sets max_score
@@ -442,8 +439,8 @@ class AI(PlayerActions):
         else:  # otherwise
             self.max_score = 10  # as +10
 
-        # TODO: using this chunk, we only break recursion if a win or draw has been discovered....potential place to work on reducing the amount of time the AI takes choosing a move on the big board
-
+        # TODO: using this, we only break recursion if a win or draw has been discovered....potential place to work on reducing the amount of time the AI takes choosing a move on the big board
+        #   # check if next move wins exist
         result = self.can_win(board_option)  # check for winning player and
         if result == self.opponent:  # if winner is the computer,
             return 10 + depth, None  # return depth + 10 
@@ -478,8 +475,6 @@ class AI(PlayerActions):
                     self.max_score = score  # set the return variables
                     self.best_move = move                    
         return self.max_score, self.best_move  # returns the best move with the maximum score potential
-
-    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice on the big board. Slash, this is potentially not fully functional on either board at the moment due to edits from debugging the big board.
 
     def minimax_move(self, player, board_option):
         """Captures, records, and fullfils the minimax AI's turn in game."""
