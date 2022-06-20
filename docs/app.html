@@ -31,10 +31,10 @@
                 <h1 class="title">Module <code>TicTacToe.app</code></h1>
             </header>
             <section id="section-intro">
-                <p>This module is designed to load menus and settings for our tic tac toe program at startup and shutdown.</p>
+                <p>The app module is designed to load menus and settings for our tic tac toe program at startup and shutdown.</p>
                 <details class="source">
                 <summary>
-                    <span>Expand source code</span>
+                    <span>Expand module source code</span>
                 </summary>
                 <pre><code class="python">
 &#34;&#34;&#34; 
@@ -69,22 +69,20 @@ The run() function loads the tic tac toe program&#39;s main menus.
                         <span>def <span class="ident">run</span></span>(<span>)</span>
                     </code></dt>
                     <dd>
-                        <div class="desc"><p>The run() function loads the tic tac toe program's main menus.</p></div>
+                        <div class="desc"><p>Loads the tic tac toe program's main menus.</p></div>
                         <details class="source">
                             <summary>
-                                <span>Expand source code</span>
+                                <span>Expand function source code</span>
                             </summary>
                             <pre><code class="python">
-                                def run():
-                                &#34;&#34;&#34;
-                                The run() function loads the tic tac toe program&#39;s main menus.
-                                &#34;&#34;&#34;
-                                    load = PlayerSelections()                                        
-                                    
-                                    while True:
-                                        load.main_menu()  # startup options
-                                        while True:
-                                            load.game_over()  # shutdown options
+def run():
+&#34;&#34;&#34;Loads the tic tac toe program&#39;s main menus.&#34;&#34;&#34;
+    load = PlayerSelections()                                        
+    
+    while True:
+        load.main_menu()  # startup options
+        while True:
+            load.game_over()  # shutdown options
                             </code></pre>                                        
                         </details>
                     </dd>                                        
@@ -93,12 +91,12 @@ The run() function loads the tic tac toe program&#39;s main menus.
             <section></section>
         </article>
         <nav id="sidebar">
-            <h1>Index</h1>
+            <h1>Contents</h1>
             <div class="toc">
                 <ul></ul>
             </div>
             <ul id="index">
-                <li><h3>Super-module</h3>
+                <li><h3>Program</h3>
                     <ul>
                         <li><code><a title="TicTacToe" href="index.html">TicTacToe</a></code></li>
                     </ul>

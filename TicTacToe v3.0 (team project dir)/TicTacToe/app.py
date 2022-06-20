@@ -1,12 +1,12 @@
 """
-This module is designed to load menus and settings for our tic tac toe program at startup
+The app module is designed to load menus and settings for our tic tac toe program at startup
 and shutdown.
 """
 from menus_and_settings import PlayerSelections
 
 
 def run():
-    """The run() function loads the tic tac toe program's main menus."""
+    """Loads the tic tac toe program's main menus."""
     load = PlayerSelections()
 
     while True:
