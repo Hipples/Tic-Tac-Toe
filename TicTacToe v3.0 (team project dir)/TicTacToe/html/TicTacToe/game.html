@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>TicTacToe.game API documentation</title>
+<meta name="description" content="This game module contains the gameplay loop logic necessary to run a smooth tic tac toe match
+in a variety of game modes." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>TicTacToe.game</code></h1>
+</header>
+<section id="section-intro">
+<p>This game module contains the gameplay loop logic necessary to run a smooth tic tac toe match
+in a variety of game modes.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This game module contains the gameplay loop logic necessary to run a smooth tic tac toe match
+in a variety of game modes.
+&#34;&#34;&#34;
+
+import random
+from time import sleep
+from game_objects import PlayerActions, AI
+
+
+class TicTacToe:
+    &#34;&#34;&#34;TicTacToe contains the following class methods:
+
+            - coin_flip()
+            - replay()
+            - game_mode_1()
+            - game_mode_2()
+            - game_mode_3()
+    &#34;&#34;&#34;
+    def __init__(self, mode=1, board_option=1):
+        &#34;&#34;&#34;
+        TicTacToe initiates with the default classic PvP game mode using two class variables:
+            - self.mode
+            - self.board_option
+        &#34;&#34;&#34;
+        self.mode = mode
+        self.board_option = board_option
+
+    def coin_flip(self):  # winner goes first
+        &#34;&#34;&#34;Returns either 0 or 1, randomly.&#34;&#34;&#34;
+        return random.randint(0, 1)  # heads or tails?
+
+    def replay(self):
+        &#34;&#34;&#34;Asks if main player would like to replay the current gamemode. Returns True or False.&#34;&#34;&#34;
+        replay = input(&#34;\n\tWould you like to play again? (y/n): &#34;)
+        print()
+        if replay.lower() == &#39;y&#39;:
+            return True
+        if replay.lower() == &#39;n&#39;:
+            return False
+        return None
+
+    def game_one(self):
+        &#34;&#34;&#34;Classic PvP Mode. Game loop.&#34;&#34;&#34;
+        # initialize game objects from PlayerActions class
+        action = PlayerActions()
+        print(self.mode, self.board_option)
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(action.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs Player! Game on!\n&#34;)
+            # 1. create the gameboard
+            action.create_board(self.board_option)
+            # 2. assign player markers based on choice
+            action.player, action.opponent = action.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = action.player
+            else:
+                first_player = action.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display starting gameboard
+            action.display_board(self.board_option)
+            # 6. input and make move
+            action.player_move(first_player)
+            print()
+            # 7. display updated gameboard
+            action.display_board(self.board_option)
+            # 8. assign current_player as first_player
+            current_player = first_player
+            while True:
+                # 9. swap player turn
+                current_player = action.swap_player_turn(current_player)
+                # 10. display whose turn to play
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                sleep(1)
+                # 11. display updated gameboard
+                action.display_board(self.board_option)
+                # 12. capture and make player move
+                action.player_move(current_player)
+                print()
+                # 13a. check if there is a winner
+                if action.is_winner(action.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 13b. record the winner in tic_tac_toe.txt
+                    with open(action.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 13c. game over
+                    break
+                # 14a. check if there is a draw
+                if action.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 14b. record the draw status in tic_tac_toe.txt
+                    with open(action.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 14c. game over
+                    break
+                # 15. display updated gameboard
+                action.display_board(self.board_option)
+            print()
+            # 16. final gameboard display
+            action.display_board(self.board_option)
+            print()
+            # 17. reset gameboard
+            action.reset_board()
+            # 18. replay option
+            if self.replay() is False:
+                break
+
+    def game_two(self):
+        &#34;&#34;&#34;PvE Mode - Easy. Random AI opponent. Game loop.&#34;&#34;&#34;
+        # initialize game objects from AI class
+        ai = AI()
+        print(self.mode, self.board_option)
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(ai.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs Random AI! Game on!\n&#34;)
+            # 1. create the gameboard
+            ai.create_board(self.board_option)
+            # 2. assign markers based on choice
+            ai.player, ai.opponent = ai.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = ai.player
+            else:
+                first_player = ai.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display empty gameboard
+            ai.display_board(self.board_option)
+            # 6a. if human player. . .
+            if first_player == ai.player:
+                # input and make move
+                ai.player_move(first_player)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.player
+            # 6b. if computer player. . .
+            else:
+                # generate and make random move
+                ai.random_move(first_player, self.board_option)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.opponent
+            # 7. main game play loop
+            while True:
+                # 8. swap player turn
+                current_player = ai.swap_player_turn(current_player)
+                # 9. display the current player
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                # 10a. if player is human, use player_move method
+                if current_player == ai.player:
+                    ai.player_move(current_player)
+                # 10b. if player is a computer, use computer_move method
+                else:
+                    ai.random_move(current_player, self.board_option)
+                # 11a. check if there is a winner
+                if ai.is_winner(ai.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 11b. record the winner in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 11c. game over
+                    break
+                # 12a. check if there is a draw
+                if ai.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 12b. record the draw status in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 12c. game over
+                    break
+                # 13. display updated gameboard
+                ai.display_board(self.board_option)
+            print()
+            # 14. final gameboard display
+            ai.display_board(self.board_option)
+            print()
+            # 15. reset the gameboard
+            ai.reset_board()
+            # 16. replay option
+            if self.replay() is False:
+                break
+
+    def game_three(self):
+        &#34;&#34;&#34;PvE Mode - Hard. Minimax AI opponent. Game loop.&#34;&#34;&#34;
+        # initialize game objects from AI class
+        ai = AI()
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(ai.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs MiniMax AI! Game on!\n&#34;)
+            # 1. create the gameboard
+            ai.create_board(self.board_option)
+            # 2. assign markers based on choice
+            ai.player, ai.opponent = ai.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = ai.player
+            else:
+                first_player = ai.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display empty gameboard
+            ai.display_board(self.board_option)
+            # 6a. if human player. . .
+            if first_player == ai.player:
+                # input and make move
+                ai.player_move(first_player)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.player
+            # 6b. if computer player. . .
+            else:
+                # generate and make minimax move
+                ai.minimax_move(first_player, self.board_option)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.opponent
+            # 7. main game play loop
+            while True:
+                # 8. swap player turn
+                current_player = ai.swap_player_turn(current_player)
+                # 9. display the current player
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                # 10a. if player is human, use player_move
+                if current_player == ai.player:
+                    ai.player_move(current_player)
+                # 10b. if player is a computer, use minimax_move
+                else:
+                    ai.minimax_move(current_player, self.board_option)
+                # 11a. check if there is a winner
+                if ai.is_winner(ai.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 11b. record the winner in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 11c. game over
+                    break
+                # 12a. check if there is a draw
+                if ai.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 12b. record the draw status in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 12c. game over
+                    break
+                # 13. display updated gameboard
+                ai.display_board(self.board_option)
+            print()
+            # 14. final gameboard display
+            ai.display_board(self.board_option)
+            print()
+            # 15. reset the gameboard
+            ai.reset_board()
+            # 16. replay option
+            if self.replay() is False:
+                break
+
+    def tic_tac_toe(self):
+        &#34;&#34;&#34;Starts chosen game.&#34;&#34;&#34;
+        if self.mode == 1:
+            self.game_one()
+        if self.mode == 2:
+            self.game_two()
+        if self.mode == 3:
+            self.game_three()
+
+# no pylama results
+# current plyint score of 9.22/10
+
+# unresolved msg list includes:
+#   - W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+#       - line(s): 50, 87, 95, 119, 168, 176, 199, 248, 256
+#   - C0103: Variable name &#34;ai&#34; doesn&#39;t conform to snake_case naming style (invalid-name)
+#       - line(s): 114, 195
+
+#   - June 19, 2022</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="TicTacToe.game.TicTacToe"><code class="flex name class">
+<span>class <span class="ident">TicTacToe</span></span>
+<span>(</span><span>mode=1, board_option=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TicTacToe contains the following class methods:</p>
+<ul>
+<li>coin_flip()</li>
+<li>replay()</li>
+<li>game_mode_1()</li>
+<li>game_mode_2()</li>
+<li>game_mode_3()</li>
+</ul>
+<p>TicTacToe initiates with the default classic PvP game mode using two class variables:
+- self.mode
+- self.board_option</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TicTacToe:
+    &#34;&#34;&#34;TicTacToe contains the following class methods:
+
+            - coin_flip()
+            - replay()
+            - game_mode_1()
+            - game_mode_2()
+            - game_mode_3()
+    &#34;&#34;&#34;
+    def __init__(self, mode=1, board_option=1):
+        &#34;&#34;&#34;
+        TicTacToe initiates with the default classic PvP game mode using two class variables:
+            - self.mode
+            - self.board_option
+        &#34;&#34;&#34;
+        self.mode = mode
+        self.board_option = board_option
+
+    def coin_flip(self):  # winner goes first
+        &#34;&#34;&#34;Returns either 0 or 1, randomly.&#34;&#34;&#34;
+        return random.randint(0, 1)  # heads or tails?
+
+    def replay(self):
+        &#34;&#34;&#34;Asks if main player would like to replay the current gamemode. Returns True or False.&#34;&#34;&#34;
+        replay = input(&#34;\n\tWould you like to play again? (y/n): &#34;)
+        print()
+        if replay.lower() == &#39;y&#39;:
+            return True
+        if replay.lower() == &#39;n&#39;:
+            return False
+        return None
+
+    def game_one(self):
+        &#34;&#34;&#34;Classic PvP Mode. Game loop.&#34;&#34;&#34;
+        # initialize game objects from PlayerActions class
+        action = PlayerActions()
+        print(self.mode, self.board_option)
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(action.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs Player! Game on!\n&#34;)
+            # 1. create the gameboard
+            action.create_board(self.board_option)
+            # 2. assign player markers based on choice
+            action.player, action.opponent = action.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = action.player
+            else:
+                first_player = action.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display starting gameboard
+            action.display_board(self.board_option)
+            # 6. input and make move
+            action.player_move(first_player)
+            print()
+            # 7. display updated gameboard
+            action.display_board(self.board_option)
+            # 8. assign current_player as first_player
+            current_player = first_player
+            while True:
+                # 9. swap player turn
+                current_player = action.swap_player_turn(current_player)
+                # 10. display whose turn to play
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                sleep(1)
+                # 11. display updated gameboard
+                action.display_board(self.board_option)
+                # 12. capture and make player move
+                action.player_move(current_player)
+                print()
+                # 13a. check if there is a winner
+                if action.is_winner(action.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 13b. record the winner in tic_tac_toe.txt
+                    with open(action.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 13c. game over
+                    break
+                # 14a. check if there is a draw
+                if action.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 14b. record the draw status in tic_tac_toe.txt
+                    with open(action.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 14c. game over
+                    break
+                # 15. display updated gameboard
+                action.display_board(self.board_option)
+            print()
+            # 16. final gameboard display
+            action.display_board(self.board_option)
+            print()
+            # 17. reset gameboard
+            action.reset_board()
+            # 18. replay option
+            if self.replay() is False:
+                break
+
+    def game_two(self):
+        &#34;&#34;&#34;PvE Mode - Easy. Random AI opponent. Game loop.&#34;&#34;&#34;
+        # initialize game objects from AI class
+        ai = AI()
+        print(self.mode, self.board_option)
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(ai.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs Random AI! Game on!\n&#34;)
+            # 1. create the gameboard
+            ai.create_board(self.board_option)
+            # 2. assign markers based on choice
+            ai.player, ai.opponent = ai.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = ai.player
+            else:
+                first_player = ai.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display empty gameboard
+            ai.display_board(self.board_option)
+            # 6a. if human player. . .
+            if first_player == ai.player:
+                # input and make move
+                ai.player_move(first_player)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.player
+            # 6b. if computer player. . .
+            else:
+                # generate and make random move
+                ai.random_move(first_player, self.board_option)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.opponent
+            # 7. main game play loop
+            while True:
+                # 8. swap player turn
+                current_player = ai.swap_player_turn(current_player)
+                # 9. display the current player
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                # 10a. if player is human, use player_move method
+                if current_player == ai.player:
+                    ai.player_move(current_player)
+                # 10b. if player is a computer, use computer_move method
+                else:
+                    ai.random_move(current_player, self.board_option)
+                # 11a. check if there is a winner
+                if ai.is_winner(ai.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 11b. record the winner in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 11c. game over
+                    break
+                # 12a. check if there is a draw
+                if ai.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 12b. record the draw status in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 12c. game over
+                    break
+                # 13. display updated gameboard
+                ai.display_board(self.board_option)
+            print()
+            # 14. final gameboard display
+            ai.display_board(self.board_option)
+            print()
+            # 15. reset the gameboard
+            ai.reset_board()
+            # 16. replay option
+            if self.replay() is False:
+                break
+
+    def game_three(self):
+        &#34;&#34;&#34;PvE Mode - Hard. Minimax AI opponent. Game loop.&#34;&#34;&#34;
+        # initialize game objects from AI class
+        ai = AI()
+        # initiate replay loop
+        while True:
+            # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+            with open(ai.match_records, &#39;a&#39;) as record:
+                record.write(&#34;\n\nPlayer vs MiniMax AI! Game on!\n&#34;)
+            # 1. create the gameboard
+            ai.create_board(self.board_option)
+            # 2. assign markers based on choice
+            ai.player, ai.opponent = ai.assign_markers()
+            # 3. randomly decide which player goes first
+            if self.coin_flip() == 1:
+                first_player = ai.player
+            else:
+                first_player = ai.opponent
+            # 4. inform the players who won first turn
+            print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+            # 5. display empty gameboard
+            ai.display_board(self.board_option)
+            # 6a. if human player. . .
+            if first_player == ai.player:
+                # input and make move
+                ai.player_move(first_player)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.player
+            # 6b. if computer player. . .
+            else:
+                # generate and make minimax move
+                ai.minimax_move(first_player, self.board_option)
+                print()
+                # display updated gameboard
+                ai.display_board(self.board_option)
+                # assign to current player
+                current_player = ai.opponent
+            # 7. main game play loop
+            while True:
+                # 8. swap player turn
+                current_player = ai.swap_player_turn(current_player)
+                # 9. display the current player
+                print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+                # 10a. if player is human, use player_move
+                if current_player == ai.player:
+                    ai.player_move(current_player)
+                # 10b. if player is a computer, use minimax_move
+                else:
+                    ai.minimax_move(current_player, self.board_option)
+                # 11a. check if there is a winner
+                if ai.is_winner(ai.board, current_player, self.board_option):
+                    print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                    # 11b. record the winner in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                    # 11c. game over
+                    break
+                # 12a. check if there is a draw
+                if ai.is_draw(self.board_option):
+                    print(&#34;\n\tMatch draw!\n&#34;)
+                    # 12b. record the draw status in tic_tac_toe.txt
+                    with open(ai.match_records, &#39;a&#39;) as record:
+                        record.write(&#34;\nMatch was a draw!\n&#34;)
+                    # 12c. game over
+                    break
+                # 13. display updated gameboard
+                ai.display_board(self.board_option)
+            print()
+            # 14. final gameboard display
+            ai.display_board(self.board_option)
+            print()
+            # 15. reset the gameboard
+            ai.reset_board()
+            # 16. replay option
+            if self.replay() is False:
+                break
+
+    def tic_tac_toe(self):
+        &#34;&#34;&#34;Starts chosen game.&#34;&#34;&#34;
+        if self.mode == 1:
+            self.game_one()
+        if self.mode == 2:
+            self.game_two()
+        if self.mode == 3:
+            self.game_three()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.game.TicTacToe.coin_flip"><code class="name flex">
+<span>def <span class="ident">coin_flip</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns either 0 or 1, randomly.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def coin_flip(self):  # winner goes first
+    &#34;&#34;&#34;Returns either 0 or 1, randomly.&#34;&#34;&#34;
+    return random.randint(0, 1)  # heads or tails?</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game.TicTacToe.game_one"><code class="name flex">
+<span>def <span class="ident">game_one</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Classic PvP Mode. Game loop.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def game_one(self):
+    &#34;&#34;&#34;Classic PvP Mode. Game loop.&#34;&#34;&#34;
+    # initialize game objects from PlayerActions class
+    action = PlayerActions()
+    print(self.mode, self.board_option)
+    # initiate replay loop
+    while True:
+        # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+        with open(action.match_records, &#39;a&#39;) as record:
+            record.write(&#34;\n\nPlayer vs Player! Game on!\n&#34;)
+        # 1. create the gameboard
+        action.create_board(self.board_option)
+        # 2. assign player markers based on choice
+        action.player, action.opponent = action.assign_markers()
+        # 3. randomly decide which player goes first
+        if self.coin_flip() == 1:
+            first_player = action.player
+        else:
+            first_player = action.opponent
+        # 4. inform the players who won first turn
+        print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+        # 5. display starting gameboard
+        action.display_board(self.board_option)
+        # 6. input and make move
+        action.player_move(first_player)
+        print()
+        # 7. display updated gameboard
+        action.display_board(self.board_option)
+        # 8. assign current_player as first_player
+        current_player = first_player
+        while True:
+            # 9. swap player turn
+            current_player = action.swap_player_turn(current_player)
+            # 10. display whose turn to play
+            print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+            sleep(1)
+            # 11. display updated gameboard
+            action.display_board(self.board_option)
+            # 12. capture and make player move
+            action.player_move(current_player)
+            print()
+            # 13a. check if there is a winner
+            if action.is_winner(action.board, current_player, self.board_option):
+                print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                # 13b. record the winner in tic_tac_toe.txt
+                with open(action.match_records, &#39;a&#39;) as record:
+                    record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                # 13c. game over
+                break
+            # 14a. check if there is a draw
+            if action.is_draw(self.board_option):
+                print(&#34;\n\tMatch draw!\n&#34;)
+                # 14b. record the draw status in tic_tac_toe.txt
+                with open(action.match_records, &#39;a&#39;) as record:
+                    record.write(&#34;\nMatch was a draw!\n&#34;)
+                # 14c. game over
+                break
+            # 15. display updated gameboard
+            action.display_board(self.board_option)
+        print()
+        # 16. final gameboard display
+        action.display_board(self.board_option)
+        print()
+        # 17. reset gameboard
+        action.reset_board()
+        # 18. replay option
+        if self.replay() is False:
+            break</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game.TicTacToe.game_three"><code class="name flex">
+<span>def <span class="ident">game_three</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>PvE Mode - Hard. Minimax AI opponent. Game loop.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def game_three(self):
+    &#34;&#34;&#34;PvE Mode - Hard. Minimax AI opponent. Game loop.&#34;&#34;&#34;
+    # initialize game objects from AI class
+    ai = AI()
+    # initiate replay loop
+    while True:
+        # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+        with open(ai.match_records, &#39;a&#39;) as record:
+            record.write(&#34;\n\nPlayer vs MiniMax AI! Game on!\n&#34;)
+        # 1. create the gameboard
+        ai.create_board(self.board_option)
+        # 2. assign markers based on choice
+        ai.player, ai.opponent = ai.assign_markers()
+        # 3. randomly decide which player goes first
+        if self.coin_flip() == 1:
+            first_player = ai.player
+        else:
+            first_player = ai.opponent
+        # 4. inform the players who won first turn
+        print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+        # 5. display empty gameboard
+        ai.display_board(self.board_option)
+        # 6a. if human player. . .
+        if first_player == ai.player:
+            # input and make move
+            ai.player_move(first_player)
+            print()
+            # display updated gameboard
+            ai.display_board(self.board_option)
+            # assign to current player
+            current_player = ai.player
+        # 6b. if computer player. . .
+        else:
+            # generate and make minimax move
+            ai.minimax_move(first_player, self.board_option)
+            print()
+            # display updated gameboard
+            ai.display_board(self.board_option)
+            # assign to current player
+            current_player = ai.opponent
+        # 7. main game play loop
+        while True:
+            # 8. swap player turn
+            current_player = ai.swap_player_turn(current_player)
+            # 9. display the current player
+            print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+            # 10a. if player is human, use player_move
+            if current_player == ai.player:
+                ai.player_move(current_player)
+            # 10b. if player is a computer, use minimax_move
+            else:
+                ai.minimax_move(current_player, self.board_option)
+            # 11a. check if there is a winner
+            if ai.is_winner(ai.board, current_player, self.board_option):
+                print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                # 11b. record the winner in tic_tac_toe.txt
+                with open(ai.match_records, &#39;a&#39;) as record:
+                    record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                # 11c. game over
+                break
+            # 12a. check if there is a draw
+            if ai.is_draw(self.board_option):
+                print(&#34;\n\tMatch draw!\n&#34;)
+                # 12b. record the draw status in tic_tac_toe.txt
+                with open(ai.match_records, &#39;a&#39;) as record:
+                    record.write(&#34;\nMatch was a draw!\n&#34;)
+                # 12c. game over
+                break
+            # 13. display updated gameboard
+            ai.display_board(self.board_option)
+        print()
+        # 14. final gameboard display
+        ai.display_board(self.board_option)
+        print()
+        # 15. reset the gameboard
+        ai.reset_board()
+        # 16. replay option
+        if self.replay() is False:
+            break</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game.TicTacToe.game_two"><code class="name flex">
+<span>def <span class="ident">game_two</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>PvE Mode - Easy. Random AI opponent. Game loop.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def game_two(self):
+    &#34;&#34;&#34;PvE Mode - Easy. Random AI opponent. Game loop.&#34;&#34;&#34;
+    # initialize game objects from AI class
+    ai = AI()
+    print(self.mode, self.board_option)
+    # initiate replay loop
+    while True:
+        # 0. append &#39;New Game!&#39; to tic_tac_toe.txt
+        with open(ai.match_records, &#39;a&#39;) as record:
+            record.write(&#34;\n\nPlayer vs Random AI! Game on!\n&#34;)
+        # 1. create the gameboard
+        ai.create_board(self.board_option)
+        # 2. assign markers based on choice
+        ai.player, ai.opponent = ai.assign_markers()
+        # 3. randomly decide which player goes first
+        if self.coin_flip() == 1:
+            first_player = ai.player
+        else:
+            first_player = ai.opponent
+        # 4. inform the players who won first turn
+        print(f&#34;\n\tPlayer {first_player} will go first!\n&#34;)
+        # 5. display empty gameboard
+        ai.display_board(self.board_option)
+        # 6a. if human player. . .
+        if first_player == ai.player:
+            # input and make move
+            ai.player_move(first_player)
+            print()
+            # display updated gameboard
+            ai.display_board(self.board_option)
+            # assign to current player
+            current_player = ai.player
+        # 6b. if computer player. . .
+        else:
+            # generate and make random move
+            ai.random_move(first_player, self.board_option)
+            print()
+            # display updated gameboard
+            ai.display_board(self.board_option)
+            # assign to current player
+            current_player = ai.opponent
+        # 7. main game play loop
+        while True:
+            # 8. swap player turn
+            current_player = ai.swap_player_turn(current_player)
+            # 9. display the current player
+            print(f&#34;\n\tPlayer {current_player}&#39;s turn.\n&#34;)
+            # 10a. if player is human, use player_move method
+            if current_player == ai.player:
+                ai.player_move(current_player)
+            # 10b. if player is a computer, use computer_move method
+            else:
+                ai.random_move(current_player, self.board_option)
+            # 11a. check if there is a winner
+            if ai.is_winner(ai.board, current_player, self.board_option):
+                print(f&#34;\n\tPlayer {current_player} wins the game!\n&#34;)
+                # 11b. record the winner in tic_tac_toe.txt
+                with open(ai.match_records, &#39;a&#39;) as record:
+                    record.write(f&#34;\nPlayer {current_player} won the game!\n&#34;)
+                # 11c. game over
+                break
+            # 12a. check if there is a draw
+            if ai.is_draw(self.board_option):
+                print(&#34;\n\tMatch draw!\n&#34;)
+                # 12b. record the draw status in tic_tac_toe.txt
+                with open(ai.match_records, &#39;a&#39;) as record:
+                    record.write(&#34;\nMatch was a draw!\n&#34;)
+                # 12c. game over
+                break
+            # 13. display updated gameboard
+            ai.display_board(self.board_option)
+        print()
+        # 14. final gameboard display
+        ai.display_board(self.board_option)
+        print()
+        # 15. reset the gameboard
+        ai.reset_board()
+        # 16. replay option
+        if self.replay() is False:
+            break</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game.TicTacToe.replay"><code class="name flex">
+<span>def <span class="ident">replay</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Asks if main player would like to replay the current gamemode. Returns True or False.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def replay(self):
+    &#34;&#34;&#34;Asks if main player would like to replay the current gamemode. Returns True or False.&#34;&#34;&#34;
+    replay = input(&#34;\n\tWould you like to play again? (y/n): &#34;)
+    print()
+    if replay.lower() == &#39;y&#39;:
+        return True
+    if replay.lower() == &#39;n&#39;:
+        return False
+    return None</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game.TicTacToe.tic_tac_toe"><code class="name flex">
+<span>def <span class="ident">tic_tac_toe</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts chosen game.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tic_tac_toe(self):
+    &#34;&#34;&#34;Starts chosen game.&#34;&#34;&#34;
+    if self.mode == 1:
+        self.game_one()
+    if self.mode == 2:
+        self.game_two()
+    if self.mode == 3:
+        self.game_three()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="TicTacToe" href="index.html">TicTacToe</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="TicTacToe.game.TicTacToe" href="#TicTacToe.game.TicTacToe">TicTacToe</a></code></h4>
+<ul class="two-column">
+<li><code><a title="TicTacToe.game.TicTacToe.coin_flip" href="#TicTacToe.game.TicTacToe.coin_flip">coin_flip</a></code></li>
+<li><code><a title="TicTacToe.game.TicTacToe.game_one" href="#TicTacToe.game.TicTacToe.game_one">game_one</a></code></li>
+<li><code><a title="TicTacToe.game.TicTacToe.game_three" href="#TicTacToe.game.TicTacToe.game_three">game_three</a></code></li>
+<li><code><a title="TicTacToe.game.TicTacToe.game_two" href="#TicTacToe.game.TicTacToe.game_two">game_two</a></code></li>
+<li><code><a title="TicTacToe.game.TicTacToe.replay" href="#TicTacToe.game.TicTacToe.replay">replay</a></code></li>
+<li><code><a title="TicTacToe.game.TicTacToe.tic_tac_toe" href="#TicTacToe.game.TicTacToe.tic_tac_toe">tic_tac_toe</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

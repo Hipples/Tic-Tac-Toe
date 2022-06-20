@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>TicTacToe.game_objects API documentation</title>
+<meta name="description" content="This module is designed to define a variety of gameplay objects required for our tic tac toe
+gameplay loops. The following classes have been included: …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>TicTacToe.game_objects</code></h1>
+</header>
+<section id="section-intro">
+<p>This module is designed to define a variety of gameplay objects required for our tic tac toe
+gameplay loops. The following classes have been included:</p>
+<pre><code>- TicTacToeBoard
+- PlayerActions
+- AI
+</code></pre>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module is designed to define a variety of gameplay objects required for our tic tac toe
+gameplay loops. The following classes have been included:
+
+    - TicTacToeBoard
+    - PlayerActions
+    - AI
+&#34;&#34;&#34;
+import random
+from time import sleep
+import numpy as np
+
+
+class TicTacToeBoards:
+    &#34;&#34;&#34;
+    TicTacToeBoards is the parent class of PlayerActions and the grandparent class of AI.
+
+    This class contains methods designed to generate, display, write to, read from, and reset both
+    tic tac toe gameboards.
+
+        - create_board(board_option)
+        - print_classic_board()
+        - print_big_board()
+        - display_board(board_option)
+        - reset_board()
+        - place_marker(row, col, player)
+        - is_board_full(board_option)
+        - is_winner_by_row(board, player, board_option)
+        - is_winner_by_col(board, player, board_option)
+        - is_winner_by_diag(board, player, board_option)
+        - is_winner(board, player, board_option)
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        TicTacToeBoard initializes the following class variables:
+
+            - self.board
+            - self.board_record
+            - self.human_record
+            - self.computer_record
+            - self.classic
+            - self.board_option
+            - self.big
+        &#34;&#34;&#34;
+        self.board = []
+        self.board_record = []
+        self.human_record = []
+        self.computer_record = []
+        self.classic = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;,  # classic board values
+                        &#39;4&#39;, &#39;5&#39;, &#39;6&#39;,
+                        &#39;7&#39;, &#39;8&#39;, &#39;9&#39;]
+        self.board_option = 1  # defaults to classic board
+        self.big = [ &#39;1&#39;,  &#39;2&#39;,  &#39;3&#39;,  &#39;4&#39;,  &#39;5&#39;,  # big board values
+                     &#39;6&#39;,  &#39;7&#39;,  &#39;8&#39;,  &#39;9&#39;, &#39;10&#39;,
+                    &#39;11&#39;, &#39;12&#39;, &#39;13&#39;, &#39;14&#39;, &#39;15&#39;,
+                    &#39;16&#39;, &#39;17&#39;, &#39;18&#39;, &#39;19&#39;, &#39;20&#39;,
+                    &#39;21&#39;, &#39;22&#39;, &#39;23&#39;, &#39;24&#39;, &#39;25&#39;]
+
+    def create_board(self, board_option):
+        &#34;&#34;&#34;Generates specified gameboard (3x3 or 5x5).&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for i in np.arange(1, 10).astype(str):  # nine numbers, as strings
+                self.board.append(i)  # for datatype consistency with X and O
+            self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        # big board
+        if board_option == 2:
+            for i in np.arange(1, 26).astype(str):
+                self.board.append(i)
+            self.board = np.reshape(self.board, (5, 5))
+
+    def print_classic_board(self):
+        &#34;&#34;&#34;Prints the classic, 3x3, gameboard.&#34;&#34;&#34;
+        print(&#39;\t-------------------------------&#39;)
+        for row in self.board:
+            print(&#39;\t|         |         |         |&#39;)
+            print(&#39;\t|&#39;, end=&#39;&#39;)
+            for item in row:
+                print(f&#39;    {item}    |&#39;, end=&#39;&#39;)
+            print()
+            print(&#39;\t|         |         |         |&#39;)
+            print(&#39;\t-------------------------------&#39;)
+
+    def print_big_board(self):
+        &#34;&#34;&#34;Prints the big, 5x5, gameboard.&#34;&#34;&#34;
+        print(&#39;\t---------------------------------------------------&#39;)
+        for row in self.board:
+            print(&#39;\t|         |         |         |         |         |&#39;)
+            print(&#39;\t|&#39;, end=&#39;&#39;)
+            for item in row:
+                print(f&#39;    {item:2}   |&#39;, end=&#39;&#39;)
+            print()
+            print(&#39;\t|         |         |         |         |         |&#39;)
+            print(&#39;\t---------------------------------------------------&#39;)
+
+    def display_board(self, board_option):
+        &#34;&#34;&#34;Displays current gameboard.&#34;&#34;&#34;
+        if board_option == 1:
+            self.print_classic_board()
+        if board_option == 2:
+            self.print_big_board()
+
+    def reset_board(self):
+        &#34;&#34;&#34;Resets the gameboard and any record values to an empty list.&#34;&#34;&#34;
+        self.board = []
+        self.board_record = []
+        self.human_record = []
+        self.computer_record = []
+
+    def place_marker(self, row, col, player):
+        &#34;&#34;&#34;Places the player marker (X or O) in the designated square.&#34;&#34;&#34;
+        self.board[row][col] = player
+
+    def is_draw(self, board_option):
+        &#34;&#34;&#34;Returns True if there is a draw for the specified board.&#34;&#34;&#34;
+        for row in self.board:
+            for square in row:
+                # classic board
+                if board_option == 1:
+                    if square in self.classic:
+                        return False
+                # big board
+                if board_option == 2:
+                    if square in self.big:
+                        return False
+        return True
+
+    def is_winner_by_row(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for horizontal winning patterns on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for row in range(3):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+                    if board[row][0] == player:
+                        return True
+        # big board
+        if board_option == 2:
+            for row in range(5):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2]\
+                   and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
+                    if board[row][0] == player:
+                        return True
+        return False
+
+    def is_winner_by_col(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for vertical winning patterns on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for col in range(3):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
+                    if board[0][col] == player:
+                        return True
+        # big board
+        if board_option == 2:
+            for col in range(5):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col]\
+                   and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
+                    if board[0][col] == player:
+                        return True
+        return False
+
+    def is_winner_by_desc(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for the descending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
+                if board[0][0] == player:
+                    return True
+        # big board
+        if board_option == 2:
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]\
+               and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
+                if board[0][0] == player:
+                    return True
+        return False
+
+    def is_winner_by_asc(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for the ascending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
+                if board[0][2] == player:
+                    return True
+        # big board
+        if board_option == 2:
+            if board[0][4] == board[1][3] and board[1][3] == board[2][2]\
+               and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
+                if board[0][4] == player:
+                    return True
+        return False
+
+    def is_winner_by_diag(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for diagonal winning patterns on specified board.&#34;&#34;&#34;
+        # check ascending diagonal for win
+        if self.is_winner_by_desc(board, player, board_option):
+            return True
+        # check ascending diagonal for win
+        if self.is_winner_by_asc(board, player, board_option):
+            return True
+        return False
+
+    def is_winner(self, board, player, board_option):
+        &#34;&#34;&#34;Checks specified gameboard for winning patterns and returns True if one is found.&#34;&#34;&#34;
+        if self.is_winner_by_row(board, player, board_option):
+            return True
+        if self.is_winner_by_col(board, player, board_option):
+            return True
+        if self.is_winner_by_diag(board, player, board_option):
+            return True
+        return False
+
+
+class PlayerActions(TicTacToeBoards):
+    &#34;&#34;&#34;
+    PlayerActions is the child class of TicTacToeBoards and the parent class of AI.
+    PlayerActions contains methods designed to swap player turns, assign player markers (X or O),
+    and acquire and apply player move choices.
+
+    Class methods include:
+
+        - choose_marker()
+        - assign_markers()
+        - player_turn(player)
+        - get_coords(player)
+        - player_move(player)
+        - swap_player_turn(player)
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        PlayerActions initializes with all parent methods/variables and defines the following:
+
+            - self.match_records
+            - self.player
+            - self.opponent
+        &#34;&#34;&#34;
+        super().__init__()
+        self.match_records = &#34;tic.tac.toe.txt&#34;
+        self.player = &#39;&#39;
+        self.opponent = &#39;&#39;
+
+    def choose_marker(self):
+        &#34;&#34;&#34;Allows the main player to choose to be X or O.&#34;&#34;&#34;
+        marker = &#39; &#39;  # declare marker variable as empty string
+        while marker not in (&#39;X&#39;, &#39;O&#39;):  # while marker does not equal X or O
+            marker = input(&#34;\n\tDo you want to be Xs or Os? &#34;).upper()  # choose X or O
+        if marker == &#39;X&#39;:  # if X,
+            return [&#39;X&#39;, &#39;O&#39;]  # then return X, O
+        return [&#39;O&#39;, &#39;X&#39;]  # if O, then return O, X
+
+    def assign_markers(self):  # retrieve marker order from choose_marker() method
+        &#34;&#34;&#34;Assigns X and O markers to the appropriate players.&#34;&#34;&#34;
+        self.player, self.opponent = self.choose_marker()  # assign the first char to our player,
+        return self.player, self.opponent  # and the second char to our opponent
+
+    def player_turn(self, player):
+        &#34;&#34;&#34;Acquires player input to determine desired move.&#34;&#34;&#34;
+        move = input(f&#34;\n\tPlease enter the number where you&#39;d like to place your {player}: &#34;)
+        print(f&#34;\n\tYou chose square {move}!&#34;)  # acquire player input to determine desired move
+        return move  # return chosen square value
+
+    def get_coords(self, player):
+        &#34;&#34;&#34;Determines the coordinates of the &#39;empty&#39; square value provided.&#34;&#34;&#34;
+        move = self.player_turn(player)  # retrieve player move from human_moves() method
+        coords = []  # declare empty list to store move coordinates
+        coords = np.where(self.board == move)  # determine move coordinates
+        return coords  # return move coordinates
+
+    def player_move(self, player):
+        &#34;&#34;&#34;Captures, records, and fulfills human moves while handling exceptions.&#34;&#34;&#34;
+        while True:  # exception catching loop
+            try:  # attempt to initialize coords, by retrieving the player&#39;s input,
+                coords = self.get_coords(player)  # through get_coords() method,
+                row, col = int(coords[0]), int(coords[1])  # assign the proper index of the move
+            except KeyboardInterrupt:  # enable Ctrl + c to end program during player input
+                print(&#34;\n\n\tGood bye!&#34;)  # when used - program says good bye,
+                exit()  # then ends
+            # W0702: No exception type(s) specified (bare-except) -pylama
+            except:  # continue looping until valid input is accepted
+                print(&#34;\n\tInvalid input. Please try again.\n&#34;)  # announce when input is invalid
+            else:  # otherwise, reverse engineer our player move by using our determined index
+                move = self.board[row][col]  # and assign it to move
+                with open(self.match_records, &#39;a&#39;) as record:  # then open our match records and
+                    record.write(f&#34;{player}:{move} &#34;)  # append each valid player move
+                self.place_marker(row, col, player)  # as it happens
+                self.human_record.append(move)  # add move to human records for minimax
+                self.board_record.append(move)  # add move to board records for minimax
+                return False  # before ending our loop
+
+    def swap_player_turn(self, player):
+        &#34;&#34;&#34;Swaps game control between the two players.&#34;&#34;&#34;
+        return &#39;X&#39; if player == &#39;O&#39; else &#39;O&#39;
+
+
+class AI(PlayerActions):
+    &#34;&#34;&#34;
+    AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard.
+    AI contains methods designed to activate a random AI and a minimax AI opponent for their
+    respective gamemodes.
+
+    Class methods include:
+
+        - random_logic(board_option)
+        - random_move(player, board_option)
+        - get_open_squares(board_option)
+        - can_win(board_option)
+        - first_move(board_option)
+        - urgent_move(board_option)
+        - full_board(board_option)
+        - is_last_move(board_option)
+        - urgent_move()
+        - minimax_logic()
+        - minimax_move()
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        AI initializes with all of its parent and grandparent class variables, as well as:
+
+            - self.max_score
+            - self.best_move
+            - self.winning_patterns
+            - self.big_win_patterns
+        &#34;&#34;&#34;
+        super().__init__()
+        self.max_score = 10
+        self.best_move = 0
+        self.winning_patterns = [[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;], [&#39;4&#39;, &#39;5&#39;, &#39;6&#39;], [&#39;7&#39;, &#39;8&#39;, &#39;9&#39;],
+                                 [&#39;1&#39;, &#39;4&#39;, &#39;7&#39;], [&#39;2&#39;, &#39;5&#39;, &#39;8&#39;], [&#39;3&#39;, &#39;6&#39;, &#39;9&#39;],
+                                 [&#39;1&#39;, &#39;5&#39;, &#39;9&#39;], [&#39;3&#39;, &#39;5&#39;, &#39;7&#39;]]
+
+        self.big_win_patterns = [[ &#39;1&#39;,  &#39;2&#39;,  &#39;3&#39;,  &#39;4&#39;,  &#39;5&#39;], [ &#39;1&#39;,  &#39;6&#39;, &#39;11&#39;, &#39;16&#39;, &#39;21&#39;],
+                                 [ &#39;6&#39;,  &#39;7&#39;,  &#39;8&#39;,  &#39;9&#39;, &#39;10&#39;], [ &#39;2&#39;,  &#39;7&#39;, &#39;12&#39;, &#39;17&#39;, &#39;22&#39;],
+                                 [&#39;11&#39;, &#39;12&#39;, &#39;13&#39;, &#39;14&#39;, &#39;15&#39;], [ &#39;3&#39;,  &#39;8&#39;, &#39;13&#39;, &#39;18&#39;, &#39;23&#39;],
+                                 [&#39;16&#39;, &#39;17&#39;, &#39;18&#39;, &#39;19&#39;, &#39;20&#39;], [ &#39;4&#39;,  &#39;9&#39;, &#39;14&#39;, &#39;19&#39;, &#39;24&#39;],
+                                 [&#39;21&#39;, &#39;22&#39;, &#39;23&#39;, &#39;24&#39;, &#39;25&#39;], [ &#39;5&#39;, &#39;10&#39;, &#39;15&#39;, &#39;20&#39;, &#39;25&#39;],
+                                 [ &#39;1&#39;,  &#39;7&#39;, &#39;13&#39;, &#39;19&#39;, &#39;25&#39;], [ &#39;5&#39;,  &#39;9&#39;, &#39;13&#39;, &#39;17&#39;, &#39;21&#39;]]
+
+    # TODO: could probably use the get_open_squares() methods below and make this
+    # a three line method, but, another time.
+    def random_logic(self, board_option):
+        &#34;&#34;&#34;Returns a random, available, square number from the current gameboard.&#34;&#34;&#34;
+        possible_moves = []  # declare an empty list of possible moves
+        for row in self.board:  # for each row in our gameboard,
+            for square in row:  # and for each square in said row,
+                # if classic board
+                if board_option == 1:
+                    if square in self.classic:  # if the square&#39;s value is in our classic list
+                        possible_moves.append(square)  # store it in our list of available squares
+                # if big board
+                if board_option == 2:
+                    if square in self.big:
+                        possible_moves.append(square)
+        move = random.choice(possible_moves)  # determine a random, available move for AI
+        return move  # from our list of possible moves
+
+    def random_move(self, player, board_option):
+        &#34;&#34;&#34;Captures, records, and fullfils the Random AI&#39;s turn in game.&#34;&#34;&#34;
+        move = self.random_logic(board_option)  # generates random move,
+        coords = np.where(self.board == move)  # sets the move coordinates
+        row, col = (int(coords[0])), (int(coords[1]))  # assign the proper index of the move
+        sleep(1)  # (our AI is thinking. . .)
+        print(f&#34;\n\tRandom AI chooses square {move}!\n&#34;)  # announce Random AI&#39;s move
+        with open(self.match_records, &#39;a&#39;) as record:  # open our match records and
+            record.write(f&#34;{player}:{move} &#34;)  # append the Random AI move
+        self.place_marker(row, col, player)  # as it happens
+
+    def get_open_squares(self, board_option):
+        &#34;&#34;&#34;Obtains all available moves from the board records for the minimax alogrithm.&#34;&#34;&#34;
+        squares = []
+        # classic board
+        if board_option == 1:
+            for square in list(set(self.classic) - set(self.board_record)):
+                squares.append(square)
+            return squares
+        # big board
+        if board_option == 2:
+            for square in list(set(self.big) - set(self.board_record)):
+                squares.append(square)
+            return squares
+        return None
+
+    def can_win(self, board_option):
+        &#34;&#34;&#34;Returns potential winners found by the minimax AI&#39;s branch searches.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for win in self.winning_patterns:
+                if set(win) &lt;= set(self.computer_record):
+                    return self.opponent
+                if set(win) &lt;= set(self.human_record):
+                    return self.player
+        # big board
+        if board_option == 2:
+            for win in self.big_win_patterns:
+                if set(win) &lt;= set(self.computer_record):
+                    return self.opponent
+                if set(win) &lt;= set(self.human_record):
+                    return self.player
+        return False
+
+    def first_move(self, board_option):
+        &#34;&#34;&#34;
+        Tells minimax AI to take a corner position on the specified board if it is assigned
+        first player.
+        &#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            move = random.choices([1, 3, 7, 9])[0]
+            return move
+        # big board
+        if board_option == 2:
+            move = random.choices([1, 5, 21, 25])[0]
+            return move
+        return False
+
+    def urgent_move(self, board_option):
+        &#34;&#34;&#34;Checks for any wins that could be obtained or prevented each turn by the minimax AI.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            winpatten = self.winning_patterns
+        # big board
+        else:
+            winpatten = self.big_win_patterns
+
+        # checking computer moves
+        for win in winpatten:
+            if len(list(set(win) - set(self.computer_record))) == 1\
+               and len(set(self.computer_record)) &gt; 1:
+                move = list(set(win) - set(self.computer_record))[0]
+                if move not in set(self.human_record):
+                    return move
+        # checking human moves
+        for win in winpatten:
+            if len(list(set(win) - set(self.human_record))) == 1\
+               and len(set(self.human_record)) &gt; 1:
+                move = list(set(win) - set(self.human_record))[0]
+                if move not in set(self.computer_record):
+                    return move
+        return False
+
+    def full_board(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;Tells the minimax AI when there are no more moves available to check.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if len(self.board_record) == 9:
+                return True
+        # big board
+        if board_option == 2:
+            if len(self.board_record) == 25:
+                return True
+        return False
+
+    def is_last_move(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;Checks if there is only one available move left for minimax AI.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1 and len(self.board_record) == 8:
+            return True
+        # big board
+        if board_option == 2 and len(self.board_record) == 24:
+            return True
+        return False
+
+    def is_urgent(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;&#34;
+        Checks if enough markers have been placed for someone to have a potential win
+        for minimax AI.
+        &#34;&#34;&#34;
+        # classic board
+        if board_option == 1 and (len(self.board_record) &gt; 3):
+            return True
+        # big board
+        if board_option == 2 and (len(self.board_record) &gt; 7):
+            return True
+        return False
+
+    def is_early_move(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;
+        Checks if the big board has at least 12 markers placed for the minimax AI to
+        limit nodes.
+        &#34;&#34;&#34;
+        # big board
+        if board_option == 2 and len(self.board_record) &lt; 12:
+            return True
+        return False
+
+    def append_moves(self, player, move):
+        &#34;&#34;&#34;Appends moves to specified record for minimax AI.&#34;&#34;&#34;
+        if player == self.opponent:  # if player is the computer
+            self.computer_record.append(move)  # add move to the computer record
+        else:  # otherwise
+            self.human_record.append(move)  # add move to the human record
+        self.board_record.append(move)  # record any moves to the board record afterwards
+
+    def pop_moves(self, player):
+        &#34;&#34;&#34;Removes moves from specified record for minimax AI.&#34;&#34;&#34;
+        if player == self.opponent:  # now, if player is the computer
+            self.computer_record.pop()  # remove the most recently appended move from its record
+        else:  # otherwise
+            self.human_record.pop()  # remove the most recent move from the human record
+        self.board_record.pop()  # remove the most recent move from the board record
+
+    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice
+    # on the big board. Slash, this is potentially not fully functional on either board at the
+    # moment due to edits from debugging the big board.
+
+    def minimax_logic(self, player, board_option, depth=0):
+        &#34;&#34;&#34;Logic used by minimax AI to discover best next move.&#34;&#34;&#34;
+        if player == self.opponent:  # sets max_score
+            self.max_score = -10  # as -10 if player is the computer
+        else:  # otherwise
+            self.max_score = 10  # as +10
+
+        # TODO: using this chunk, we only break recursion if a win or draw has been discovered...
+        # potential place to work on reducing the amount of time the AI takes choosing a move on
+        # the big board
+
+        if self.is_urgent(board_option):
+            result = self.can_win(board_option)  # check for winning player and
+            if result == self.opponent:  # if winner is the computer,
+                return 10 + depth, None  # return depth + 10
+            if result == self.player:  # if winner is human
+                return -10 - depth, None  # return depth - 10
+            if self.full_board(board_option):  # if the board is already full,
+                return 0, None  # return 0 --&gt;
+        # this chunk breaks the recursive calls on each open square
+
+        for move in self.get_open_squares(board_option):  # then, for each available move
+            self.append_moves(player, move)
+            player = self.swap_player_turn(player)  # and swap players
+            score, _ = self.minimax_logic(player, board_option, depth + 1)  # do the recursive thing
+            player = self.swap_player_turn(player)  # and swap players again
+            self.pop_moves(player)
+
+            if player == self.opponent:  # next, if the player is the computer,
+                if score &gt; self.max_score:  # and if the current score is greater than our max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move
+            else:  # otherwise, if human,
+                if score &lt; self.max_score:  # and if our score is lower than the max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move
+        return self.max_score, self.best_move  # returns the best move with the max score potential
+
+    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice on
+    # the big board. Slash, this is potentially not fully functional on either board at the moment
+    # due to edits from debugging the big board.
+
+    def minimax_move(self, player, board_option):
+        &#34;&#34;&#34;Captures, records, and fullfils the minimax AI&#39;s turn in game.&#34;&#34;&#34;
+        # is it the first move of the game?
+        if len(self.board_record) == 0:
+            move = self.first_move(board_option)
+        # is it the last move of the game?
+        elif self.is_last_move(board_option):
+            move = self.get_open_squares(board_option)[0]
+        # can a win be obtained or prevented with this move?
+        elif self.is_urgent(board_option):
+            move = self.urgent_move(board_option)  # win or prevent win
+        # if all that fails, do a minimax search
+            if move is False:
+                _, move = self.minimax_logic(player, board_option)  # holds score
+        else:
+            _, move = self.minimax_logic(player, board_option)
+        move = str(move)
+        coords = np.where(self.board == move)
+        row, col = (int(coords[0])), (int(coords[1]))
+        print(f&#34;\n\tMiniMax AI chooses square {move}!\n&#34;)
+        with open(self.match_records, &#39;a&#39;) as record:
+            record.write(f&#34;{player}:{move} &#34;)
+        self.place_marker(row, col, player)
+        self.computer_record.append(move)
+        self.board_record.append(move)
+
+# ignored/unresolved pylama msg list includes:
+#   - E201 whitespace after &#39;[&#39; [pycodestyle]
+#       - line(s): 54, 331(x2), 332(x2), 333, 334, 335, 336(x2)
+#   - E128 continuation line under-indented for visual indent [pycodestyle]
+#       - line(s): 56, 57, 58
+#   - E722 do not use bare &#39;except&#39; [pycodestyle]
+#       - line(s): 279
+
+# current pylint score: 9.69/10
+
+# ignored/unresolved pylint msg list includes:
+#   - W0511: TODO: .... (fixme)
+#       - line(s): 338, 501, 512, 543
+#   - W0702: No exception type(s) specified (bare-except)
+#       - line(s): 279
+#   - R1722: Consider using sys.exit() (consider-using-sys-exit)
+#       - line(s): 277
+#   - W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+#       - line(s): 283, 363, 567
+
+#   - June 19, 2022</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="TicTacToe.game_objects.AI"><code class="flex name class">
+<span>class <span class="ident">AI</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard.
+AI contains methods designed to activate a random AI and a minimax AI opponent for their
+respective gamemodes.</p>
+<p>Class methods include:</p>
+<pre><code>- random_logic(board_option)
+- random_move(player, board_option)
+- get_open_squares(board_option)
+- can_win(board_option)
+- first_move(board_option)
+- urgent_move(board_option)
+- full_board(board_option)
+- is_last_move(board_option)
+- urgent_move()
+- minimax_logic()
+- minimax_move()
+</code></pre>
+<p>AI initializes with all of its parent and grandparent class variables, as well as:</p>
+<pre><code>- self.max_score
+- self.best_move
+- self.winning_patterns
+- self.big_win_patterns
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AI(PlayerActions):
+    &#34;&#34;&#34;
+    AI is the child class of PlayerActions and the grandchild class of TicTacToeBoard.
+    AI contains methods designed to activate a random AI and a minimax AI opponent for their
+    respective gamemodes.
+
+    Class methods include:
+
+        - random_logic(board_option)
+        - random_move(player, board_option)
+        - get_open_squares(board_option)
+        - can_win(board_option)
+        - first_move(board_option)
+        - urgent_move(board_option)
+        - full_board(board_option)
+        - is_last_move(board_option)
+        - urgent_move()
+        - minimax_logic()
+        - minimax_move()
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        AI initializes with all of its parent and grandparent class variables, as well as:
+
+            - self.max_score
+            - self.best_move
+            - self.winning_patterns
+            - self.big_win_patterns
+        &#34;&#34;&#34;
+        super().__init__()
+        self.max_score = 10
+        self.best_move = 0
+        self.winning_patterns = [[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;], [&#39;4&#39;, &#39;5&#39;, &#39;6&#39;], [&#39;7&#39;, &#39;8&#39;, &#39;9&#39;],
+                                 [&#39;1&#39;, &#39;4&#39;, &#39;7&#39;], [&#39;2&#39;, &#39;5&#39;, &#39;8&#39;], [&#39;3&#39;, &#39;6&#39;, &#39;9&#39;],
+                                 [&#39;1&#39;, &#39;5&#39;, &#39;9&#39;], [&#39;3&#39;, &#39;5&#39;, &#39;7&#39;]]
+
+        self.big_win_patterns = [[ &#39;1&#39;,  &#39;2&#39;,  &#39;3&#39;,  &#39;4&#39;,  &#39;5&#39;], [ &#39;1&#39;,  &#39;6&#39;, &#39;11&#39;, &#39;16&#39;, &#39;21&#39;],
+                                 [ &#39;6&#39;,  &#39;7&#39;,  &#39;8&#39;,  &#39;9&#39;, &#39;10&#39;], [ &#39;2&#39;,  &#39;7&#39;, &#39;12&#39;, &#39;17&#39;, &#39;22&#39;],
+                                 [&#39;11&#39;, &#39;12&#39;, &#39;13&#39;, &#39;14&#39;, &#39;15&#39;], [ &#39;3&#39;,  &#39;8&#39;, &#39;13&#39;, &#39;18&#39;, &#39;23&#39;],
+                                 [&#39;16&#39;, &#39;17&#39;, &#39;18&#39;, &#39;19&#39;, &#39;20&#39;], [ &#39;4&#39;,  &#39;9&#39;, &#39;14&#39;, &#39;19&#39;, &#39;24&#39;],
+                                 [&#39;21&#39;, &#39;22&#39;, &#39;23&#39;, &#39;24&#39;, &#39;25&#39;], [ &#39;5&#39;, &#39;10&#39;, &#39;15&#39;, &#39;20&#39;, &#39;25&#39;],
+                                 [ &#39;1&#39;,  &#39;7&#39;, &#39;13&#39;, &#39;19&#39;, &#39;25&#39;], [ &#39;5&#39;,  &#39;9&#39;, &#39;13&#39;, &#39;17&#39;, &#39;21&#39;]]
+
+    # TODO: could probably use the get_open_squares() methods below and make this
+    # a three line method, but, another time.
+    def random_logic(self, board_option):
+        &#34;&#34;&#34;Returns a random, available, square number from the current gameboard.&#34;&#34;&#34;
+        possible_moves = []  # declare an empty list of possible moves
+        for row in self.board:  # for each row in our gameboard,
+            for square in row:  # and for each square in said row,
+                # if classic board
+                if board_option == 1:
+                    if square in self.classic:  # if the square&#39;s value is in our classic list
+                        possible_moves.append(square)  # store it in our list of available squares
+                # if big board
+                if board_option == 2:
+                    if square in self.big:
+                        possible_moves.append(square)
+        move = random.choice(possible_moves)  # determine a random, available move for AI
+        return move  # from our list of possible moves
+
+    def random_move(self, player, board_option):
+        &#34;&#34;&#34;Captures, records, and fullfils the Random AI&#39;s turn in game.&#34;&#34;&#34;
+        move = self.random_logic(board_option)  # generates random move,
+        coords = np.where(self.board == move)  # sets the move coordinates
+        row, col = (int(coords[0])), (int(coords[1]))  # assign the proper index of the move
+        sleep(1)  # (our AI is thinking. . .)
+        print(f&#34;\n\tRandom AI chooses square {move}!\n&#34;)  # announce Random AI&#39;s move
+        with open(self.match_records, &#39;a&#39;) as record:  # open our match records and
+            record.write(f&#34;{player}:{move} &#34;)  # append the Random AI move
+        self.place_marker(row, col, player)  # as it happens
+
+    def get_open_squares(self, board_option):
+        &#34;&#34;&#34;Obtains all available moves from the board records for the minimax alogrithm.&#34;&#34;&#34;
+        squares = []
+        # classic board
+        if board_option == 1:
+            for square in list(set(self.classic) - set(self.board_record)):
+                squares.append(square)
+            return squares
+        # big board
+        if board_option == 2:
+            for square in list(set(self.big) - set(self.board_record)):
+                squares.append(square)
+            return squares
+        return None
+
+    def can_win(self, board_option):
+        &#34;&#34;&#34;Returns potential winners found by the minimax AI&#39;s branch searches.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for win in self.winning_patterns:
+                if set(win) &lt;= set(self.computer_record):
+                    return self.opponent
+                if set(win) &lt;= set(self.human_record):
+                    return self.player
+        # big board
+        if board_option == 2:
+            for win in self.big_win_patterns:
+                if set(win) &lt;= set(self.computer_record):
+                    return self.opponent
+                if set(win) &lt;= set(self.human_record):
+                    return self.player
+        return False
+
+    def first_move(self, board_option):
+        &#34;&#34;&#34;
+        Tells minimax AI to take a corner position on the specified board if it is assigned
+        first player.
+        &#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            move = random.choices([1, 3, 7, 9])[0]
+            return move
+        # big board
+        if board_option == 2:
+            move = random.choices([1, 5, 21, 25])[0]
+            return move
+        return False
+
+    def urgent_move(self, board_option):
+        &#34;&#34;&#34;Checks for any wins that could be obtained or prevented each turn by the minimax AI.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            winpatten = self.winning_patterns
+        # big board
+        else:
+            winpatten = self.big_win_patterns
+
+        # checking computer moves
+        for win in winpatten:
+            if len(list(set(win) - set(self.computer_record))) == 1\
+               and len(set(self.computer_record)) &gt; 1:
+                move = list(set(win) - set(self.computer_record))[0]
+                if move not in set(self.human_record):
+                    return move
+        # checking human moves
+        for win in winpatten:
+            if len(list(set(win) - set(self.human_record))) == 1\
+               and len(set(self.human_record)) &gt; 1:
+                move = list(set(win) - set(self.human_record))[0]
+                if move not in set(self.computer_record):
+                    return move
+        return False
+
+    def full_board(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;Tells the minimax AI when there are no more moves available to check.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if len(self.board_record) == 9:
+                return True
+        # big board
+        if board_option == 2:
+            if len(self.board_record) == 25:
+                return True
+        return False
+
+    def is_last_move(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;Checks if there is only one available move left for minimax AI.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1 and len(self.board_record) == 8:
+            return True
+        # big board
+        if board_option == 2 and len(self.board_record) == 24:
+            return True
+        return False
+
+    def is_urgent(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;&#34;
+        Checks if enough markers have been placed for someone to have a potential win
+        for minimax AI.
+        &#34;&#34;&#34;
+        # classic board
+        if board_option == 1 and (len(self.board_record) &gt; 3):
+            return True
+        # big board
+        if board_option == 2 and (len(self.board_record) &gt; 7):
+            return True
+        return False
+
+    def is_early_move(self, board_option) -&gt; bool:
+        &#34;&#34;&#34;
+        Checks if the big board has at least 12 markers placed for the minimax AI to
+        limit nodes.
+        &#34;&#34;&#34;
+        # big board
+        if board_option == 2 and len(self.board_record) &lt; 12:
+            return True
+        return False
+
+    def append_moves(self, player, move):
+        &#34;&#34;&#34;Appends moves to specified record for minimax AI.&#34;&#34;&#34;
+        if player == self.opponent:  # if player is the computer
+            self.computer_record.append(move)  # add move to the computer record
+        else:  # otherwise
+            self.human_record.append(move)  # add move to the human record
+        self.board_record.append(move)  # record any moves to the board record afterwards
+
+    def pop_moves(self, player):
+        &#34;&#34;&#34;Removes moves from specified record for minimax AI.&#34;&#34;&#34;
+        if player == self.opponent:  # now, if player is the computer
+            self.computer_record.pop()  # remove the most recently appended move from its record
+        else:  # otherwise
+            self.human_record.pop()  # remove the most recent move from the human record
+        self.board_record.pop()  # remove the most recent move from the board record
+
+    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice
+    # on the big board. Slash, this is potentially not fully functional on either board at the
+    # moment due to edits from debugging the big board.
+
+    def minimax_logic(self, player, board_option, depth=0):
+        &#34;&#34;&#34;Logic used by minimax AI to discover best next move.&#34;&#34;&#34;
+        if player == self.opponent:  # sets max_score
+            self.max_score = -10  # as -10 if player is the computer
+        else:  # otherwise
+            self.max_score = 10  # as +10
+
+        # TODO: using this chunk, we only break recursion if a win or draw has been discovered...
+        # potential place to work on reducing the amount of time the AI takes choosing a move on
+        # the big board
+
+        if self.is_urgent(board_option):
+            result = self.can_win(board_option)  # check for winning player and
+            if result == self.opponent:  # if winner is the computer,
+                return 10 + depth, None  # return depth + 10
+            if result == self.player:  # if winner is human
+                return -10 - depth, None  # return depth - 10
+            if self.full_board(board_option):  # if the board is already full,
+                return 0, None  # return 0 --&gt;
+        # this chunk breaks the recursive calls on each open square
+
+        for move in self.get_open_squares(board_option):  # then, for each available move
+            self.append_moves(player, move)
+            player = self.swap_player_turn(player)  # and swap players
+            score, _ = self.minimax_logic(player, board_option, depth + 1)  # do the recursive thing
+            player = self.swap_player_turn(player)  # and swap players again
+            self.pop_moves(player)
+
+            if player == self.opponent:  # next, if the player is the computer,
+                if score &gt; self.max_score:  # and if the current score is greater than our max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move
+            else:  # otherwise, if human,
+                if score &lt; self.max_score:  # and if our score is lower than the max score
+                    self.max_score = score  # set the return variables
+                    self.best_move = move
+        return self.max_score, self.best_move  # returns the best move with the max score potential
+
+    # TODO: Need to do something about the amount of time our minimax AI takes to make a choice on
+    # the big board. Slash, this is potentially not fully functional on either board at the moment
+    # due to edits from debugging the big board.
+
+    def minimax_move(self, player, board_option):
+        &#34;&#34;&#34;Captures, records, and fullfils the minimax AI&#39;s turn in game.&#34;&#34;&#34;
+        # is it the first move of the game?
+        if len(self.board_record) == 0:
+            move = self.first_move(board_option)
+        # is it the last move of the game?
+        elif self.is_last_move(board_option):
+            move = self.get_open_squares(board_option)[0]
+        # can a win be obtained or prevented with this move?
+        elif self.is_urgent(board_option):
+            move = self.urgent_move(board_option)  # win or prevent win
+        # if all that fails, do a minimax search
+            if move is False:
+                _, move = self.minimax_logic(player, board_option)  # holds score
+        else:
+            _, move = self.minimax_logic(player, board_option)
+        move = str(move)
+        coords = np.where(self.board == move)
+        row, col = (int(coords[0])), (int(coords[1]))
+        print(f&#34;\n\tMiniMax AI chooses square {move}!\n&#34;)
+        with open(self.match_records, &#39;a&#39;) as record:
+            record.write(f&#34;{player}:{move} &#34;)
+        self.place_marker(row, col, player)
+        self.computer_record.append(move)
+        self.board_record.append(move)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.game_objects.PlayerActions" href="#TicTacToe.game_objects.PlayerActions">PlayerActions</a></li>
+<li><a title="TicTacToe.game_objects.TicTacToeBoards" href="#TicTacToe.game_objects.TicTacToeBoards">TicTacToeBoards</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.game_objects.AI.append_moves"><code class="name flex">
+<span>def <span class="ident">append_moves</span></span>(<span>self, player, move)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Appends moves to specified record for minimax AI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def append_moves(self, player, move):
+    &#34;&#34;&#34;Appends moves to specified record for minimax AI.&#34;&#34;&#34;
+    if player == self.opponent:  # if player is the computer
+        self.computer_record.append(move)  # add move to the computer record
+    else:  # otherwise
+        self.human_record.append(move)  # add move to the human record
+    self.board_record.append(move)  # record any moves to the board record afterwards</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.can_win"><code class="name flex">
+<span>def <span class="ident">can_win</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns potential winners found by the minimax AI's branch searches.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_win(self, board_option):
+    &#34;&#34;&#34;Returns potential winners found by the minimax AI&#39;s branch searches.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        for win in self.winning_patterns:
+            if set(win) &lt;= set(self.computer_record):
+                return self.opponent
+            if set(win) &lt;= set(self.human_record):
+                return self.player
+    # big board
+    if board_option == 2:
+        for win in self.big_win_patterns:
+            if set(win) &lt;= set(self.computer_record):
+                return self.opponent
+            if set(win) &lt;= set(self.human_record):
+                return self.player
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.first_move"><code class="name flex">
+<span>def <span class="ident">first_move</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tells minimax AI to take a corner position on the specified board if it is assigned
+first player.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def first_move(self, board_option):
+    &#34;&#34;&#34;
+    Tells minimax AI to take a corner position on the specified board if it is assigned
+    first player.
+    &#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        move = random.choices([1, 3, 7, 9])[0]
+        return move
+    # big board
+    if board_option == 2:
+        move = random.choices([1, 5, 21, 25])[0]
+        return move
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.full_board"><code class="name flex">
+<span>def <span class="ident">full_board</span></span>(<span>self, board_option) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tells the minimax AI when there are no more moves available to check.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def full_board(self, board_option) -&gt; bool:
+    &#34;&#34;&#34;Tells the minimax AI when there are no more moves available to check.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        if len(self.board_record) == 9:
+            return True
+    # big board
+    if board_option == 2:
+        if len(self.board_record) == 25:
+            return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.get_open_squares"><code class="name flex">
+<span>def <span class="ident">get_open_squares</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Obtains all available moves from the board records for the minimax alogrithm.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_open_squares(self, board_option):
+    &#34;&#34;&#34;Obtains all available moves from the board records for the minimax alogrithm.&#34;&#34;&#34;
+    squares = []
+    # classic board
+    if board_option == 1:
+        for square in list(set(self.classic) - set(self.board_record)):
+            squares.append(square)
+        return squares
+    # big board
+    if board_option == 2:
+        for square in list(set(self.big) - set(self.board_record)):
+            squares.append(square)
+        return squares
+    return None</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.is_early_move"><code class="name flex">
+<span>def <span class="ident">is_early_move</span></span>(<span>self, board_option) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if the big board has at least 12 markers placed for the minimax AI to
+limit nodes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_early_move(self, board_option) -&gt; bool:
+    &#34;&#34;&#34;
+    Checks if the big board has at least 12 markers placed for the minimax AI to
+    limit nodes.
+    &#34;&#34;&#34;
+    # big board
+    if board_option == 2 and len(self.board_record) &lt; 12:
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.is_last_move"><code class="name flex">
+<span>def <span class="ident">is_last_move</span></span>(<span>self, board_option) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if there is only one available move left for minimax AI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_last_move(self, board_option) -&gt; bool:
+    &#34;&#34;&#34;Checks if there is only one available move left for minimax AI.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1 and len(self.board_record) == 8:
+        return True
+    # big board
+    if board_option == 2 and len(self.board_record) == 24:
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.is_urgent"><code class="name flex">
+<span>def <span class="ident">is_urgent</span></span>(<span>self, board_option) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"
+Checks if enough markers have been placed for someone to have a potential win
+for minimax AI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_urgent(self, board_option) -&gt; bool:
+    &#34;&#34;&#34;&#34;
+    Checks if enough markers have been placed for someone to have a potential win
+    for minimax AI.
+    &#34;&#34;&#34;
+    # classic board
+    if board_option == 1 and (len(self.board_record) &gt; 3):
+        return True
+    # big board
+    if board_option == 2 and (len(self.board_record) &gt; 7):
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.minimax_logic"><code class="name flex">
+<span>def <span class="ident">minimax_logic</span></span>(<span>self, player, board_option, depth=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Logic used by minimax AI to discover best next move.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def minimax_logic(self, player, board_option, depth=0):
+    &#34;&#34;&#34;Logic used by minimax AI to discover best next move.&#34;&#34;&#34;
+    if player == self.opponent:  # sets max_score
+        self.max_score = -10  # as -10 if player is the computer
+    else:  # otherwise
+        self.max_score = 10  # as +10
+
+    # TODO: using this chunk, we only break recursion if a win or draw has been discovered...
+    # potential place to work on reducing the amount of time the AI takes choosing a move on
+    # the big board
+
+    if self.is_urgent(board_option):
+        result = self.can_win(board_option)  # check for winning player and
+        if result == self.opponent:  # if winner is the computer,
+            return 10 + depth, None  # return depth + 10
+        if result == self.player:  # if winner is human
+            return -10 - depth, None  # return depth - 10
+        if self.full_board(board_option):  # if the board is already full,
+            return 0, None  # return 0 --&gt;
+    # this chunk breaks the recursive calls on each open square
+
+    for move in self.get_open_squares(board_option):  # then, for each available move
+        self.append_moves(player, move)
+        player = self.swap_player_turn(player)  # and swap players
+        score, _ = self.minimax_logic(player, board_option, depth + 1)  # do the recursive thing
+        player = self.swap_player_turn(player)  # and swap players again
+        self.pop_moves(player)
+
+        if player == self.opponent:  # next, if the player is the computer,
+            if score &gt; self.max_score:  # and if the current score is greater than our max score
+                self.max_score = score  # set the return variables
+                self.best_move = move
+        else:  # otherwise, if human,
+            if score &lt; self.max_score:  # and if our score is lower than the max score
+                self.max_score = score  # set the return variables
+                self.best_move = move
+    return self.max_score, self.best_move  # returns the best move with the max score potential</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.minimax_move"><code class="name flex">
+<span>def <span class="ident">minimax_move</span></span>(<span>self, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Captures, records, and fullfils the minimax AI's turn in game.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def minimax_move(self, player, board_option):
+    &#34;&#34;&#34;Captures, records, and fullfils the minimax AI&#39;s turn in game.&#34;&#34;&#34;
+    # is it the first move of the game?
+    if len(self.board_record) == 0:
+        move = self.first_move(board_option)
+    # is it the last move of the game?
+    elif self.is_last_move(board_option):
+        move = self.get_open_squares(board_option)[0]
+    # can a win be obtained or prevented with this move?
+    elif self.is_urgent(board_option):
+        move = self.urgent_move(board_option)  # win or prevent win
+    # if all that fails, do a minimax search
+        if move is False:
+            _, move = self.minimax_logic(player, board_option)  # holds score
+    else:
+        _, move = self.minimax_logic(player, board_option)
+    move = str(move)
+    coords = np.where(self.board == move)
+    row, col = (int(coords[0])), (int(coords[1]))
+    print(f&#34;\n\tMiniMax AI chooses square {move}!\n&#34;)
+    with open(self.match_records, &#39;a&#39;) as record:
+        record.write(f&#34;{player}:{move} &#34;)
+    self.place_marker(row, col, player)
+    self.computer_record.append(move)
+    self.board_record.append(move)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.pop_moves"><code class="name flex">
+<span>def <span class="ident">pop_moves</span></span>(<span>self, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes moves from specified record for minimax AI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pop_moves(self, player):
+    &#34;&#34;&#34;Removes moves from specified record for minimax AI.&#34;&#34;&#34;
+    if player == self.opponent:  # now, if player is the computer
+        self.computer_record.pop()  # remove the most recently appended move from its record
+    else:  # otherwise
+        self.human_record.pop()  # remove the most recent move from the human record
+    self.board_record.pop()  # remove the most recent move from the board record</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.random_logic"><code class="name flex">
+<span>def <span class="ident">random_logic</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a random, available, square number from the current gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def random_logic(self, board_option):
+    &#34;&#34;&#34;Returns a random, available, square number from the current gameboard.&#34;&#34;&#34;
+    possible_moves = []  # declare an empty list of possible moves
+    for row in self.board:  # for each row in our gameboard,
+        for square in row:  # and for each square in said row,
+            # if classic board
+            if board_option == 1:
+                if square in self.classic:  # if the square&#39;s value is in our classic list
+                    possible_moves.append(square)  # store it in our list of available squares
+            # if big board
+            if board_option == 2:
+                if square in self.big:
+                    possible_moves.append(square)
+    move = random.choice(possible_moves)  # determine a random, available move for AI
+    return move  # from our list of possible moves</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.random_move"><code class="name flex">
+<span>def <span class="ident">random_move</span></span>(<span>self, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Captures, records, and fullfils the Random AI's turn in game.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def random_move(self, player, board_option):
+    &#34;&#34;&#34;Captures, records, and fullfils the Random AI&#39;s turn in game.&#34;&#34;&#34;
+    move = self.random_logic(board_option)  # generates random move,
+    coords = np.where(self.board == move)  # sets the move coordinates
+    row, col = (int(coords[0])), (int(coords[1]))  # assign the proper index of the move
+    sleep(1)  # (our AI is thinking. . .)
+    print(f&#34;\n\tRandom AI chooses square {move}!\n&#34;)  # announce Random AI&#39;s move
+    with open(self.match_records, &#39;a&#39;) as record:  # open our match records and
+        record.write(f&#34;{player}:{move} &#34;)  # append the Random AI move
+    self.place_marker(row, col, player)  # as it happens</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.AI.urgent_move"><code class="name flex">
+<span>def <span class="ident">urgent_move</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for any wins that could be obtained or prevented each turn by the minimax AI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def urgent_move(self, board_option):
+    &#34;&#34;&#34;Checks for any wins that could be obtained or prevented each turn by the minimax AI.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        winpatten = self.winning_patterns
+    # big board
+    else:
+        winpatten = self.big_win_patterns
+
+    # checking computer moves
+    for win in winpatten:
+        if len(list(set(win) - set(self.computer_record))) == 1\
+           and len(set(self.computer_record)) &gt; 1:
+            move = list(set(win) - set(self.computer_record))[0]
+            if move not in set(self.human_record):
+                return move
+    # checking human moves
+    for win in winpatten:
+        if len(list(set(win) - set(self.human_record))) == 1\
+           and len(set(self.human_record)) &gt; 1:
+            move = list(set(win) - set(self.human_record))[0]
+            if move not in set(self.computer_record):
+                return move
+    return False</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="TicTacToe.game_objects.PlayerActions" href="#TicTacToe.game_objects.PlayerActions">PlayerActions</a></b></code>:
+<ul class="hlist">
+<li><code><a title="TicTacToe.game_objects.PlayerActions.assign_markers" href="#TicTacToe.game_objects.PlayerActions.assign_markers">assign_markers</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.choose_marker" href="#TicTacToe.game_objects.PlayerActions.choose_marker">choose_marker</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.create_board" href="#TicTacToe.game_objects.TicTacToeBoards.create_board">create_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.display_board" href="#TicTacToe.game_objects.TicTacToeBoards.display_board">display_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.get_coords" href="#TicTacToe.game_objects.PlayerActions.get_coords">get_coords</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_draw" href="#TicTacToe.game_objects.TicTacToeBoards.is_draw">is_draw</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner">is_winner</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner_by_asc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc">is_winner_by_asc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner_by_col" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col">is_winner_by_col</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner_by_desc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc">is_winner_by_desc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner_by_diag" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag">is_winner_by_diag</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.is_winner_by_row" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row">is_winner_by_row</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.place_marker" href="#TicTacToe.game_objects.TicTacToeBoards.place_marker">place_marker</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.player_move" href="#TicTacToe.game_objects.PlayerActions.player_move">player_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.player_turn" href="#TicTacToe.game_objects.PlayerActions.player_turn">player_turn</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.print_big_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_big_board">print_big_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.print_classic_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_classic_board">print_classic_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.reset_board" href="#TicTacToe.game_objects.TicTacToeBoards.reset_board">reset_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.swap_player_turn" href="#TicTacToe.game_objects.PlayerActions.swap_player_turn">swap_player_turn</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions"><code class="flex name class">
+<span>class <span class="ident">PlayerActions</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>PlayerActions is the child class of TicTacToeBoards and the parent class of AI.
+PlayerActions contains methods designed to swap player turns, assign player markers (X or O),
+and acquire and apply player move choices.</p>
+<p>Class methods include:</p>
+<pre><code>- choose_marker()
+- assign_markers()
+- player_turn(player)
+- get_coords(player)
+- player_move(player)
+- swap_player_turn(player)
+</code></pre>
+<p>PlayerActions initializes with all parent methods/variables and defines the following:</p>
+<pre><code>- self.match_records
+- self.player
+- self.opponent
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlayerActions(TicTacToeBoards):
+    &#34;&#34;&#34;
+    PlayerActions is the child class of TicTacToeBoards and the parent class of AI.
+    PlayerActions contains methods designed to swap player turns, assign player markers (X or O),
+    and acquire and apply player move choices.
+
+    Class methods include:
+
+        - choose_marker()
+        - assign_markers()
+        - player_turn(player)
+        - get_coords(player)
+        - player_move(player)
+        - swap_player_turn(player)
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        PlayerActions initializes with all parent methods/variables and defines the following:
+
+            - self.match_records
+            - self.player
+            - self.opponent
+        &#34;&#34;&#34;
+        super().__init__()
+        self.match_records = &#34;tic.tac.toe.txt&#34;
+        self.player = &#39;&#39;
+        self.opponent = &#39;&#39;
+
+    def choose_marker(self):
+        &#34;&#34;&#34;Allows the main player to choose to be X or O.&#34;&#34;&#34;
+        marker = &#39; &#39;  # declare marker variable as empty string
+        while marker not in (&#39;X&#39;, &#39;O&#39;):  # while marker does not equal X or O
+            marker = input(&#34;\n\tDo you want to be Xs or Os? &#34;).upper()  # choose X or O
+        if marker == &#39;X&#39;:  # if X,
+            return [&#39;X&#39;, &#39;O&#39;]  # then return X, O
+        return [&#39;O&#39;, &#39;X&#39;]  # if O, then return O, X
+
+    def assign_markers(self):  # retrieve marker order from choose_marker() method
+        &#34;&#34;&#34;Assigns X and O markers to the appropriate players.&#34;&#34;&#34;
+        self.player, self.opponent = self.choose_marker()  # assign the first char to our player,
+        return self.player, self.opponent  # and the second char to our opponent
+
+    def player_turn(self, player):
+        &#34;&#34;&#34;Acquires player input to determine desired move.&#34;&#34;&#34;
+        move = input(f&#34;\n\tPlease enter the number where you&#39;d like to place your {player}: &#34;)
+        print(f&#34;\n\tYou chose square {move}!&#34;)  # acquire player input to determine desired move
+        return move  # return chosen square value
+
+    def get_coords(self, player):
+        &#34;&#34;&#34;Determines the coordinates of the &#39;empty&#39; square value provided.&#34;&#34;&#34;
+        move = self.player_turn(player)  # retrieve player move from human_moves() method
+        coords = []  # declare empty list to store move coordinates
+        coords = np.where(self.board == move)  # determine move coordinates
+        return coords  # return move coordinates
+
+    def player_move(self, player):
+        &#34;&#34;&#34;Captures, records, and fulfills human moves while handling exceptions.&#34;&#34;&#34;
+        while True:  # exception catching loop
+            try:  # attempt to initialize coords, by retrieving the player&#39;s input,
+                coords = self.get_coords(player)  # through get_coords() method,
+                row, col = int(coords[0]), int(coords[1])  # assign the proper index of the move
+            except KeyboardInterrupt:  # enable Ctrl + c to end program during player input
+                print(&#34;\n\n\tGood bye!&#34;)  # when used - program says good bye,
+                exit()  # then ends
+            # W0702: No exception type(s) specified (bare-except) -pylama
+            except:  # continue looping until valid input is accepted
+                print(&#34;\n\tInvalid input. Please try again.\n&#34;)  # announce when input is invalid
+            else:  # otherwise, reverse engineer our player move by using our determined index
+                move = self.board[row][col]  # and assign it to move
+                with open(self.match_records, &#39;a&#39;) as record:  # then open our match records and
+                    record.write(f&#34;{player}:{move} &#34;)  # append each valid player move
+                self.place_marker(row, col, player)  # as it happens
+                self.human_record.append(move)  # add move to human records for minimax
+                self.board_record.append(move)  # add move to board records for minimax
+                return False  # before ending our loop
+
+    def swap_player_turn(self, player):
+        &#34;&#34;&#34;Swaps game control between the two players.&#34;&#34;&#34;
+        return &#39;X&#39; if player == &#39;O&#39; else &#39;O&#39;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.game_objects.TicTacToeBoards" href="#TicTacToe.game_objects.TicTacToeBoards">TicTacToeBoards</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.game_objects.AI" href="#TicTacToe.game_objects.AI">AI</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.game_objects.PlayerActions.assign_markers"><code class="name flex">
+<span>def <span class="ident">assign_markers</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Assigns X and O markers to the appropriate players.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def assign_markers(self):  # retrieve marker order from choose_marker() method
+    &#34;&#34;&#34;Assigns X and O markers to the appropriate players.&#34;&#34;&#34;
+    self.player, self.opponent = self.choose_marker()  # assign the first char to our player,
+    return self.player, self.opponent  # and the second char to our opponent</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions.choose_marker"><code class="name flex">
+<span>def <span class="ident">choose_marker</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Allows the main player to choose to be X or O.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def choose_marker(self):
+    &#34;&#34;&#34;Allows the main player to choose to be X or O.&#34;&#34;&#34;
+    marker = &#39; &#39;  # declare marker variable as empty string
+    while marker not in (&#39;X&#39;, &#39;O&#39;):  # while marker does not equal X or O
+        marker = input(&#34;\n\tDo you want to be Xs or Os? &#34;).upper()  # choose X or O
+    if marker == &#39;X&#39;:  # if X,
+        return [&#39;X&#39;, &#39;O&#39;]  # then return X, O
+    return [&#39;O&#39;, &#39;X&#39;]  # if O, then return O, X</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions.get_coords"><code class="name flex">
+<span>def <span class="ident">get_coords</span></span>(<span>self, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines the coordinates of the 'empty' square value provided.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_coords(self, player):
+    &#34;&#34;&#34;Determines the coordinates of the &#39;empty&#39; square value provided.&#34;&#34;&#34;
+    move = self.player_turn(player)  # retrieve player move from human_moves() method
+    coords = []  # declare empty list to store move coordinates
+    coords = np.where(self.board == move)  # determine move coordinates
+    return coords  # return move coordinates</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions.player_move"><code class="name flex">
+<span>def <span class="ident">player_move</span></span>(<span>self, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Captures, records, and fulfills human moves while handling exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def player_move(self, player):
+    &#34;&#34;&#34;Captures, records, and fulfills human moves while handling exceptions.&#34;&#34;&#34;
+    while True:  # exception catching loop
+        try:  # attempt to initialize coords, by retrieving the player&#39;s input,
+            coords = self.get_coords(player)  # through get_coords() method,
+            row, col = int(coords[0]), int(coords[1])  # assign the proper index of the move
+        except KeyboardInterrupt:  # enable Ctrl + c to end program during player input
+            print(&#34;\n\n\tGood bye!&#34;)  # when used - program says good bye,
+            exit()  # then ends
+        # W0702: No exception type(s) specified (bare-except) -pylama
+        except:  # continue looping until valid input is accepted
+            print(&#34;\n\tInvalid input. Please try again.\n&#34;)  # announce when input is invalid
+        else:  # otherwise, reverse engineer our player move by using our determined index
+            move = self.board[row][col]  # and assign it to move
+            with open(self.match_records, &#39;a&#39;) as record:  # then open our match records and
+                record.write(f&#34;{player}:{move} &#34;)  # append each valid player move
+            self.place_marker(row, col, player)  # as it happens
+            self.human_record.append(move)  # add move to human records for minimax
+            self.board_record.append(move)  # add move to board records for minimax
+            return False  # before ending our loop</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions.player_turn"><code class="name flex">
+<span>def <span class="ident">player_turn</span></span>(<span>self, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Acquires player input to determine desired move.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def player_turn(self, player):
+    &#34;&#34;&#34;Acquires player input to determine desired move.&#34;&#34;&#34;
+    move = input(f&#34;\n\tPlease enter the number where you&#39;d like to place your {player}: &#34;)
+    print(f&#34;\n\tYou chose square {move}!&#34;)  # acquire player input to determine desired move
+    return move  # return chosen square value</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.PlayerActions.swap_player_turn"><code class="name flex">
+<span>def <span class="ident">swap_player_turn</span></span>(<span>self, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Swaps game control between the two players.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def swap_player_turn(self, player):
+    &#34;&#34;&#34;Swaps game control between the two players.&#34;&#34;&#34;
+    return &#39;X&#39; if player == &#39;O&#39; else &#39;O&#39;</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="TicTacToe.game_objects.TicTacToeBoards" href="#TicTacToe.game_objects.TicTacToeBoards">TicTacToeBoards</a></b></code>:
+<ul class="hlist">
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.create_board" href="#TicTacToe.game_objects.TicTacToeBoards.create_board">create_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.display_board" href="#TicTacToe.game_objects.TicTacToeBoards.display_board">display_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_draw" href="#TicTacToe.game_objects.TicTacToeBoards.is_draw">is_draw</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner">is_winner</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc">is_winner_by_asc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col">is_winner_by_col</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc">is_winner_by_desc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag">is_winner_by_diag</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row">is_winner_by_row</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.place_marker" href="#TicTacToe.game_objects.TicTacToeBoards.place_marker">place_marker</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.print_big_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_big_board">print_big_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.print_classic_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_classic_board">print_classic_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.reset_board" href="#TicTacToe.game_objects.TicTacToeBoards.reset_board">reset_board</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards"><code class="flex name class">
+<span>class <span class="ident">TicTacToeBoards</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>TicTacToeBoards is the parent class of PlayerActions and the grandparent class of AI.</p>
+<p>This class contains methods designed to generate, display, write to, read from, and reset both
+tic tac toe gameboards.</p>
+<pre><code>- create_board(board_option)
+- print_classic_board()
+- print_big_board()
+- display_board(board_option)
+- reset_board()
+- place_marker(row, col, player)
+- is_board_full(board_option)
+- is_winner_by_row(board, player, board_option)
+- is_winner_by_col(board, player, board_option)
+- is_winner_by_diag(board, player, board_option)
+- is_winner(board, player, board_option)
+</code></pre>
+<p>TicTacToeBoard initializes the following class variables:</p>
+<pre><code>- self.board
+- self.board_record
+- self.human_record
+- self.computer_record
+- self.classic
+- self.board_option
+- self.big
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TicTacToeBoards:
+    &#34;&#34;&#34;
+    TicTacToeBoards is the parent class of PlayerActions and the grandparent class of AI.
+
+    This class contains methods designed to generate, display, write to, read from, and reset both
+    tic tac toe gameboards.
+
+        - create_board(board_option)
+        - print_classic_board()
+        - print_big_board()
+        - display_board(board_option)
+        - reset_board()
+        - place_marker(row, col, player)
+        - is_board_full(board_option)
+        - is_winner_by_row(board, player, board_option)
+        - is_winner_by_col(board, player, board_option)
+        - is_winner_by_diag(board, player, board_option)
+        - is_winner(board, player, board_option)
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        TicTacToeBoard initializes the following class variables:
+
+            - self.board
+            - self.board_record
+            - self.human_record
+            - self.computer_record
+            - self.classic
+            - self.board_option
+            - self.big
+        &#34;&#34;&#34;
+        self.board = []
+        self.board_record = []
+        self.human_record = []
+        self.computer_record = []
+        self.classic = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;,  # classic board values
+                        &#39;4&#39;, &#39;5&#39;, &#39;6&#39;,
+                        &#39;7&#39;, &#39;8&#39;, &#39;9&#39;]
+        self.board_option = 1  # defaults to classic board
+        self.big = [ &#39;1&#39;,  &#39;2&#39;,  &#39;3&#39;,  &#39;4&#39;,  &#39;5&#39;,  # big board values
+                     &#39;6&#39;,  &#39;7&#39;,  &#39;8&#39;,  &#39;9&#39;, &#39;10&#39;,
+                    &#39;11&#39;, &#39;12&#39;, &#39;13&#39;, &#39;14&#39;, &#39;15&#39;,
+                    &#39;16&#39;, &#39;17&#39;, &#39;18&#39;, &#39;19&#39;, &#39;20&#39;,
+                    &#39;21&#39;, &#39;22&#39;, &#39;23&#39;, &#39;24&#39;, &#39;25&#39;]
+
+    def create_board(self, board_option):
+        &#34;&#34;&#34;Generates specified gameboard (3x3 or 5x5).&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for i in np.arange(1, 10).astype(str):  # nine numbers, as strings
+                self.board.append(i)  # for datatype consistency with X and O
+            self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+        # big board
+        if board_option == 2:
+            for i in np.arange(1, 26).astype(str):
+                self.board.append(i)
+            self.board = np.reshape(self.board, (5, 5))
+
+    def print_classic_board(self):
+        &#34;&#34;&#34;Prints the classic, 3x3, gameboard.&#34;&#34;&#34;
+        print(&#39;\t-------------------------------&#39;)
+        for row in self.board:
+            print(&#39;\t|         |         |         |&#39;)
+            print(&#39;\t|&#39;, end=&#39;&#39;)
+            for item in row:
+                print(f&#39;    {item}    |&#39;, end=&#39;&#39;)
+            print()
+            print(&#39;\t|         |         |         |&#39;)
+            print(&#39;\t-------------------------------&#39;)
+
+    def print_big_board(self):
+        &#34;&#34;&#34;Prints the big, 5x5, gameboard.&#34;&#34;&#34;
+        print(&#39;\t---------------------------------------------------&#39;)
+        for row in self.board:
+            print(&#39;\t|         |         |         |         |         |&#39;)
+            print(&#39;\t|&#39;, end=&#39;&#39;)
+            for item in row:
+                print(f&#39;    {item:2}   |&#39;, end=&#39;&#39;)
+            print()
+            print(&#39;\t|         |         |         |         |         |&#39;)
+            print(&#39;\t---------------------------------------------------&#39;)
+
+    def display_board(self, board_option):
+        &#34;&#34;&#34;Displays current gameboard.&#34;&#34;&#34;
+        if board_option == 1:
+            self.print_classic_board()
+        if board_option == 2:
+            self.print_big_board()
+
+    def reset_board(self):
+        &#34;&#34;&#34;Resets the gameboard and any record values to an empty list.&#34;&#34;&#34;
+        self.board = []
+        self.board_record = []
+        self.human_record = []
+        self.computer_record = []
+
+    def place_marker(self, row, col, player):
+        &#34;&#34;&#34;Places the player marker (X or O) in the designated square.&#34;&#34;&#34;
+        self.board[row][col] = player
+
+    def is_draw(self, board_option):
+        &#34;&#34;&#34;Returns True if there is a draw for the specified board.&#34;&#34;&#34;
+        for row in self.board:
+            for square in row:
+                # classic board
+                if board_option == 1:
+                    if square in self.classic:
+                        return False
+                # big board
+                if board_option == 2:
+                    if square in self.big:
+                        return False
+        return True
+
+    def is_winner_by_row(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for horizontal winning patterns on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for row in range(3):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+                    if board[row][0] == player:
+                        return True
+        # big board
+        if board_option == 2:
+            for row in range(5):
+                if board[row][0] == board[row][1] and board[row][1] == board[row][2]\
+                   and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
+                    if board[row][0] == player:
+                        return True
+        return False
+
+    def is_winner_by_col(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for vertical winning patterns on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            for col in range(3):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
+                    if board[0][col] == player:
+                        return True
+        # big board
+        if board_option == 2:
+            for col in range(5):
+                if board[0][col] == board[1][col] and board[1][col] == board[2][col]\
+                   and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
+                    if board[0][col] == player:
+                        return True
+        return False
+
+    def is_winner_by_desc(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for the descending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
+                if board[0][0] == player:
+                    return True
+        # big board
+        if board_option == 2:
+            if board[0][0] == board[1][1] and board[1][1] == board[2][2]\
+               and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
+                if board[0][0] == player:
+                    return True
+        return False
+
+    def is_winner_by_asc(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for the ascending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+        # classic board
+        if board_option == 1:
+            if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
+                if board[0][2] == player:
+                    return True
+        # big board
+        if board_option == 2:
+            if board[0][4] == board[1][3] and board[1][3] == board[2][2]\
+               and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
+                if board[0][4] == player:
+                    return True
+        return False
+
+    def is_winner_by_diag(self, board, player, board_option):
+        &#34;&#34;&#34;Checks for diagonal winning patterns on specified board.&#34;&#34;&#34;
+        # check ascending diagonal for win
+        if self.is_winner_by_desc(board, player, board_option):
+            return True
+        # check ascending diagonal for win
+        if self.is_winner_by_asc(board, player, board_option):
+            return True
+        return False
+
+    def is_winner(self, board, player, board_option):
+        &#34;&#34;&#34;Checks specified gameboard for winning patterns and returns True if one is found.&#34;&#34;&#34;
+        if self.is_winner_by_row(board, player, board_option):
+            return True
+        if self.is_winner_by_col(board, player, board_option):
+            return True
+        if self.is_winner_by_diag(board, player, board_option):
+            return True
+        return False</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.game_objects.PlayerActions" href="#TicTacToe.game_objects.PlayerActions">PlayerActions</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.create_board"><code class="name flex">
+<span>def <span class="ident">create_board</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates specified gameboard (3x3 or 5x5).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_board(self, board_option):
+    &#34;&#34;&#34;Generates specified gameboard (3x3 or 5x5).&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        for i in np.arange(1, 10).astype(str):  # nine numbers, as strings
+            self.board.append(i)  # for datatype consistency with X and O
+        self.board = np.reshape(self.board, (3, 3))  # shaped into 3 rows x 3 columns
+    # big board
+    if board_option == 2:
+        for i in np.arange(1, 26).astype(str):
+            self.board.append(i)
+        self.board = np.reshape(self.board, (5, 5))</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.display_board"><code class="name flex">
+<span>def <span class="ident">display_board</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Displays current gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_board(self, board_option):
+    &#34;&#34;&#34;Displays current gameboard.&#34;&#34;&#34;
+    if board_option == 1:
+        self.print_classic_board()
+    if board_option == 2:
+        self.print_big_board()</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_draw"><code class="name flex">
+<span>def <span class="ident">is_draw</span></span>(<span>self, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns True if there is a draw for the specified board.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_draw(self, board_option):
+    &#34;&#34;&#34;Returns True if there is a draw for the specified board.&#34;&#34;&#34;
+    for row in self.board:
+        for square in row:
+            # classic board
+            if board_option == 1:
+                if square in self.classic:
+                    return False
+            # big board
+            if board_option == 2:
+                if square in self.big:
+                    return False
+    return True</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner"><code class="name flex">
+<span>def <span class="ident">is_winner</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks specified gameboard for winning patterns and returns True if one is found.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner(self, board, player, board_option):
+    &#34;&#34;&#34;Checks specified gameboard for winning patterns and returns True if one is found.&#34;&#34;&#34;
+    if self.is_winner_by_row(board, player, board_option):
+        return True
+    if self.is_winner_by_col(board, player, board_option):
+        return True
+    if self.is_winner_by_diag(board, player, board_option):
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc"><code class="name flex">
+<span>def <span class="ident">is_winner_by_asc</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the ascending diagonal winning pattern on the specified gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner_by_asc(self, board, player, board_option):
+    &#34;&#34;&#34;Checks for the ascending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
+            if board[0][2] == player:
+                return True
+    # big board
+    if board_option == 2:
+        if board[0][4] == board[1][3] and board[1][3] == board[2][2]\
+           and board[2][2] == board[3][1] and board[3][1] == board[4][0]:
+            if board[0][4] == player:
+                return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col"><code class="name flex">
+<span>def <span class="ident">is_winner_by_col</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for vertical winning patterns on the specified gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner_by_col(self, board, player, board_option):
+    &#34;&#34;&#34;Checks for vertical winning patterns on the specified gameboard.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        for col in range(3):
+            if board[0][col] == board[1][col] and board[1][col] == board[2][col]:
+                if board[0][col] == player:
+                    return True
+    # big board
+    if board_option == 2:
+        for col in range(5):
+            if board[0][col] == board[1][col] and board[1][col] == board[2][col]\
+               and board[2][col] == board[3][col] and board[3][col] == board[4][col]:
+                if board[0][col] == player:
+                    return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc"><code class="name flex">
+<span>def <span class="ident">is_winner_by_desc</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the descending diagonal winning pattern on the specified gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner_by_desc(self, board, player, board_option):
+    &#34;&#34;&#34;Checks for the descending diagonal winning pattern on the specified gameboard.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
+            if board[0][0] == player:
+                return True
+    # big board
+    if board_option == 2:
+        if board[0][0] == board[1][1] and board[1][1] == board[2][2]\
+           and board[2][2] == board[3][3] and board[3][3] == board[4][4]:
+            if board[0][0] == player:
+                return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag"><code class="name flex">
+<span>def <span class="ident">is_winner_by_diag</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for diagonal winning patterns on specified board.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner_by_diag(self, board, player, board_option):
+    &#34;&#34;&#34;Checks for diagonal winning patterns on specified board.&#34;&#34;&#34;
+    # check ascending diagonal for win
+    if self.is_winner_by_desc(board, player, board_option):
+        return True
+    # check ascending diagonal for win
+    if self.is_winner_by_asc(board, player, board_option):
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row"><code class="name flex">
+<span>def <span class="ident">is_winner_by_row</span></span>(<span>self, board, player, board_option)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for horizontal winning patterns on the specified gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_winner_by_row(self, board, player, board_option):
+    &#34;&#34;&#34;Checks for horizontal winning patterns on the specified gameboard.&#34;&#34;&#34;
+    # classic board
+    if board_option == 1:
+        for row in range(3):
+            if board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+                if board[row][0] == player:
+                    return True
+    # big board
+    if board_option == 2:
+        for row in range(5):
+            if board[row][0] == board[row][1] and board[row][1] == board[row][2]\
+               and board[row][2] == board[row][3] and board[row][3] == board[row][4]:
+                if board[row][0] == player:
+                    return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.place_marker"><code class="name flex">
+<span>def <span class="ident">place_marker</span></span>(<span>self, row, col, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Places the player marker (X or O) in the designated square.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def place_marker(self, row, col, player):
+    &#34;&#34;&#34;Places the player marker (X or O) in the designated square.&#34;&#34;&#34;
+    self.board[row][col] = player</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.print_big_board"><code class="name flex">
+<span>def <span class="ident">print_big_board</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the big, 5x5, gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_big_board(self):
+    &#34;&#34;&#34;Prints the big, 5x5, gameboard.&#34;&#34;&#34;
+    print(&#39;\t---------------------------------------------------&#39;)
+    for row in self.board:
+        print(&#39;\t|         |         |         |         |         |&#39;)
+        print(&#39;\t|&#39;, end=&#39;&#39;)
+        for item in row:
+            print(f&#39;    {item:2}   |&#39;, end=&#39;&#39;)
+        print()
+        print(&#39;\t|         |         |         |         |         |&#39;)
+        print(&#39;\t---------------------------------------------------&#39;)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.print_classic_board"><code class="name flex">
+<span>def <span class="ident">print_classic_board</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the classic, 3x3, gameboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_classic_board(self):
+    &#34;&#34;&#34;Prints the classic, 3x3, gameboard.&#34;&#34;&#34;
+    print(&#39;\t-------------------------------&#39;)
+    for row in self.board:
+        print(&#39;\t|         |         |         |&#39;)
+        print(&#39;\t|&#39;, end=&#39;&#39;)
+        for item in row:
+            print(f&#39;    {item}    |&#39;, end=&#39;&#39;)
+        print()
+        print(&#39;\t|         |         |         |&#39;)
+        print(&#39;\t-------------------------------&#39;)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.game_objects.TicTacToeBoards.reset_board"><code class="name flex">
+<span>def <span class="ident">reset_board</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resets the gameboard and any record values to an empty list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_board(self):
+    &#34;&#34;&#34;Resets the gameboard and any record values to an empty list.&#34;&#34;&#34;
+    self.board = []
+    self.board_record = []
+    self.human_record = []
+    self.computer_record = []</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="TicTacToe" href="index.html">TicTacToe</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="TicTacToe.game_objects.AI" href="#TicTacToe.game_objects.AI">AI</a></code></h4>
+<ul class="two-column">
+<li><code><a title="TicTacToe.game_objects.AI.append_moves" href="#TicTacToe.game_objects.AI.append_moves">append_moves</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.can_win" href="#TicTacToe.game_objects.AI.can_win">can_win</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.first_move" href="#TicTacToe.game_objects.AI.first_move">first_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.full_board" href="#TicTacToe.game_objects.AI.full_board">full_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.get_open_squares" href="#TicTacToe.game_objects.AI.get_open_squares">get_open_squares</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.is_early_move" href="#TicTacToe.game_objects.AI.is_early_move">is_early_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.is_last_move" href="#TicTacToe.game_objects.AI.is_last_move">is_last_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.is_urgent" href="#TicTacToe.game_objects.AI.is_urgent">is_urgent</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.minimax_logic" href="#TicTacToe.game_objects.AI.minimax_logic">minimax_logic</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.minimax_move" href="#TicTacToe.game_objects.AI.minimax_move">minimax_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.pop_moves" href="#TicTacToe.game_objects.AI.pop_moves">pop_moves</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.random_logic" href="#TicTacToe.game_objects.AI.random_logic">random_logic</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.random_move" href="#TicTacToe.game_objects.AI.random_move">random_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.AI.urgent_move" href="#TicTacToe.game_objects.AI.urgent_move">urgent_move</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="TicTacToe.game_objects.PlayerActions" href="#TicTacToe.game_objects.PlayerActions">PlayerActions</a></code></h4>
+<ul class="two-column">
+<li><code><a title="TicTacToe.game_objects.PlayerActions.assign_markers" href="#TicTacToe.game_objects.PlayerActions.assign_markers">assign_markers</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.choose_marker" href="#TicTacToe.game_objects.PlayerActions.choose_marker">choose_marker</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.get_coords" href="#TicTacToe.game_objects.PlayerActions.get_coords">get_coords</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.player_move" href="#TicTacToe.game_objects.PlayerActions.player_move">player_move</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.player_turn" href="#TicTacToe.game_objects.PlayerActions.player_turn">player_turn</a></code></li>
+<li><code><a title="TicTacToe.game_objects.PlayerActions.swap_player_turn" href="#TicTacToe.game_objects.PlayerActions.swap_player_turn">swap_player_turn</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="TicTacToe.game_objects.TicTacToeBoards" href="#TicTacToe.game_objects.TicTacToeBoards">TicTacToeBoards</a></code></h4>
+<ul class="two-column">
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.create_board" href="#TicTacToe.game_objects.TicTacToeBoards.create_board">create_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.display_board" href="#TicTacToe.game_objects.TicTacToeBoards.display_board">display_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_draw" href="#TicTacToe.game_objects.TicTacToeBoards.is_draw">is_draw</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner">is_winner</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_asc">is_winner_by_asc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_col">is_winner_by_col</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_desc">is_winner_by_desc</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_diag">is_winner_by_diag</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row" href="#TicTacToe.game_objects.TicTacToeBoards.is_winner_by_row">is_winner_by_row</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.place_marker" href="#TicTacToe.game_objects.TicTacToeBoards.place_marker">place_marker</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.print_big_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_big_board">print_big_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.print_classic_board" href="#TicTacToe.game_objects.TicTacToeBoards.print_classic_board">print_classic_board</a></code></li>
+<li><code><a title="TicTacToe.game_objects.TicTacToeBoards.reset_board" href="#TicTacToe.game_objects.TicTacToeBoards.reset_board">reset_board</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

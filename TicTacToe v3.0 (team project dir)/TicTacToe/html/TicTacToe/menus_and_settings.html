@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>TicTacToe.menus_and_settings API documentation</title>
+<meta name="description" content="This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus) …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>TicTacToe.menus_and_settings</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus).</p>
+<p>The parent class contains methods to create and display three game menus:
+(1) welcome screen/main menu
+(2) gameboard options
+(3) gameover screen</p>
+<p>The child class prompts user input related to the menu options, captures specified game settings,
+and starts the chosen game mode!</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus).
+
+The parent class contains methods to create and display three game menus:
+    (1) welcome screen/main menu
+    (2) gameboard options
+    (3) gameover screen
+
+The child class prompts user input related to the menu options, captures specified game settings,
+and starts the chosen game mode!
+&#34;&#34;&#34;
+from game import TicTacToe  # used to apply settings and start game from main menu
+
+
+class TicTacToeMenus:
+    &#34;&#34;&#34;
+    TicTacToeMenus contains the following class methods:
+
+        - create_welcome_screen()
+        - display_welcome_screen()
+        - create_game_over_screen()
+        - display_game_over_screen()
+        - create_board_options()
+        - display_board_options()
+    &#34;&#34;&#34;
+    def __init__(self):  # no class variables required
+        pass
+
+    def create_welcome_screen(self):
+        &#34;&#34;&#34;Creates the welcome screen to be displayed upon startup. Main menu.&#34;&#34;&#34;
+        main_menu = &#34;\t __________________________________________________ \n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|            TIC TAC TOE - Xs AND Os               |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  Welcome Player(s)!                              |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  To continue, enter an option below:             |\n&#34;
+        main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [1]: Player vs Player                           |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [2]: Player vs Computer (random AI)             |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [3]: Player vs Computer (minimax AI)            |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [4]: Gameboard Options                          |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [5]: Quit                                       |\n&#34;
+        main_menu += &#34;\t|__________________________________________________|\n&#34;
+        return main_menu
+
+    def display_welcome_screen(self):
+        &#34;&#34;&#34;Prints the welcome screen to CLI.&#34;&#34;&#34;
+        print(self.create_welcome_screen())
+
+    def create_game_over_screen(self):
+        &#34;&#34;&#34;Creates the game over screen to be displayed when players choose not to replay.&#34;&#34;&#34;
+        game_over = &#34;\t __________________________________________________ \n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|                    GAME OVER!                    |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|--------------------------------------------------|\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  GGs! Would you like to play another mode?       |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+        game_over += &#34;\t|--------------------------------------------------|\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  [1]: Main Menu                                  |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  [2]: Quit                                       |\n&#34;
+        game_over += &#34;\t|__________________________________________________|\n&#34;
+        return game_over
+
+    def display_game_over_screen(self):
+        &#34;&#34;&#34;Prints the game over screen to the CLI.&#34;&#34;&#34;
+        print(self.create_game_over_screen())
+
+    def create_board_options(self):
+        &#34;&#34;&#34;Creates a menu with two board size options (3x3 and 5x5).&#34;&#34;&#34;
+        board_options = &#34;\t __________________________________________________ \n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|                GAMEBOARD OPTIONS                 |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|--------------------------------------------------|\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  Choose the size of your gameboard!              |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+        board_options += &#34;\t|--------------------------------------------------|\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [1]: 3x3 (default)                              |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [2]: 5x5                                        |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [3]: Main Menu                                  |\n&#34;
+        board_options += &#34;\t|__________________________________________________|\n&#34;
+        return board_options
+
+    def display_board_options(self):
+        &#34;&#34;&#34;Prints the board options menu to the CLI.&#34;&#34;&#34;
+        print(self.create_board_options())
+
+
+class PlayerSelections(TicTacToeMenus):
+    &#34;&#34;&#34;
+    PlayerSelections contains the following class methods:
+        - set_board_options(board)
+        - set_game_mode(mode)
+        - get_game_settings()
+        - get_player_selection()
+        - get_board_option()
+        - main_menu()
+        - game_over()
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        PlayerSelections initializes all parent methods and adds the following class variables:
+
+            - self._board_option
+            - self._mode
+
+        These are used to apply the game settings.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.board_option = 1  # defaults to classic board
+        self.mode = 1  # defaults to PvP mode
+
+    def set_board_option(self, board):
+        &#34;&#34;&#34;Applies player selection from board options menu to game settings.&#34;&#34;&#34;
+        if board == 1:
+            print(&#34;\n\tYou have chosen to play on the classic, 3x3, gameboard!&#34;)
+        if board == 2:
+            print(&#34;\n\tYou have chosen to play on the big, 5x5, gameboard!&#34;)
+        self.board_option = board
+
+    def set_game_mode(self, mode):
+        &#34;&#34;&#34;Applies player selection (1-3) from main menu to game settings.&#34;&#34;&#34;
+        self.mode = mode
+
+    def get_game_settings(self):
+        &#34;&#34;&#34;Returns all game settings.&#34;&#34;&#34;
+        return self.mode, self.board_option
+
+    def get_player_selection(self):
+        &#34;&#34;&#34;
+        Returns players selections as integers. Catches and reprompts input errors.
+        Accepts Ctrl + c as shortcut to quit out of program during user input.
+        &#34;&#34;&#34;
+        while True:
+            try:
+                selection = int(input(&#34;\n\tPlayer Selection: &#34;))
+            except ValueError:  # catches inputs that cannot convert to int
+                print()
+                print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+            except KeyboardInterrupt:  # ensures ctrl + c allows players to quit the program
+                print()
+                print(&#34;\n\tGood bye!\n&#34;)  # with a Good bye! message
+                exit()
+            else:
+                print()
+                return selection  # returns player selection
+
+    def board_options(self):
+        &#34;&#34;&#34;
+        Allows user to choose the board size for their game (3x3 or 5x5).
+        Returns to main menu.
+        &#34;&#34;&#34;
+        # loop prompts, captures, returns, and displays any player selections
+        while True:
+            self.display_board_options()  # displays board options menu
+            option = self.get_player_selection()
+            if option in [1, 2]:
+                self.set_board_option(board=option)  # saves board_option to game settings
+                self.main_menu()
+                break
+            if option == 3:
+                self.main_menu()
+                break
+            # catches invalid inputs and prompts player to try again
+            print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+
+    def main_menu(self):
+        &#34;&#34;&#34;
+        The main menu has 5 options:
+        (1) PvP, (2) Random AI, (3) MiniMax AI, (4) Gameboard Options, or (5) Quit
+
+        Options 1-3 immediately start their respective gameplay loops.
+        &#34;&#34;&#34;
+        # loop prompts, captures, and applies player selections
+        while True:
+            self.display_welcome_screen()  # displays the main menu
+            selection = self.get_player_selection()
+            if selection in [1, 2, 3]:
+                self.set_game_mode(mode=selection)  # saves mode to game settings
+                mode, board = self.get_game_settings()  # acuires most recent game settings
+                play = TicTacToe(mode, board)  # initiates TicTacToe object
+                play.tic_tac_toe()  # starts game
+                break
+            if selection == 4:
+                self.board_options()  # loads board options menu
+                break
+            if selection == 5:
+                print(&#34;\n\tGood bye!\n&#34;)
+                exit()  # quits out of program
+            # catches invalid inputs and prompts user to try again
+            else:
+                print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+
+    def game_over(self):
+        &#34;&#34;&#34;The game over screen allows players the option to return to the main menu or quit.&#34;&#34;&#34;
+        while True:  # begins player selection loop
+            self.display_game_over_screen()
+            selection = self.get_player_selection()  # acquires player selection via input
+            if selection == 1:  # if 1,
+                self.main_menu()  # returns to main menu
+                break
+            if selection == 2:  # if 2,
+                print(&#34;\n\tGood bye!\n&#34;)  # prints &#34;Good bye!&#34;
+                exit()  # and exits program entirely
+            # catches invalid inputs and prompts user to try again
+            else:
+                print(&#34;\n\tInvalid input. Please try again.&#34;)
+
+# pylint results only called out considering sys.exit() over exit() on lines 158, 204, and 219
+# no pylama results
+#   - June 19, 2022</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections"><code class="flex name class">
+<span>class <span class="ident">PlayerSelections</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>PlayerSelections contains the following class methods:
+- set_board_options(board)
+- set_game_mode(mode)
+- get_game_settings()
+- get_player_selection()
+- get_board_option()
+- main_menu()
+- game_over()</p>
+<p>PlayerSelections initializes all parent methods and adds the following class variables:</p>
+<pre><code>- self._board_option
+- self._mode
+</code></pre>
+<p>These are used to apply the game settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlayerSelections(TicTacToeMenus):
+    &#34;&#34;&#34;
+    PlayerSelections contains the following class methods:
+        - set_board_options(board)
+        - set_game_mode(mode)
+        - get_game_settings()
+        - get_player_selection()
+        - get_board_option()
+        - main_menu()
+        - game_over()
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        PlayerSelections initializes all parent methods and adds the following class variables:
+
+            - self._board_option
+            - self._mode
+
+        These are used to apply the game settings.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.board_option = 1  # defaults to classic board
+        self.mode = 1  # defaults to PvP mode
+
+    def set_board_option(self, board):
+        &#34;&#34;&#34;Applies player selection from board options menu to game settings.&#34;&#34;&#34;
+        if board == 1:
+            print(&#34;\n\tYou have chosen to play on the classic, 3x3, gameboard!&#34;)
+        if board == 2:
+            print(&#34;\n\tYou have chosen to play on the big, 5x5, gameboard!&#34;)
+        self.board_option = board
+
+    def set_game_mode(self, mode):
+        &#34;&#34;&#34;Applies player selection (1-3) from main menu to game settings.&#34;&#34;&#34;
+        self.mode = mode
+
+    def get_game_settings(self):
+        &#34;&#34;&#34;Returns all game settings.&#34;&#34;&#34;
+        return self.mode, self.board_option
+
+    def get_player_selection(self):
+        &#34;&#34;&#34;
+        Returns players selections as integers. Catches and reprompts input errors.
+        Accepts Ctrl + c as shortcut to quit out of program during user input.
+        &#34;&#34;&#34;
+        while True:
+            try:
+                selection = int(input(&#34;\n\tPlayer Selection: &#34;))
+            except ValueError:  # catches inputs that cannot convert to int
+                print()
+                print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+            except KeyboardInterrupt:  # ensures ctrl + c allows players to quit the program
+                print()
+                print(&#34;\n\tGood bye!\n&#34;)  # with a Good bye! message
+                exit()
+            else:
+                print()
+                return selection  # returns player selection
+
+    def board_options(self):
+        &#34;&#34;&#34;
+        Allows user to choose the board size for their game (3x3 or 5x5).
+        Returns to main menu.
+        &#34;&#34;&#34;
+        # loop prompts, captures, returns, and displays any player selections
+        while True:
+            self.display_board_options()  # displays board options menu
+            option = self.get_player_selection()
+            if option in [1, 2]:
+                self.set_board_option(board=option)  # saves board_option to game settings
+                self.main_menu()
+                break
+            if option == 3:
+                self.main_menu()
+                break
+            # catches invalid inputs and prompts player to try again
+            print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+
+    def main_menu(self):
+        &#34;&#34;&#34;
+        The main menu has 5 options:
+        (1) PvP, (2) Random AI, (3) MiniMax AI, (4) Gameboard Options, or (5) Quit
+
+        Options 1-3 immediately start their respective gameplay loops.
+        &#34;&#34;&#34;
+        # loop prompts, captures, and applies player selections
+        while True:
+            self.display_welcome_screen()  # displays the main menu
+            selection = self.get_player_selection()
+            if selection in [1, 2, 3]:
+                self.set_game_mode(mode=selection)  # saves mode to game settings
+                mode, board = self.get_game_settings()  # acuires most recent game settings
+                play = TicTacToe(mode, board)  # initiates TicTacToe object
+                play.tic_tac_toe()  # starts game
+                break
+            if selection == 4:
+                self.board_options()  # loads board options menu
+                break
+            if selection == 5:
+                print(&#34;\n\tGood bye!\n&#34;)
+                exit()  # quits out of program
+            # catches invalid inputs and prompts user to try again
+            else:
+                print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+
+    def game_over(self):
+        &#34;&#34;&#34;The game over screen allows players the option to return to the main menu or quit.&#34;&#34;&#34;
+        while True:  # begins player selection loop
+            self.display_game_over_screen()
+            selection = self.get_player_selection()  # acquires player selection via input
+            if selection == 1:  # if 1,
+                self.main_menu()  # returns to main menu
+                break
+            if selection == 2:  # if 2,
+                print(&#34;\n\tGood bye!\n&#34;)  # prints &#34;Good bye!&#34;
+                exit()  # and exits program entirely
+            # catches invalid inputs and prompts user to try again
+            else:
+                print(&#34;\n\tInvalid input. Please try again.&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.menus_and_settings.TicTacToeMenus" href="#TicTacToe.menus_and_settings.TicTacToeMenus">TicTacToeMenus</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.board_options"><code class="name flex">
+<span>def <span class="ident">board_options</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Allows user to choose the board size for their game (3x3 or 5x5).
+Returns to main menu.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def board_options(self):
+    &#34;&#34;&#34;
+    Allows user to choose the board size for their game (3x3 or 5x5).
+    Returns to main menu.
+    &#34;&#34;&#34;
+    # loop prompts, captures, returns, and displays any player selections
+    while True:
+        self.display_board_options()  # displays board options menu
+        option = self.get_player_selection()
+        if option in [1, 2]:
+            self.set_board_option(board=option)  # saves board_option to game settings
+            self.main_menu()
+            break
+        if option == 3:
+            self.main_menu()
+            break
+        # catches invalid inputs and prompts player to try again
+        print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.game_over"><code class="name flex">
+<span>def <span class="ident">game_over</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The game over screen allows players the option to return to the main menu or quit.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def game_over(self):
+    &#34;&#34;&#34;The game over screen allows players the option to return to the main menu or quit.&#34;&#34;&#34;
+    while True:  # begins player selection loop
+        self.display_game_over_screen()
+        selection = self.get_player_selection()  # acquires player selection via input
+        if selection == 1:  # if 1,
+            self.main_menu()  # returns to main menu
+            break
+        if selection == 2:  # if 2,
+            print(&#34;\n\tGood bye!\n&#34;)  # prints &#34;Good bye!&#34;
+            exit()  # and exits program entirely
+        # catches invalid inputs and prompts user to try again
+        else:
+            print(&#34;\n\tInvalid input. Please try again.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.get_game_settings"><code class="name flex">
+<span>def <span class="ident">get_game_settings</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns all game settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_game_settings(self):
+    &#34;&#34;&#34;Returns all game settings.&#34;&#34;&#34;
+    return self.mode, self.board_option</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.get_player_selection"><code class="name flex">
+<span>def <span class="ident">get_player_selection</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns players selections as integers. Catches and reprompts input errors.
+Accepts Ctrl + c as shortcut to quit out of program during user input.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_player_selection(self):
+    &#34;&#34;&#34;
+    Returns players selections as integers. Catches and reprompts input errors.
+    Accepts Ctrl + c as shortcut to quit out of program during user input.
+    &#34;&#34;&#34;
+    while True:
+        try:
+            selection = int(input(&#34;\n\tPlayer Selection: &#34;))
+        except ValueError:  # catches inputs that cannot convert to int
+            print()
+            print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)
+        except KeyboardInterrupt:  # ensures ctrl + c allows players to quit the program
+            print()
+            print(&#34;\n\tGood bye!\n&#34;)  # with a Good bye! message
+            exit()
+        else:
+            print()
+            return selection  # returns player selection</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.main_menu"><code class="name flex">
+<span>def <span class="ident">main_menu</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The main menu has 5 options:
+(1) PvP, (2) Random AI, (3) MiniMax AI, (4) Gameboard Options, or (5) Quit</p>
+<p>Options 1-3 immediately start their respective gameplay loops.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main_menu(self):
+    &#34;&#34;&#34;
+    The main menu has 5 options:
+    (1) PvP, (2) Random AI, (3) MiniMax AI, (4) Gameboard Options, or (5) Quit
+
+    Options 1-3 immediately start their respective gameplay loops.
+    &#34;&#34;&#34;
+    # loop prompts, captures, and applies player selections
+    while True:
+        self.display_welcome_screen()  # displays the main menu
+        selection = self.get_player_selection()
+        if selection in [1, 2, 3]:
+            self.set_game_mode(mode=selection)  # saves mode to game settings
+            mode, board = self.get_game_settings()  # acuires most recent game settings
+            play = TicTacToe(mode, board)  # initiates TicTacToe object
+            play.tic_tac_toe()  # starts game
+            break
+        if selection == 4:
+            self.board_options()  # loads board options menu
+            break
+        if selection == 5:
+            print(&#34;\n\tGood bye!\n&#34;)
+            exit()  # quits out of program
+        # catches invalid inputs and prompts user to try again
+        else:
+            print(&#34;\n\tInvalid input. Please enter the number of your selection.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.set_board_option"><code class="name flex">
+<span>def <span class="ident">set_board_option</span></span>(<span>self, board)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Applies player selection from board options menu to game settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_board_option(self, board):
+    &#34;&#34;&#34;Applies player selection from board options menu to game settings.&#34;&#34;&#34;
+    if board == 1:
+        print(&#34;\n\tYou have chosen to play on the classic, 3x3, gameboard!&#34;)
+    if board == 2:
+        print(&#34;\n\tYou have chosen to play on the big, 5x5, gameboard!&#34;)
+    self.board_option = board</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.PlayerSelections.set_game_mode"><code class="name flex">
+<span>def <span class="ident">set_game_mode</span></span>(<span>self, mode)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Applies player selection (1-3) from main menu to game settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_game_mode(self, mode):
+    &#34;&#34;&#34;Applies player selection (1-3) from main menu to game settings.&#34;&#34;&#34;
+    self.mode = mode</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="TicTacToe.menus_and_settings.TicTacToeMenus" href="#TicTacToe.menus_and_settings.TicTacToeMenus">TicTacToeMenus</a></b></code>:
+<ul class="hlist">
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_board_options" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_board_options">create_board_options</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_game_over_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_game_over_screen">create_game_over_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_welcome_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_welcome_screen">create_welcome_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_board_options" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_board_options">display_board_options</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_game_over_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_game_over_screen">display_game_over_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_welcome_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_welcome_screen">display_welcome_screen</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus"><code class="flex name class">
+<span>class <span class="ident">TicTacToeMenus</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>TicTacToeMenus contains the following class methods:</p>
+<pre><code>- create_welcome_screen()
+- display_welcome_screen()
+- create_game_over_screen()
+- display_game_over_screen()
+- create_board_options()
+- display_board_options()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TicTacToeMenus:
+    &#34;&#34;&#34;
+    TicTacToeMenus contains the following class methods:
+
+        - create_welcome_screen()
+        - display_welcome_screen()
+        - create_game_over_screen()
+        - display_game_over_screen()
+        - create_board_options()
+        - display_board_options()
+    &#34;&#34;&#34;
+    def __init__(self):  # no class variables required
+        pass
+
+    def create_welcome_screen(self):
+        &#34;&#34;&#34;Creates the welcome screen to be displayed upon startup. Main menu.&#34;&#34;&#34;
+        main_menu = &#34;\t __________________________________________________ \n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|            TIC TAC TOE - Xs AND Os               |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  Welcome Player(s)!                              |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  To continue, enter an option below:             |\n&#34;
+        main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [1]: Player vs Player                           |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [2]: Player vs Computer (random AI)             |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [3]: Player vs Computer (minimax AI)            |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [4]: Gameboard Options                          |\n&#34;
+        main_menu += &#34;\t|                                                  |\n&#34;
+        main_menu += &#34;\t|  [5]: Quit                                       |\n&#34;
+        main_menu += &#34;\t|__________________________________________________|\n&#34;
+        return main_menu
+
+    def display_welcome_screen(self):
+        &#34;&#34;&#34;Prints the welcome screen to CLI.&#34;&#34;&#34;
+        print(self.create_welcome_screen())
+
+    def create_game_over_screen(self):
+        &#34;&#34;&#34;Creates the game over screen to be displayed when players choose not to replay.&#34;&#34;&#34;
+        game_over = &#34;\t __________________________________________________ \n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|                    GAME OVER!                    |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|--------------------------------------------------|\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  GGs! Would you like to play another mode?       |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+        game_over += &#34;\t|--------------------------------------------------|\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  [1]: Main Menu                                  |\n&#34;
+        game_over += &#34;\t|                                                  |\n&#34;
+        game_over += &#34;\t|  [2]: Quit                                       |\n&#34;
+        game_over += &#34;\t|__________________________________________________|\n&#34;
+        return game_over
+
+    def display_game_over_screen(self):
+        &#34;&#34;&#34;Prints the game over screen to the CLI.&#34;&#34;&#34;
+        print(self.create_game_over_screen())
+
+    def create_board_options(self):
+        &#34;&#34;&#34;Creates a menu with two board size options (3x3 and 5x5).&#34;&#34;&#34;
+        board_options = &#34;\t __________________________________________________ \n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|                GAMEBOARD OPTIONS                 |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|--------------------------------------------------|\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  Choose the size of your gameboard!              |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+        board_options += &#34;\t|--------------------------------------------------|\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [1]: 3x3 (default)                              |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [2]: 5x5                                        |\n&#34;
+        board_options += &#34;\t|                                                  |\n&#34;
+        board_options += &#34;\t|  [3]: Main Menu                                  |\n&#34;
+        board_options += &#34;\t|__________________________________________________|\n&#34;
+        return board_options
+
+    def display_board_options(self):
+        &#34;&#34;&#34;Prints the board options menu to the CLI.&#34;&#34;&#34;
+        print(self.create_board_options())</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="TicTacToe.menus_and_settings.PlayerSelections" href="#TicTacToe.menus_and_settings.PlayerSelections">PlayerSelections</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.create_board_options"><code class="name flex">
+<span>def <span class="ident">create_board_options</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a menu with two board size options (3x3 and 5x5).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_board_options(self):
+    &#34;&#34;&#34;Creates a menu with two board size options (3x3 and 5x5).&#34;&#34;&#34;
+    board_options = &#34;\t __________________________________________________ \n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|                GAMEBOARD OPTIONS                 |\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|--------------------------------------------------|\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|  Choose the size of your gameboard!              |\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+    board_options += &#34;\t|--------------------------------------------------|\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|  [1]: 3x3 (default)                              |\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|  [2]: 5x5                                        |\n&#34;
+    board_options += &#34;\t|                                                  |\n&#34;
+    board_options += &#34;\t|  [3]: Main Menu                                  |\n&#34;
+    board_options += &#34;\t|__________________________________________________|\n&#34;
+    return board_options</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.create_game_over_screen"><code class="name flex">
+<span>def <span class="ident">create_game_over_screen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the game over screen to be displayed when players choose not to replay.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_game_over_screen(self):
+    &#34;&#34;&#34;Creates the game over screen to be displayed when players choose not to replay.&#34;&#34;&#34;
+    game_over = &#34;\t __________________________________________________ \n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|                    GAME OVER!                    |\n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|--------------------------------------------------|\n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|  GGs! Would you like to play another mode?       |\n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|  Enter an option from the menu below:            |\n&#34;
+    game_over += &#34;\t|--------------------------------------------------|\n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|  [1]: Main Menu                                  |\n&#34;
+    game_over += &#34;\t|                                                  |\n&#34;
+    game_over += &#34;\t|  [2]: Quit                                       |\n&#34;
+    game_over += &#34;\t|__________________________________________________|\n&#34;
+    return game_over</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.create_welcome_screen"><code class="name flex">
+<span>def <span class="ident">create_welcome_screen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the welcome screen to be displayed upon startup. Main menu.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_welcome_screen(self):
+    &#34;&#34;&#34;Creates the welcome screen to be displayed upon startup. Main menu.&#34;&#34;&#34;
+    main_menu = &#34;\t __________________________________________________ \n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|            TIC TAC TOE - Xs AND Os               |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  Welcome Player(s)!                              |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  To continue, enter an option below:             |\n&#34;
+    main_menu += &#34;\t|--------------------------------------------------|\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  [1]: Player vs Player                           |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  [2]: Player vs Computer (random AI)             |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  [3]: Player vs Computer (minimax AI)            |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  [4]: Gameboard Options                          |\n&#34;
+    main_menu += &#34;\t|                                                  |\n&#34;
+    main_menu += &#34;\t|  [5]: Quit                                       |\n&#34;
+    main_menu += &#34;\t|__________________________________________________|\n&#34;
+    return main_menu</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.display_board_options"><code class="name flex">
+<span>def <span class="ident">display_board_options</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the board options menu to the CLI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_board_options(self):
+    &#34;&#34;&#34;Prints the board options menu to the CLI.&#34;&#34;&#34;
+    print(self.create_board_options())</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.display_game_over_screen"><code class="name flex">
+<span>def <span class="ident">display_game_over_screen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the game over screen to the CLI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_game_over_screen(self):
+    &#34;&#34;&#34;Prints the game over screen to the CLI.&#34;&#34;&#34;
+    print(self.create_game_over_screen())</code></pre>
+</details>
+</dd>
+<dt id="TicTacToe.menus_and_settings.TicTacToeMenus.display_welcome_screen"><code class="name flex">
+<span>def <span class="ident">display_welcome_screen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the welcome screen to CLI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_welcome_screen(self):
+    &#34;&#34;&#34;Prints the welcome screen to CLI.&#34;&#34;&#34;
+    print(self.create_welcome_screen())</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="TicTacToe" href="index.html">TicTacToe</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="TicTacToe.menus_and_settings.PlayerSelections" href="#TicTacToe.menus_and_settings.PlayerSelections">PlayerSelections</a></code></h4>
+<ul class="">
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.board_options" href="#TicTacToe.menus_and_settings.PlayerSelections.board_options">board_options</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.game_over" href="#TicTacToe.menus_and_settings.PlayerSelections.game_over">game_over</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.get_game_settings" href="#TicTacToe.menus_and_settings.PlayerSelections.get_game_settings">get_game_settings</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.get_player_selection" href="#TicTacToe.menus_and_settings.PlayerSelections.get_player_selection">get_player_selection</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.main_menu" href="#TicTacToe.menus_and_settings.PlayerSelections.main_menu">main_menu</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.set_board_option" href="#TicTacToe.menus_and_settings.PlayerSelections.set_board_option">set_board_option</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.PlayerSelections.set_game_mode" href="#TicTacToe.menus_and_settings.PlayerSelections.set_game_mode">set_game_mode</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus" href="#TicTacToe.menus_and_settings.TicTacToeMenus">TicTacToeMenus</a></code></h4>
+<ul class="">
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_board_options" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_board_options">create_board_options</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_game_over_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_game_over_screen">create_game_over_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.create_welcome_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.create_welcome_screen">create_welcome_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_board_options" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_board_options">display_board_options</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_game_over_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_game_over_screen">display_game_over_screen</a></code></li>
+<li><code><a title="TicTacToe.menus_and_settings.TicTacToeMenus.display_welcome_screen" href="#TicTacToe.menus_and_settings.TicTacToeMenus.display_welcome_screen">display_welcome_screen</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
