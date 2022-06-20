@@ -37,26 +37,27 @@
                     <span>Expand source code</span>
                 </summary>
                 <pre><code class="python">
-                    &#34;&#34;&#34; 
-                    This module is designed to load menus and settings for our tic tac toe program at startup and shutdown.
-                    &#34;&#34;&#34; 
-                    from menus_and_settings import PlayerSelections
+&#34;&#34;&#34; 
+This module is designed to load menus and settings for our tic tac toe program at startup and shutdown.
+&#34;&#34;&#34; 
+from menus_and_settings import PlayerSelections
 
 
-                    def run():    
-                    &#34;&#34;&#34;
-                    The run() function loads the tic tac toe program&#39;s main menus.
-                    &#34;&#34;&#34;
-                        load = PlayerSelections()
-    
-                        while True:
-                        load.main_menu()  # startup options
-                            while True:            
-                            load.game_over()  # shutdown options
+def run():    
+&#34;&#34;&#34;
+The run() function loads the tic tac toe program&#39;s main menus.
+&#34;&#34;&#34;
+    load = PlayerSelections()
+ 
+    while True:
+        load.main_menu()  # startup options
+        while True:            
+            load.game_over()  # shutdown options
 
-                    # pylint results 10/10
-                    # no pylama results
-                    # - June 19, 2022</code></pre>
+# pylint results 10/10
+# no pylama results
+# - June 19, 2022
+                </code></pre>
                 </details>
             </section>
             <section></section>
