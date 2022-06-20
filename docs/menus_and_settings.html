@@ -15,25 +15,33 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
 <script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
+
 <body>
 <main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>TicTacToe.menus_and_settings</code></h1>
-</header>
-<section id="section-intro">
-<p>This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus).</p>
-<p>The parent class contains methods to create and display three game menus:
-(1) welcome screen/main menu
-(2) gameboard options
-(3) gameover screen</p>
-<p>The child class prompts user input related to the menu options, captures specified game settings,
-and starts the chosen game mode!</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">&#34;&#34;&#34;This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus).
+    <article id="content">
+        <header>
+            <h1 class="title">Module <code>TicTacToe.menus_and_settings</code></h1>
+        </header>
+        <section id="section-intro">
+            <p>The <strong>menus_and_settings</strong> module contains two classes:</p>
+            <ul>
+                <li><strong>TicTacToeMenus</strong></li>
+                <li><strong>PlayerSelections(TicTacToeMenus)</strong></li>
+            </ul>
+            <p>The parent class contains methods to create and display three game menus:</p>
+            <ol>
+                <li>welcome screen/main menu</li>
+                <li>gameboard options</li>
+                <li>gameover screen</li>
+            </ol>
+            <p>The child class prompts user input related to the menu options, captures specified game settings, and starts the chosen game mode!</p>
+                <details class="source">
+                    <summary>
+                        <span>Expand module source code</span>
+                    </summary>
+                    
+<pre><code class="python">&#34;&#34;&#34;
+This module contains two classes: TicTacToeMenus and PlayerSelections(TicTacToeMenus).
 
 The parent class contains methods to create and display three game menus:
     (1) welcome screen/main menu
